@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rockapp/constant/app_assets.dart';
-import 'package:rockapp/ui/shared/colors.dart';
+import 'package:rockapp/app/styles/colors.dart';
+import 'package:rockapp/core/constant/app_assets.dart';
+
 import 'package:rockapp/view_models/splash/splash_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -20,8 +21,8 @@ class SplashView extends StatelessWidget {
             builder: (context, model, child) {
               return Center(
                 child: SizedBox(
-                  width: 80,
-                  height: 85,
+                  width: 190,
+                  height: 95,
                   child: Image.asset(AppAssets.appLogo),
                 ),
               );

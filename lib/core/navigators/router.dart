@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rockapp/constant/routes.dart';
-import 'package:rockapp/ui/views/auth/login_view.dart';
-import 'package:rockapp/ui/views/splash/splash_view.dart';
+
+import 'package:rockapp/core/navigators/routes.dart';
+import 'package:rockapp/features/auth/presentation/pages/login_view.dart';
+import 'package:rockapp/features/splash/presentation/pages/splash_view.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

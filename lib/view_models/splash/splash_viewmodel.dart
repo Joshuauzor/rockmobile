@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rockapp/constant/routes.dart';
+import 'package:rockapp/core/navigators/routes.dart';
 import 'package:stacked/stacked.dart';
 
 class SplashViewModel extends BaseViewModel {
