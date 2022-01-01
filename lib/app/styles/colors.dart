@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const primaryColor = Color(0xff7F04AA);
   static const grey = Color(0xff8F92A1);
+  static const white = Color(0xFFFFFFFF);
+  static const lightAsh = Color(0xffA8A7A7);
 
   static const Map<int, Color> colorScratch = {
     50: Color.fromRGBO(7, 45, 114, .1),

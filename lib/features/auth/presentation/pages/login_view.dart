@@ -124,14 +124,10 @@ class _LoginViewState extends State<LoginView> {
                                           padding: EdgeInsets.symmetric(
                                             vertical: 10,
                                           ),
-                                          child: Text(
+                                          child: BodyText(
                                             'Login',
+                                            color: AppColors.white,
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14,
-                                              color: Colors.white,
-                                            ),
                                           ),
                                         ),
                                       ),
@@ -159,14 +155,10 @@ class _LoginViewState extends State<LoginView> {
                                             padding: EdgeInsets.symmetric(
                                               vertical: 10,
                                             ),
-                                            child: Text(
+                                            child: BodyText(
                                               'Sign Up',
+                                              color: AppColors.primaryColor,
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
                                             ),
                                           ),
                                         ),
@@ -181,9 +173,6 @@ class _LoginViewState extends State<LoginView> {
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: const InputDecoration(
                                   hintText: 'Enter email or username',
-                                  // suffixIcon: Icon(
-                                  //   Icons.visibility,
-                                  // ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xffEAEAF5),
@@ -199,7 +188,6 @@ class _LoginViewState extends State<LoginView> {
                                       color: Color(0xffEAEAF5),
                                     ),
                                   ),
-
                                   hintStyle: TextStyle(
                                     color: Color(0xffA8A7A7),
                                     // fontSize: 10,
@@ -255,14 +243,11 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                                 child: const Align(
                                   alignment: Alignment.bottomRight,
-                                  child: Text(
+                                  child: BodyText(
                                     'Forgot Password?',
+                                    color: AppColors.lightAsh,
                                     textAlign: TextAlign.end,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 8,
-                                      color: Color(0xffA8A7A7),
-                                    ),
+                                    fontSize: 8,
                                   ),
                                 ),
                               ),
@@ -353,14 +338,10 @@ class _LoginViewState extends State<LoginView> {
                                             padding: EdgeInsets.symmetric(
                                               vertical: 10,
                                             ),
-                                            child: Text(
+                                            child: BodyText(
                                               'Login',
+                                              color: AppColors.primaryColor,
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 14,
-                                                color: AppColors.primaryColor,
-                                              ),
                                             ),
                                           ),
                                         ),
@@ -383,14 +364,10 @@ class _LoginViewState extends State<LoginView> {
                                           padding: EdgeInsets.symmetric(
                                             vertical: 10,
                                           ),
-                                          child: Text(
+                                          child: BodyText(
                                             'Sign Up',
+                                            color: AppColors.white,
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14,
-                                              color: Colors.white,
-                                            ),
                                           ),
                                         ),
                                       ),
@@ -404,9 +381,6 @@ class _LoginViewState extends State<LoginView> {
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: const InputDecoration(
                                   hintText: 'Enter First Name',
-                                  // suffixIcon: Icon(
-                                  //   Icons.visibility,
-                                  // ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xffEAEAF5),
@@ -422,7 +396,6 @@ class _LoginViewState extends State<LoginView> {
                                       color: Color(0xffEAEAF5),
                                     ),
                                   ),
-
                                   hintStyle: TextStyle(
                                     color: Color(0xffA8A7A7),
                                     // fontSize: 10,
@@ -436,9 +409,6 @@ class _LoginViewState extends State<LoginView> {
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: const InputDecoration(
                                   hintText: 'Enter email or username',
-                                  // suffixIcon: Icon(
-                                  //   Icons.visibility,
-                                  // ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xffEAEAF5),
@@ -454,7 +424,6 @@ class _LoginViewState extends State<LoginView> {
                                       color: Color(0xffEAEAF5),
                                     ),
                                   ),
-
                                   hintStyle: TextStyle(
                                     color: Color(0xffA8A7A7),
                                     // fontSize: 10,
