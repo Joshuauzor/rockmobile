@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:rockapp/core/navigators/routes.dart';
-import 'package:rockapp/features/auth/presentation/pages/login_view.dart';
-import 'package:rockapp/features/splash/presentation/pages/splash_view.dart';
+import 'package:rockapp/features/auth/auth.dart';
+
+import '../../features/splash/splash.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -16,6 +17,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: const LoginView(),
+      );
+
+    case Routes.forgotView:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const ForgotView(),
       );
 
     default:

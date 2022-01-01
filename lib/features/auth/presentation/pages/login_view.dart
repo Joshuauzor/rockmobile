@@ -3,8 +3,10 @@ import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/fonts.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
+import 'package:rockapp/app/styles/ui_helpers.dart';
 import 'package:rockapp/app/views/widgets/next_button.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
+import 'package:rockapp/core/navigators/routes.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -105,60 +107,67 @@ class _LoginViewState extends State<LoginView> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.primaryColor,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10),
-                                          bottomLeft: Radius.circular(10),
-                                          bottomRight: Radius.circular(10),
-                                        ),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 10,
-                                          horizontal: 55,
-                                        ),
-                                        child: Text(
-                                          'Login',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          authTypeLogin = !authTypeLogin;
-                                        });
-                                      },
+                                    Expanded(
                                       child: Container(
+                                        height: 39,
                                         decoration: const BoxDecoration(
-                                          color: Colors.white,
+                                          color: AppColors.primaryColor,
                                           shape: BoxShape.rectangle,
                                           borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(30),
-                                            topRight: Radius.circular(30),
-                                            bottomLeft: Radius.circular(30),
-                                            bottomRight: Radius.circular(30),
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10),
+                                            bottomLeft: Radius.circular(10),
+                                            bottomRight: Radius.circular(10),
                                           ),
                                         ),
                                         child: const Padding(
                                           padding: EdgeInsets.symmetric(
                                             vertical: 10,
-                                            horizontal: 55,
                                           ),
                                           child: Text(
-                                            'Sign Up',
+                                            'Login',
+                                            textAlign: TextAlign.center,
                                             style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            authTypeLogin = !authTypeLogin;
+                                          });
+                                        },
+                                        child: Container(
+                                          height: 39,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            shape: BoxShape.rectangle,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(30),
+                                              topRight: Radius.circular(30),
+                                              bottomLeft: Radius.circular(30),
+                                              bottomRight: Radius.circular(30),
+                                            ),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 10,
+                                            ),
+                                            child: Text(
+                                              'Sign Up',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 14,
-                                                color: Colors.black),
+                                                color: Colors.black,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -166,7 +175,7 @@ class _LoginViewState extends State<LoginView> {
                                   ],
                                 ),
                               ),
-                              const Gap(96),
+                              const Gap(80),
                               TextFormField(
                                 validator: (value) {},
                                 keyboardType: TextInputType.emailAddress,
@@ -239,21 +248,29 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               ),
                               const Gap(13),
-                              const Align(
-                                alignment: Alignment.bottomRight,
-                                child: Text(
-                                  'Forgot Password?',
-                                  textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 8,
-                                    color: Color(0xffA8A7A7),
+                              GestureDetector(
+                                onTap: () => Navigator.pushNamed(
+                                  context,
+                                  Routes.forgotView,
+                                ),
+                                child: const Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Text(
+                                    'Forgot Password?',
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 8,
+                                      color: Color(0xffA8A7A7),
+                                    ),
                                   ),
                                 ),
                               ),
                               const Gap(59),
                               NextButton(label: 'Log In', onPressed: () {}),
-                              const Gap(164),
+                              SizedBox(
+                                height: screenHeight(context) * 0.05,
+                              ),
                             ],
                           ),
                         ),
@@ -313,61 +330,67 @@ class _LoginViewState extends State<LoginView> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          authTypeLogin = !authTypeLogin;
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.rectangle,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(30),
-                                            topRight: Radius.circular(30),
-                                            bottomLeft: Radius.circular(30),
-                                            bottomRight: Radius.circular(30),
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            authTypeLogin = !authTypeLogin;
+                                          });
+                                        },
+                                        child: Container(
+                                          height: 39,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            shape: BoxShape.rectangle,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(30),
+                                              topRight: Radius.circular(30),
+                                              bottomLeft: Radius.circular(30),
+                                              bottomRight: Radius.circular(30),
+                                            ),
                                           ),
-                                        ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            vertical: 10,
-                                            horizontal: 55,
-                                          ),
-                                          child: Text(
-                                            'Login',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14,
-                                              color: AppColors.primaryColor,
+                                          child: const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 10,
+                                            ),
+                                            child: Text(
+                                              'Login',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: AppColors.primaryColor,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.primaryColor,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10),
-                                          bottomLeft: Radius.circular(10),
-                                          bottomRight: Radius.circular(10),
+                                    Expanded(
+                                      child: Container(
+                                        height: 39,
+                                        decoration: const BoxDecoration(
+                                          color: AppColors.primaryColor,
+                                          shape: BoxShape.rectangle,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10),
+                                            bottomLeft: Radius.circular(10),
+                                            bottomRight: Radius.circular(10),
+                                          ),
                                         ),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 10,
-                                          horizontal: 55,
-                                        ),
-                                        child: Text(
-                                          'Sign Up',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14,
-                                            color: Colors.white,
+                                        child: const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: 10,
+                                          ),
+                                          child: Text(
+                                            'Sign Up',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -375,7 +398,7 @@ class _LoginViewState extends State<LoginView> {
                                   ],
                                 ),
                               ),
-                              const Gap(96),
+                              const Gap(80),
                               TextFormField(
                                 validator: (value) {},
                                 keyboardType: TextInputType.emailAddress,
@@ -481,21 +504,18 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               const Gap(59),
                               NextButton(label: 'Sign Up', onPressed: () {}),
-                              const Gap(164),
+                              SizedBox(
+                                height: screenHeight(context) * 0.05,
+                              ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                  )
+                  ),
           ],
         ),
       ),
     );
   }
 }
-
-// enum authType {
-//   login,
-//   register,
-// }
