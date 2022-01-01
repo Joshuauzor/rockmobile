@@ -4,18 +4,17 @@ import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/ui_helpers.dart';
 import 'package:rockapp/app/views/widgets/next_button.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
-import 'package:rockapp/core/navigators/routes.dart';
 
 import '../../../../app/styles/fonts.dart';
 
-class ForgotView extends StatefulWidget {
-  const ForgotView({Key? key}) : super(key: key);
+class ResetView extends StatefulWidget {
+  const ResetView({Key? key}) : super(key: key);
 
   @override
-  _ForgotViewState createState() => _ForgotViewState();
+  _ResetViewState createState() => _ResetViewState();
 }
 
-class _ForgotViewState extends State<ForgotView> {
+class _ResetViewState extends State<ResetView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -76,13 +75,13 @@ class _ForgotViewState extends State<ForgotView> {
                       children: [
                         const Gap(73),
                         const BodyText(
-                          'Forgot Password?',
+                          'Reset Password',
                           fontSize: 25,
                           fontWeight: FontWeight.w600,
                         ),
                         const Gap(3),
                         const BodyText(
-                          'Please enter your registered email or username below',
+                          'Please enter your new password below',
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: AppColors.lightAsh,
@@ -92,7 +91,34 @@ class _ForgotViewState extends State<ForgotView> {
                           validator: (value) {},
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
-                            hintText: 'Enter email or username',
+                            hintText: 'Password',
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xffEAEAF5),
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xffEAEAF5),
+                              ),
+                            ),
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xffEAEAF5),
+                              ),
+                            ),
+                            hintStyle: TextStyle(
+                              color: Color(0xffA8A7A7),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        const Gap(24),
+                        TextFormField(
+                          validator: (value) {},
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: const InputDecoration(
+                            hintText: 'Confirm Password',
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0xffEAEAF5),
@@ -115,12 +141,7 @@ class _ForgotViewState extends State<ForgotView> {
                           ),
                         ),
                         const Gap(94),
-                        NextButton(
-                          label: 'Submit',
-                          onPressed: () {
-                            Navigator.pushNamed(context, Routes.resetView);
-                          },
-                        ),
+                        NextButton(label: 'Submit', onPressed: () {}),
                         SizedBox(
                           height: screenHeight(context) * 0.05,
                         ),

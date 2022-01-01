@@ -25,6 +25,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const ForgotView(),
       );
 
+    case Routes.resetView:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const ResetView(),
+      );
+
     default:
       return MaterialPageRoute(
         builder: (_) => Scaffold(
