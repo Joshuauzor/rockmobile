@@ -252,7 +252,14 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               ),
                               const Gap(59),
-                              NextButton(label: 'Log In', onPressed: () {}),
+                              NextButton(
+                                  label: 'Log In',
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      Routes.homeView,
+                                    );
+                                  }),
                               SizedBox(
                                 height: screenHeight(context) * 0.05,
                               ),
