@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rockapp/core/navigators/routes.dart';
 import 'package:rockapp/features/auth/auth.dart';
 import 'package:rockapp/features/home/home.dart';
+import 'package:rockapp/features/media/media.dart';
 
 import '../../features/splash/splash.dart';
 
@@ -36,6 +37,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: const HomeView(),
+      );
+
+    case Routes.videoView:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const VideoView(),
       );
 
     default:

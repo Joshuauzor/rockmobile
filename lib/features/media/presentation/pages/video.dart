@@ -9,15 +9,14 @@ import 'package:rockapp/core/constant/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:rockapp/core/navigators/navigators.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+class VideoView extends StatefulWidget {
+  const VideoView({Key? key}) : super(key: key);
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _VideoViewState createState() => _VideoViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  List slider = [AppAssets.intersect, AppAssets.intersect, AppAssets.intersect];
+class _VideoViewState extends State<VideoView> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
@@ -61,7 +60,7 @@ class _HomeViewState extends State<HomeView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           BodyText(
-                            'Hello Joseph',
+                            'Hello Video',
                             fontSize: 25,
                             fontWeight: FontWeight.w600,
                             color: AppColors.white,
@@ -91,75 +90,25 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-          CarouselSlider(
-            carouselController: _controller,
-            options: CarouselOptions(
-              height: 220,
-              initialPage: 0,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 3),
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                });
-              },
-            ),
-            items: slider.map((i) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Image.asset(i),
-                    ),
-                  );
-                },
-              );
-            }).toList(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: slider.asMap().entries.map((entry) {
-              return GestureDetector(
-                onTap: () => _controller.animateToPage(entry.key),
-                child: Container(
-                  width: 7.0,
-                  height: 7.0,
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 3.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: (Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.white
-                            : AppColors.primaryColor)
-                        .withOpacity(_current == entry.key ? 0.9 : 0.4),
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
         ],
       ),
       bottomNavigationBar: FABBottomAppBar(
-        items: [
-          FABBottomAppBarItem(icon: AppAssets.audio, text: 'audio'),
-          FABBottomAppBarItem(icon: AppAssets.bible, text: 'bible'),
-          FABBottomAppBarItem(icon: AppAssets.home, text: 'home'),
-          FABBottomAppBarItem(icon: AppAssets.music, text: 'music'),
-          FABBottomAppBarItem(icon: AppAssets.settings, text: 'settings'),
-        ],
-        centerItemText: 'hello',
-        backgroundColor: AppColors.primaryColor,
-        color: AppColors.white,
-        selectedColor: AppColors.grey,
-        currentIndex: 1,
-        notchedShape: const CircularNotchedRectangle(),
-        onTabSelected: (value) =>
-            Navigator.pushNamed(context, Routes.videoView),
-      ),
+          items: [
+            FABBottomAppBarItem(icon: AppAssets.audio, text: 'audio'),
+            FABBottomAppBarItem(icon: AppAssets.bible, text: 'bible'),
+            FABBottomAppBarItem(icon: AppAssets.home, text: 'home'),
+            FABBottomAppBarItem(icon: AppAssets.music, text: 'music'),
+            FABBottomAppBarItem(icon: AppAssets.settings, text: 'settings'),
+          ],
+          centerItemText: 'hello',
+          backgroundColor: AppColors.primaryColor,
+          color: AppColors.white,
+          selectedColor: AppColors.grey,
+          currentIndex: 1,
+          notchedShape: const CircularNotchedRectangle(),
+          onTabSelected: (value) => print('object')
+          // Navigator.pushNamed(context, Routes.forgotView),
+          ),
       // bottomNavigationBar: BottomAppBar(
       //   child: Row(
       //     mainAxisSize: MainAxisSize.max,
