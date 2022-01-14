@@ -5,4 +5,5 @@ class Routes {
   static const String resetView = 'resetView';
   static const String homeView = 'homeView';
   static const String videoView = 'videoView';
+  static const String appTabView = 'appTabView';
 }

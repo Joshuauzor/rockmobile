@@ -5,7 +5,9 @@ class AppColors {
   static const grey = Color(0xff8F92A1);
   static const white = Color(0xFFFFFFFF);
   static const lightAsh = Color(0xffA8A7A7);
-  static const lightGold = Color(0xffF6BB22);
+  static const lightGold = Color.fromRGBO(246, 187, 34, 1);
+  static const homeMenuBox = Color(0x268163D6);
+  static const homeMenuBoxIcon = Color(0x408163d6);
 
   static const Map<int, Color> colorScratch = {
     50: Color.fromRGBO(7, 45, 114, .1),

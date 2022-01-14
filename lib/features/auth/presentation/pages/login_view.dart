@@ -257,7 +257,7 @@ class _LoginViewState extends State<LoginView> {
                                   onPressed: () {
                                     Navigator.pushNamed(
                                       context,
-                                      Routes.homeView,
+                                      Routes.appTabView,
                                     );
                                   }),
                               SizedBox(

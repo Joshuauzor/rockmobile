@@ -45,6 +45,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const VideoView(),
       );
 
+    case Routes.appTabView:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const AppTabView(),
+      );
+
     default:
       return MaterialPageRoute(
         builder: (_) => Scaffold(

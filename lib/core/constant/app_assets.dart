@@ -8,4 +8,6 @@ class AppAssets {
   static const String home = 'assets/icons/home.png';
   static const String music = 'assets/icons/music.png';
   static const String settings = 'assets/icons/settings.png';
+  static const String reading = 'assets/icons/reading.png';
+  static const String prayers = 'assets/icons/prayers.png';
 }
