@@ -5,7 +5,7 @@ import 'package:rockapp/app/styles/ui_helpers.dart';
 import 'package:rockapp/app/views/widgets/next_button.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 
-import '../../../../app/styles/fonts.dart';
+import '../../../../app/styles/text_styles.dart';
 
 class ResetView extends StatefulWidget {
   const ResetView({Key? key}) : super(key: key);

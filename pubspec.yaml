@@ -71,17 +71,46 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins/Poppins-BlackItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins/Poppins-BoldItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins/Poppins-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-ExtraLight.ttf
+        - asset: assets/fonts/Poppins/Poppins-ExtraLightItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-Italic.ttf
+        - asset: assets/fonts/Poppins/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins/Poppins-LightItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins/Poppins-MediumItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins/Poppins-SemiBoldItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-Thin.ttf
+        - asset: assets/fonts/Poppins/Poppins-ThinItalic.ttf
+
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter/static/Inter-Regular.ttf
+        - asset: assets/fonts/Inter/static/Inter-Black.ttf
+        - asset: assets/fonts/Inter/static/Inter-Bold.ttf
+        - asset: assets/fonts/Inter/static/Inter-ExtraBold.ttf
+        - asset: assets/fonts/Inter/static/Inter-ExtraLight.ttf
+        - asset: assets/fonts/Inter/static/Inter-Light.ttf
+        - asset: assets/fonts/Inter/static/Inter-Medium.ttf
+        - asset: assets/fonts/Inter/static/Inter-SemiBold.ttf
+        - asset: assets/fonts/Inter/static/Inter-Thin.ttf
+
+          # style: italic
+    # - family: Trajan Pro
+    #   fonts:
+    #     - asset: fonts/TrajanPro.ttf
+    #     - asset: fonts/TrajanPro_Bold.ttf
+    #       weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

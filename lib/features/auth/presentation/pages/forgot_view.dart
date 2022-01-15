@@ -6,7 +6,7 @@ import 'package:rockapp/app/views/widgets/next_button.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 import 'package:rockapp/core/navigators/routes.dart';
 
-import '../../../../app/styles/fonts.dart';
+import '../../../../app/styles/text_styles.dart';
 
 class ForgotView extends StatefulWidget {
   const ForgotView({Key? key}) : super(key: key);

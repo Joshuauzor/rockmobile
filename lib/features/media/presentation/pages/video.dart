@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
-import 'package:rockapp/app/styles/fonts.dart';
+import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';

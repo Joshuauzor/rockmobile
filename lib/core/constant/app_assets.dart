@@ -10,4 +10,8 @@ class AppAssets {
   static const String settings = 'assets/icons/settings.png';
   static const String reading = 'assets/icons/reading.png';
   static const String prayers = 'assets/icons/prayers.png';
+  static const String prayer = 'assets/icons/prayer.png';
+  static const String rosary = 'assets/icons/rosary.png';
+  static const String sermons = 'assets/icons/sermons.png';
+  static const String donation = 'assets/icons/donation.png';
 }

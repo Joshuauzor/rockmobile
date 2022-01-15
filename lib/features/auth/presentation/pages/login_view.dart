@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
-import 'package:rockapp/app/styles/fonts.dart';
+import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/styles/ui_helpers.dart';
 import 'package:rockapp/app/views/widgets/next_button.dart';

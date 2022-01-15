@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
-import 'package:rockapp/app/styles/fonts.dart';
+import 'package:rockapp/app/styles/text_styles.dart';
+import 'package:rockapp/app/views/widgets/home_features.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -53,7 +54,7 @@ class _HomeViewState extends State<HomeView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           BodyText(
-                            'Hello Joseph',
+                            'Hello Joshua',
                             fontSize: 25,
                             fontWeight: FontWeight.w600,
                             color: AppColors.white,
@@ -133,339 +134,85 @@ class _HomeViewState extends State<HomeView> {
               );
             }).toList(),
           ),
-          const Gap(20.76),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 33.88),
-            child: StaggeredGrid.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 23.56,
-              mainAxisSpacing: 23.56,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 8,
-                        spreadRadius: 0,
-                        offset: Offset(0, 8),
-                        color: AppColors.homeMenuBox,
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 16.96,
-                      bottom: 10.3,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 41.46,
-                          width: 41.46,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
+          const Gap(10),
+          DefaultTabController(
+            length: 3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 21),
+              child: Row(
+                children: [
+                  TabBar(tabs: [
+                    Tab(
+                      text: 'hello',
+                    )
+                  ]),
+                  const Gap(12),
+                  const Gap(12),
+                  Expanded(
+                    child: Container(
+                      height: 32,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: AppColors.primaryColor,
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 38),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: BodyText(
+                            'ROCK News',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
                             color: AppColors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 8,
-                                spreadRadius: 0,
-                                offset: Offset(0, 8),
-                                color: AppColors.homeMenuBoxIcon,
-                              )
-                            ],
+                            textAlign: TextAlign.center,
                           ),
-                          child: Image.asset(AppAssets.reading),
                         ),
-                        const Gap(13.58),
-                        const BodyText(
-                          'Daily Readings',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.primaryColor,
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          const Gap(27.24),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 33.88),
+                child: StaggeredGrid.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 23.56,
+                  mainAxisSpacing: 23.56,
+                  children: const [
+                    HomeFeatures(
+                      icon: AppAssets.reading,
+                      title: 'Daily Readings',
+                    ),
+                    HomeFeatures(
+                      icon: AppAssets.prayers,
+                      title: 'Church Prayers',
+                    ),
+                    HomeFeatures(
+                      icon: AppAssets.rosary,
+                      title: 'Holy Rosary',
+                    ),
+                    HomeFeatures(
+                      icon: AppAssets.sermons,
+                      title: 'Sermons',
+                    ),
+                    HomeFeatures(
+                      icon: AppAssets.prayer,
+                      title: 'Prayer Request',
+                    ),
+                    HomeFeatures(
+                      icon: AppAssets.donation,
+                      title: 'Donations',
+                    ),
+                  ],
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 8,
-                        spreadRadius: 0,
-                        offset: Offset(0, 8),
-                        color: AppColors.homeMenuBox,
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 16.96,
-                      bottom: 10.3,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 41.46,
-                          width: 41.46,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 8,
-                                spreadRadius: 0,
-                                offset: Offset(0, 8),
-                                color: AppColors.homeMenuBoxIcon,
-                              )
-                            ],
-                          ),
-                          child: Image.asset(AppAssets.prayers),
-                        ),
-                        const Gap(13.58),
-                        const BodyText(
-                          'Church Prayers',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.primaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 8,
-                        spreadRadius: 0,
-                        offset: Offset(0, 8),
-                        color: AppColors.homeMenuBox,
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 16.96,
-                      bottom: 10.3,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 41.46,
-                          width: 41.46,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 8,
-                                spreadRadius: 0,
-                                offset: Offset(0, 8),
-                                color: AppColors.homeMenuBoxIcon,
-                              )
-                            ],
-                          ),
-                          child: Image.asset(AppAssets.prayers),
-                        ),
-                        const Gap(13.58),
-                        const BodyText(
-                          'Church Prayers',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.primaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 8,
-                        spreadRadius: 0,
-                        offset: Offset(0, 8),
-                        color: AppColors.homeMenuBox,
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 16.96,
-                      bottom: 10.3,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 41.46,
-                          width: 41.46,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 8,
-                                spreadRadius: 0,
-                                offset: Offset(0, 8),
-                                color: AppColors.homeMenuBoxIcon,
-                              )
-                            ],
-                          ),
-                          child: Image.asset(AppAssets.prayers),
-                        ),
-                        const Gap(13.58),
-                        const BodyText(
-                          'Church Prayers',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.primaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 8,
-                        spreadRadius: 0,
-                        offset: Offset(0, 8),
-                        color: AppColors.homeMenuBox,
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 16.96,
-                      bottom: 10.3,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 41.46,
-                          width: 41.46,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 8,
-                                spreadRadius: 0,
-                                offset: Offset(0, 8),
-                                color: AppColors.homeMenuBoxIcon,
-                              )
-                            ],
-                          ),
-                          child: Image.asset(AppAssets.prayers),
-                        ),
-                        const Gap(13.58),
-                        const BodyText(
-                          'Church Prayers',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.primaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      topLeft: Radius.circular(12),
-                      bottomLeft: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 8,
-                        spreadRadius: 0,
-                        offset: Offset(0, 8),
-                        color: AppColors.homeMenuBox,
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 16.96,
-                      bottom: 10.3,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 41.46,
-                          width: 41.46,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 8,
-                                spreadRadius: 0,
-                                offset: Offset(0, 8),
-                                color: AppColors.homeMenuBoxIcon,
-                              )
-                            ],
-                          ),
-                          child: Image.asset(AppAssets.prayers),
-                        ),
-                        const Gap(13.58),
-                        const BodyText(
-                          'Church Prayers',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.primaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           )
         ],
