@@ -213,48 +213,46 @@ class _HomeViewState extends State<HomeView> {
               height: screenHeight(context) * 0.4,
               child: TabBarView(
                 children: [
-                  SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 33.88),
-                      child: StaggeredGrid.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 23.56,
-                        mainAxisSpacing: 23.56,
-                        children: const [
-                          HomeFeatures(
-                            icon: AppAssets.reading,
-                            title: 'Daily Readings',
-                          ),
-                          HomeFeatures(
-                            icon: AppAssets.prayers,
-                            title: 'Church Prayers',
-                          ),
-                          HomeFeatures(
-                            icon: AppAssets.rosary,
-                            title: 'Holy Rosary',
-                          ),
-                          HomeFeatures(
-                            icon: AppAssets.sermons,
-                            title: 'Sermons',
-                          ),
-                          HomeFeatures(
-                            icon: AppAssets.prayer,
-                            title: 'Prayer Request',
-                          ),
-                          HomeFeatures(
-                            icon: AppAssets.donation,
-                            title: 'Donations',
-                          ),
-                          HomeFeatures(
-                            icon: AppAssets.prayer,
-                            title: 'Prayer Request',
-                          ),
-                          HomeFeatures(
-                            icon: AppAssets.donation,
-                            title: 'Donations',
-                          ),
-                        ],
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 33.88),
+                    child: StaggeredGrid.count(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 23.56,
+                      mainAxisSpacing: 23.56,
+                      children: const [
+                        HomeFeatures(
+                          icon: AppAssets.reading,
+                          title: 'Daily Readings',
+                        ),
+                        HomeFeatures(
+                          icon: AppAssets.prayers,
+                          title: 'Church Prayers',
+                        ),
+                        HomeFeatures(
+                          icon: AppAssets.rosary,
+                          title: 'Holy Rosary',
+                        ),
+                        HomeFeatures(
+                          icon: AppAssets.sermons,
+                          title: 'Sermons',
+                        ),
+                        HomeFeatures(
+                          icon: AppAssets.prayer,
+                          title: 'Prayer Request',
+                        ),
+                        HomeFeatures(
+                          icon: AppAssets.donation,
+                          title: 'Donations',
+                        ),
+                        HomeFeatures(
+                          icon: AppAssets.prayer,
+                          title: 'Prayer Request',
+                        ),
+                        HomeFeatures(
+                          icon: AppAssets.donation,
+                          title: 'Donations',
+                        ),
+                      ],
                     ),
                   ),
                   Container(),
