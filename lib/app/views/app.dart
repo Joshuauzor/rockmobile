@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Rockapp',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.blue,
+        primaryColor: AppColors.background,
         primarySwatch: const MaterialColor(
           0xff101D70,
           AppColors.colorScratch,

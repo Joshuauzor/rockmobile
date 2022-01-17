@@ -14,4 +14,10 @@ class AppAssets {
   static const String rosary = 'assets/icons/rosary.png';
   static const String sermons = 'assets/icons/sermons.png';
   static const String donation = 'assets/icons/donation.png';
+  static const String about = 'assets/icons/about.png';
+  static const String rules = 'assets/icons/rules.png';
+  static const String members = 'assets/icons/members.png';
+  static const String news = 'assets/icons/news.png';
+  static const String nigeria = 'assets/icons/nigeria.png';
+  static const String worldwide = 'assets/icons/worldwide.png';
 }

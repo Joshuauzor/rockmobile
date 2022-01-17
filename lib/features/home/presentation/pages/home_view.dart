@@ -3,8 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
+import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/styles/ui_helpers.dart';
 import 'package:rockapp/app/views/widgets/home_features.dart';
+import 'package:rockapp/app/views/widgets/tabs.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -17,7 +19,27 @@ class HomeView extends StatefulWidget {
   _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  int _selectedTabIndex = 0;
+
+  void _onTabItemPressed(int index) {
+    _tabController.animateTo(index);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // initialize _tabController
+    _tabController = TabController(initialIndex: 0, length: 3, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        _selectedTabIndex = _tabController.index;
+      });
+    });
+  }
+
   List slider = [AppAssets.intersect, AppAssets.intersect, AppAssets.intersect];
   int _current = 0;
   final CarouselController _controller = CarouselController();
@@ -27,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        backgroundColor: AppColors.background,
         body: Column(
           children: [
             Container(
@@ -56,14 +79,14 @@ class _HomeViewState extends State<HomeView> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            BodyText(
+                            HeaderText(
                               'Hello Joshua',
                               fontSize: 25,
                               fontWeight: FontWeight.w600,
                               color: AppColors.white,
                             ),
                             Gap(3),
-                            BodyText(
+                            HeaderText(
                               'Good morning.',
                               fontSize: 15,
                               fontWeight: FontWeight.w400,
@@ -87,182 +110,137 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            CarouselSlider(
-              carouselController: _controller,
-              options: CarouselOptions(
-                height: 220,
-                initialPage: 0,
-                autoPlay: true,
-                autoPlayInterval: const Duration(seconds: 3),
-                autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                autoPlayCurve: Curves.fastOutSlowIn,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                },
-              ),
-              items: slider.map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Image.asset(i),
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: slider.asMap().entries.map((entry) {
-                return GestureDetector(
-                  onTap: () => _controller.animateToPage(entry.key),
-                  child: Container(
-                    width: 7.0,
-                    height: 7.0,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 3.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: (Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.white
-                              : AppColors.primaryColor)
-                          .withOpacity(_current == entry.key ? 0.9 : 0.4),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-            const Gap(10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 21),
-              child: TabBar(
-                tabs: [
-                  Tab(
-                    child: Container(
-                      height: 32,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: AppColors.primaryColor,
-                      ),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: BodyText(
-                          'ROCK',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.white,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Tab(
-                    child: Container(
-                      height: 32,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: AppColors.primaryColor,
-                      ),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: BodyText(
-                          'ROCK News',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.white,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Tab(
-                    child: Container(
-                      height: 32,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: AppColors.primaryColor,
-                      ),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: BodyText(
-                          'Catholic News',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.white,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Gap(27.24),
-            SizedBox(
-              height: screenHeight(context) * 0.4,
-              child: TabBarView(
+            Expanded(
+              child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 33.88),
-                    child: StaggeredGrid.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 23.56,
-                      mainAxisSpacing: 23.56,
+                  CarouselSlider(
+                    carouselController: _controller,
+                    options: CarouselOptions(
+                      height: 220,
+                      initialPage: 0,
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                        });
+                      },
+                    ),
+                    items: slider.map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              child: Image.asset(i),
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: slider.asMap().entries.map((entry) {
+                      return GestureDetector(
+                        onTap: () => _controller.animateToPage(entry.key),
+                        child: Container(
+                          width: 7.0,
+                          height: 7.0,
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 3.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: (Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.white
+                                    : AppColors.primaryColor)
+                                .withOpacity(_current == entry.key ? 0.9 : 0.4),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  const Gap(10),
+                  Container(
+                    height: 32,
+                    padding: const EdgeInsets.symmetric(horizontal: 21),
+                    decoration: BoxDecoration(
+                      color: AppColors.background,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: List<Widget>.generate(
+                        3,
+                        (int index) {
+                          return _buildTabItem(
+                            text: ['ROCK', 'ROCK News', 'Catholic News'][index],
+                            isActive: _selectedTabIndex == index,
+                            onPressed: () => _onTabItemPressed(index),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  const Gap(27.24),
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
                       children: const [
-                        HomeFeatures(
-                          icon: AppAssets.reading,
-                          title: 'Daily Readings',
-                        ),
-                        HomeFeatures(
-                          icon: AppAssets.prayers,
-                          title: 'Church Prayers',
-                        ),
-                        HomeFeatures(
-                          icon: AppAssets.rosary,
-                          title: 'Holy Rosary',
-                        ),
-                        HomeFeatures(
-                          icon: AppAssets.sermons,
-                          title: 'Sermons',
-                        ),
-                        HomeFeatures(
-                          icon: AppAssets.prayer,
-                          title: 'Prayer Request',
-                        ),
-                        HomeFeatures(
-                          icon: AppAssets.donation,
-                          title: 'Donations',
-                        ),
-                        HomeFeatures(
-                          icon: AppAssets.prayer,
-                          title: 'Prayer Request',
-                        ),
-                        HomeFeatures(
-                          icon: AppAssets.donation,
-                          title: 'Donations',
-                        ),
+                        TabOne(),
+                        TabTwo(),
+                        TabThree(),
                       ],
                     ),
                   ),
-                  Container(),
-                  Container(),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+Widget _buildTabItem({
+  required String text,
+  required bool isActive,
+  required VoidCallback onPressed,
+}) {
+  return Expanded(
+    child: TouchableOpacity(
+      onTap: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+          height: 32,
+          decoration: BoxDecoration(
+            color: isActive ? AppColors.primaryColor : Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.homeMenuBox,
+                offset: Offset(0, 8),
+                blurRadius: 8,
+              )
+            ],
+          ),
+          child: Center(
+            child: BodyText(
+              text,
+              color: isActive ? AppColors.white : AppColors.primaryColor,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }
