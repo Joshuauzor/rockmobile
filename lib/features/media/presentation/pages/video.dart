@@ -15,7 +15,7 @@ class VideoView extends StatefulWidget {
 }
 
 class _VideoViewState extends State<VideoView> {
-  final CarouselController _controller = CarouselController();
+  // final CarouselController _controller = CarouselController();
 
   @override
   Widget build(BuildContext context) {

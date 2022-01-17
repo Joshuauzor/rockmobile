@@ -115,3 +115,38 @@ class TitleText extends StatelessWidget {
     );
   }
 }
+
+class LongText extends StatelessWidget {
+  const LongText(
+    this.text, {
+    this.color = AppColors.neutral,
+    this.fontSize = 12,
+    this.fontWeight = FontWeight.w300,
+    this.textAlign = TextAlign.left,
+    this.overflow = TextOverflow.visible,
+    Key? key,
+  }) : super(key: key);
+  final String? text;
+  final FontWeight fontWeight;
+  final double fontSize;
+  final Color color;
+  final TextAlign textAlign;
+  final TextOverflow overflow;
+
+  @override
+  Widget build(BuildContext context) {
+    assert(text != null, 'test can not be null');
+    return Text(
+      text ?? '',
+      textAlign: textAlign,
+      overflow: overflow,
+      style: TextStyle(
+        fontWeight: fontWeight,
+        fontSize: fontSize,
+        color: color,
+        overflow: overflow,
+        fontFamily: AppFonts.inter,
+      ),
+    );
+  }
+}

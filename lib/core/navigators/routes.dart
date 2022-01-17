@@ -6,4 +6,6 @@ class Routes {
   static const String homeView = 'homeView';
   static const String videoView = 'videoView';
   static const String appTabView = 'appTabView';
+  static const String privacyPolicy = 'privacyPolicy';
+  static const String about = 'about';
 }

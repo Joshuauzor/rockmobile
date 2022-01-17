@@ -4,6 +4,8 @@ import 'package:rockapp/core/navigators/routes.dart';
 import 'package:rockapp/features/auth/auth.dart';
 import 'package:rockapp/features/home/home.dart';
 import 'package:rockapp/features/media/media.dart';
+import 'package:rockapp/features/settings/presentation/pages/about.dart';
+import 'package:rockapp/features/settings/presentation/pages/privacy_policy.dart';
 
 import '../../features/splash/splash.dart';
 
@@ -49,6 +51,18 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: const AppTabView(),
+      );
+
+    case Routes.privacyPolicy:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const PrivacyPolicy(),
+      );
+
+    case Routes.about:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const About(),
       );
 
     default:

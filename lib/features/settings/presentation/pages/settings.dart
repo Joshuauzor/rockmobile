@@ -1,12 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
+import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/core/constant/constant.dart';
+import 'package:rockapp/core/navigators/navigators.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -44,7 +42,7 @@ class _SettingsState extends State<Settings> {
               ),
               const Gap(66),
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 46,
                 ),
                 child: Column(
@@ -61,28 +59,40 @@ class _SettingsState extends State<Settings> {
                       ],
                     ),
                     const Gap(37),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const TitleText(
-                          'About us',
-                          fontSize: 20,
-                          textAlign: TextAlign.left,
-                        ),
-                        SvgPicture.asset(AppAssets.arrowright)
-                      ],
+                    TouchableOpacity(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        Routes.about,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const TitleText(
+                            'About us',
+                            fontSize: 20,
+                            textAlign: TextAlign.left,
+                          ),
+                          SvgPicture.asset(AppAssets.arrowright)
+                        ],
+                      ),
                     ),
                     const Gap(37),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const TitleText(
-                          'Privacy policy',
-                          fontSize: 20,
-                          textAlign: TextAlign.left,
-                        ),
-                        SvgPicture.asset(AppAssets.arrowright)
-                      ],
+                    TouchableOpacity(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        Routes.privacyPolicy,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const TitleText(
+                            'Privacy policy',
+                            fontSize: 20,
+                            textAlign: TextAlign.left,
+                          ),
+                          SvgPicture.asset(AppAssets.arrowright)
+                        ],
+                      ),
                     ),
                     const Gap(37),
                     Row(
