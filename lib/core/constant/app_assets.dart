@@ -20,4 +20,7 @@ class AppAssets {
   static const String news = 'assets/icons/news.png';
   static const String nigeria = 'assets/icons/nigeria.png';
   static const String worldwide = 'assets/icons/worldwide.png';
+  static const String generallogo = 'assets/images/generallogo.png';
+  static const String arrowright = 'assets/icons/arrow_right.svg';
+  static const String logout = 'assets/icons/logout.svg';
 }

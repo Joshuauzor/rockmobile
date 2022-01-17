@@ -3,6 +3,7 @@ import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/views/widgets/bottom_navbar.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/features/home/home.dart';
+import 'package:rockapp/features/settings/presentation/pages/settings.dart';
 
 class AppTabView extends StatefulWidget {
   const AppTabView({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _AppTabViewState extends State<AppTabView> {
       Container(),
       const HomeView(),
       Container(),
-      Container(),
+      const Settings(),
     ];
     return Scaffold(
       backgroundColor: AppColors.white,

@@ -4,13 +4,10 @@ import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
-import 'package:rockapp/app/styles/ui_helpers.dart';
-import 'package:rockapp/app/views/widgets/home_features.dart';
 import 'package:rockapp/app/views/widgets/tabs.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
