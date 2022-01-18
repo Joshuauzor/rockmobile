@@ -11,6 +11,7 @@ class LoginViewModel extends BaseModel {
     required String password,
   }) async {
     setBusy(true);
+    print(email);
     // final res = await
     setBusy(false);
   }

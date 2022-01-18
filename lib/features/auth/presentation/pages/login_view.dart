@@ -20,8 +20,8 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   bool _isHidden = true;
   bool authTypeLogin = true;
@@ -30,6 +30,12 @@ class _LoginViewState extends State<LoginView> {
     setState(() {
       _isHidden = !_isHidden;
     });
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 
   @override
@@ -199,6 +205,7 @@ class _LoginViewState extends State<LoginView> {
                                             return null;
                                           }
                                         },
+                                        controller: _emailController,
                                         keyboardType:
                                             TextInputType.emailAddress,
                                         decoration: const InputDecoration(
@@ -234,7 +241,7 @@ class _LoginViewState extends State<LoginView> {
                                             return null;
                                           }
                                         },
-                                        controller: emailController,
+                                        controller: _passwordController,
                                         keyboardType: TextInputType.text,
                                         obscureText: _isHidden,
                                         decoration: InputDecoration(
@@ -294,7 +301,15 @@ class _LoginViewState extends State<LoginView> {
                                           label: 'Log In',
                                           onPressed: () async {
                                             if (_formKey.currentState!
-                                                .validate()) {}
+                                                .validate()) {
+                                              await model.login(
+                                                email: _emailController.text
+                                                    .trim(),
+                                                password: _passwordController
+                                                    .text
+                                                    .trim(),
+                                              );
+                                            }
                                           }),
                                       SizedBox(
                                         height: screenHeight(context) * 0.05,
@@ -492,7 +507,7 @@ class _LoginViewState extends State<LoginView> {
                                     const Gap(30),
                                     TextFormField(
                                       validator: (value) {},
-                                      controller: emailController,
+                                      controller: _emailController,
                                       keyboardType: TextInputType.text,
                                       obscureText: _isHidden,
                                       decoration: InputDecoration(
