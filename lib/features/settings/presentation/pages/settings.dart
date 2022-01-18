@@ -121,18 +121,24 @@ class _SettingsState extends State<Settings> {
                 child: Divider(),
               ),
               const Gap(39),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 47),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const TitleText(
-                      'Logout',
-                      fontSize: 20,
-                      textAlign: TextAlign.left,
-                    ),
-                    SvgPicture.asset(AppAssets.logout)
-                  ],
+              TouchableOpacity(
+                onTap: () => {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, Routes.loginView, (route) => false)
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 47),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TitleText(
+                        'Logout',
+                        fontSize: 20,
+                        textAlign: TextAlign.left,
+                      ),
+                      SvgPicture.asset(AppAssets.logout)
+                    ],
+                  ),
                 ),
               ),
             ],
