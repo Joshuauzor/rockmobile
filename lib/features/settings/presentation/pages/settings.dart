@@ -95,16 +95,22 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                     const Gap(37),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const TitleText(
-                          'Terms and conditions',
-                          fontSize: 20,
-                          textAlign: TextAlign.left,
-                        ),
-                        SvgPicture.asset(AppAssets.arrowright)
-                      ],
+                    TouchableOpacity(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        Routes.terms,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const TitleText(
+                            'Terms and conditions',
+                            fontSize: 20,
+                            textAlign: TextAlign.left,
+                          ),
+                          SvgPicture.asset(AppAssets.arrowright)
+                        ],
+                      ),
                     ),
                     const Gap(65),
                   ],

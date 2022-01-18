@@ -6,6 +6,7 @@ import 'package:rockapp/features/home/home.dart';
 import 'package:rockapp/features/media/media.dart';
 import 'package:rockapp/features/settings/presentation/pages/about.dart';
 import 'package:rockapp/features/settings/presentation/pages/privacy_policy.dart';
+import 'package:rockapp/features/settings/presentation/pages/terms.dart';
 
 import '../../features/splash/splash.dart';
 
@@ -63,6 +64,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: const About(),
+      );
+
+    case Routes.terms:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const Terms(),
       );
 
     default:

@@ -8,4 +8,5 @@ class Routes {
   static const String appTabView = 'appTabView';
   static const String privacyPolicy = 'privacyPolicy';
   static const String about = 'about';
+  static const String terms = 'terms';
 }
