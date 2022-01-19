@@ -19,9 +19,9 @@ class EventInfo {
   final String? description;
   final String? material;
   final String? media;
-  final DateTime? startDate;
-  final DateTime? endDate;
-  final DateTime? time;
+  final String? startDate;
+  final String? endDate;
+  final String? time;
 
   factory EventInfo.fromJson(Map<String, dynamic> json) => EventInfo(
         eventId: json['event_id'],
@@ -31,8 +31,8 @@ class EventInfo {
         description: json['description'],
         material: json['material'],
         media: json['media'],
-        startDate: DateTime.parse(json['start_date']),
-        endDate: DateTime.parse(json['end_date']),
+        startDate: json['startDate'],
+        endDate: json['endDate'],
         time: json['time'],
       );
 

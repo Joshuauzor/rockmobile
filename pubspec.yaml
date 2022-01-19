@@ -41,6 +41,10 @@ dependencies:
   connectivity: ^3.0.6
   http_parser: ^4.0.0
 
+  #image
+  image_picker: ^0.8.4+4
+  cached_network_image: ^3.2.0
+  
   #env
   flutter_dotenv: ^5.0.2
 
