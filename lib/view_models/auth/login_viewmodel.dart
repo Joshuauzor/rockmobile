@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:rockapp/app/styles/flushbar_notification.dart';
+import 'package:rockapp/core/errors/failure.dart';
+import 'package:rockapp/core/navigators/routes.dart';
 import 'package:rockapp/locator.dart';
 import 'package:rockapp/services/auth_service.dart';
 import 'package:rockapp/view_models/base_viewmodel.dart';
@@ -9,10 +13,45 @@ class LoginViewModel extends BaseModel {
   Future login({
     required String email,
     required String password,
+    required BuildContext context,
   }) async {
     setBusy(true);
-    print(email);
-    // final res = await
+    final res =
+        await _authenticationService.login(email: email, password: password);
+    res.fold(
+        (l) => {
+              FlushBarNotification.showError(
+                  context, FailureToMessage.mapFailureToMessage(l))
+            }, (r) {
+      Navigator.pushReplacementNamed(context, Routes.appTabView);
+      FlushBarNotification.showSuccess(context, r);
+    });
+    setBusy(false);
+  }
+
+  Future register({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required BuildContext context,
+  }) async {
+    setBusy(true);
+    final res = await _authenticationService.register(
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      password: password,
+    );
+
+    res.fold(
+        (l) => {
+              FlushBarNotification.showError(
+                  context, FailureToMessage.mapFailureToMessage(l))
+            }, (r) {
+      Navigator.pushReplacementNamed(context, Routes.loginView);
+      FlushBarNotification.showSuccess(context, r);
+    });
     setBusy(false);
   }
 }

@@ -5,12 +5,20 @@ import 'package:rockapp/core/errors/exceptions.dart';
 import 'package:rockapp/core/errors/failure.dart';
 import 'package:rockapp/core/networks/api_request.dart';
 import 'package:rockapp/locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
 abstract class AuthenticationService with ReactiveServiceMixin {
   // late User _user;
   // User get user => _user;
   Future<Either<Failure, String>> login({
+    required String email,
+    required String password,
+  });
+
+  Future<Either<Failure, String>> register({
+    required String firstName,
+    required String lastName,
     required String email,
     required String password,
   });
@@ -27,17 +35,70 @@ class AuthenticationServiceImpl extends AuthenticationService {
     try {
       final response =
           await _apiServiceRequester.post(url: 'user/login', body: {
-        email,
-        password,
+        'email': email,
+        'password': password,
       });
-      print(response);
-      return const Right('success');
+      var prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', response.data['data']['token']);
+      if (!response.data['status']) {
+        return Left(ServerFailure(message: response.data['message']));
+      }
+      return const Right('Login successfull');
     } catch (e) {
-      Logger().d(e);
+      Logger().d('$e');
       if (e is NoInternetException) {
         return Left(NoInternetFailure());
       }
       if (e is DioError) {
+        if (e.response != null && e.response!.statusCode! >= 500) {
+          return const Left(ServerFailure(message: 'server error. try again'));
+        }
+        if (e.response != null &&
+            e.response!.data != null &&
+            e.response!.data['message'] != null) {
+          return Left(ServerFailure(message: e.response!.data['message']));
+        } else {
+          return const Left(
+            ServerFailure(message: 'Server error, please try again'),
+          );
+        }
+      }
+      return Left(UnknownFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> register({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response =
+          await _apiServiceRequester.post(url: 'user/register', body: {
+        'email': email,
+        'firstname': firstName,
+        'lastname': lastName,
+        'phone': '123456789',
+        'password': password,
+      });
+      if (!response.data['status']) {
+        return Left(ServerFailure(message: response.data['message']));
+      }
+      return const Right('Registration successfull. Please login');
+    } catch (e) {
+      Logger().d('$e');
+      if (e is NoInternetException) {
+        return Left(NoInternetFailure());
+      }
+      if (e is DioError) {
+        if (e.response != null &&
+            e.response!.statusCode! >= 500 &&
+            e.response!.data != null &&
+            e.response!.data['message'] != null) {
+          return Left(ServerFailure(message: e.response!.data['message']));
+        }
         if (e.response != null && e.response!.statusCode! >= 500) {
           return const Left(ServerFailure(message: 'server error. try again'));
         }

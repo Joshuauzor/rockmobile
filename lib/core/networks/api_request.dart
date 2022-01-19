@@ -30,7 +30,6 @@ class ApiServiceRequester {
         baseUrl! + url,
         data: body,
       );
-
       return response;
     } else {
       throw NoInternetException();

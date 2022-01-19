@@ -19,9 +19,14 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _registerEmailController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _registerPasswordController = TextEditingController();
 
   bool _isHidden = true;
   bool authTypeLogin = true;
@@ -36,6 +41,11 @@ class _LoginViewState extends State<LoginView> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _registerEmailController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _registerPasswordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -199,11 +209,17 @@ class _LoginViewState extends State<LoginView> {
                                       const Gap(80),
                                       TextFormField(
                                         validator: (value) {
-                                          if (value!.isEmpty) {
+                                          value = value!.trim();
+                                          bool validEmail = RegExp(
+                                                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                              .hasMatch(value);
+                                          if (value.isEmpty) {
                                             return "Required*";
-                                          } else {
-                                            return null;
                                           }
+                                          if (!validEmail) {
+                                            return "Please enter a valid email";
+                                          }
+                                          return null;
                                         },
                                         controller: _emailController,
                                         keyboardType:
@@ -237,9 +253,8 @@ class _LoginViewState extends State<LoginView> {
                                         validator: (value) {
                                           if (value!.isEmpty) {
                                             return "Required*";
-                                          } else {
-                                            return null;
                                           }
+                                          return null;
                                         },
                                         controller: _passwordController,
                                         keyboardType: TextInputType.text,
@@ -299,16 +314,18 @@ class _LoginViewState extends State<LoginView> {
                                       const Gap(59),
                                       NextButton(
                                           label: 'Log In',
+                                          disabled: model.busy,
+                                          busy: model.busy,
                                           onPressed: () async {
                                             if (_formKey.currentState!
                                                 .validate()) {
                                               await model.login(
-                                                email: _emailController.text
-                                                    .trim(),
-                                                password: _passwordController
-                                                    .text
-                                                    .trim(),
-                                              );
+                                                  email: _emailController.text
+                                                      .trim(),
+                                                  password: _passwordController
+                                                      .text
+                                                      .trim(),
+                                                  context: context);
                                             }
                                           }),
                                       SizedBox(
@@ -325,79 +342,117 @@ class _LoginViewState extends State<LoginView> {
                           top: 230,
                           left: 0,
                           right: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 28),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(30),
-                                  topRight: Radius.circular(30),
-                                  bottomLeft: Radius.circular(30),
-                                  bottomRight: Radius.circular(30),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0x4DBEB5E1),
-                                    offset: Offset(0, 10),
-                                    blurRadius: 15,
-                                    spreadRadius: 0,
+                          child: Form(
+                            key: _formKey2,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 28),
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30),
+                                    topRight: Radius.circular(30),
+                                    bottomLeft: Radius.circular(30),
+                                    bottomRight: Radius.circular(30),
                                   ),
-                                ],
-                              ),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 31, right: 31),
-                                child: Column(
-                                  children: [
-                                    const Gap(55),
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10),
-                                          bottomLeft: Radius.circular(10),
-                                          bottomRight: Radius.circular(10),
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Color(0x268163D6),
-                                            offset: Offset(0, 8),
-                                            blurRadius: 8,
-                                            spreadRadius: 0,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x4DBEB5E1),
+                                      offset: Offset(0, 10),
+                                      blurRadius: 15,
+                                      spreadRadius: 0,
+                                    ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 31, right: 31),
+                                  child: Column(
+                                    children: [
+                                      const Gap(55),
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.rectangle,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10),
+                                            bottomLeft: Radius.circular(10),
+                                            bottomRight: Radius.circular(10),
                                           ),
-                                        ],
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  authTypeLogin =
-                                                      !authTypeLogin;
-                                                });
-                                              },
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0x268163D6),
+                                              offset: Offset(0, 8),
+                                              blurRadius: 8,
+                                              spreadRadius: 0,
+                                            ),
+                                          ],
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    authTypeLogin =
+                                                        !authTypeLogin;
+                                                  });
+                                                },
+                                                child: Container(
+                                                  height: 39,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    color: Colors.white,
+                                                    shape: BoxShape.rectangle,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(30),
+                                                      topRight:
+                                                          Radius.circular(30),
+                                                      bottomLeft:
+                                                          Radius.circular(30),
+                                                      bottomRight:
+                                                          Radius.circular(30),
+                                                    ),
+                                                  ),
+                                                  child: const Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                    ),
+                                                    child: BodyText(
+                                                      'Login',
+                                                      color: AppColors
+                                                          .primaryColor,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
                                               child: Container(
                                                 height: 39,
                                                 decoration: const BoxDecoration(
-                                                  color: Colors.white,
+                                                  color: AppColors.primaryColor,
                                                   shape: BoxShape.rectangle,
                                                   borderRadius:
                                                       BorderRadius.only(
                                                     topLeft:
-                                                        Radius.circular(30),
+                                                        Radius.circular(10),
                                                     topRight:
-                                                        Radius.circular(30),
+                                                        Radius.circular(10),
                                                     bottomLeft:
-                                                        Radius.circular(30),
+                                                        Radius.circular(10),
                                                     bottomRight:
-                                                        Radius.circular(30),
+                                                        Radius.circular(10),
                                                   ),
                                                 ),
                                                 child: const Padding(
@@ -405,155 +460,204 @@ class _LoginViewState extends State<LoginView> {
                                                     vertical: 10,
                                                   ),
                                                   child: BodyText(
-                                                    'Login',
-                                                    color:
-                                                        AppColors.primaryColor,
+                                                    'Sign Up',
+                                                    color: AppColors.white,
                                                     textAlign: TextAlign.center,
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              height: 39,
-                                              decoration: const BoxDecoration(
-                                                color: AppColors.primaryColor,
-                                                shape: BoxShape.rectangle,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(10),
-                                                  topRight: Radius.circular(10),
-                                                  bottomLeft:
-                                                      Radius.circular(10),
-                                                  bottomRight:
-                                                      Radius.circular(10),
-                                                ),
-                                              ),
-                                              child: const Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                  vertical: 10,
-                                                ),
-                                                child: BodyText(
-                                                  'Sign Up',
-                                                  color: AppColors.white,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                      const Gap(80),
+                                      TextFormField(
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Required*";
+                                          }
+                                          return null;
+                                        },
+                                        controller: _firstNameController,
+                                        keyboardType: TextInputType.text,
+                                        decoration: const InputDecoration(
+                                          hintText: 'Enter First Name',
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Gap(80),
-                                    TextFormField(
-                                      validator: (value) {
-                                        value == null
-                                            ? 'Email is required'
-                                            : null;
-                                      },
-                                      keyboardType: TextInputType.emailAddress,
-                                      decoration: const InputDecoration(
-                                        hintText: 'Enter First Name',
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0xffEAEAF5),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
                                           ),
-                                        ),
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0xffEAEAF5),
+                                          border: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
                                           ),
-                                        ),
-                                        border: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0xffEAEAF5),
+                                          hintStyle: TextStyle(
+                                            color: Color(0xffA8A7A7),
+                                            // fontSize: 10,
+                                            fontWeight: FontWeight.w400,
                                           ),
-                                        ),
-                                        hintStyle: TextStyle(
-                                          color: Color(0xffA8A7A7),
-                                          // fontSize: 10,
-                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
-                                    ),
-                                    const Gap(24),
-                                    TextFormField(
-                                      validator: (value) {},
-                                      keyboardType: TextInputType.emailAddress,
-                                      decoration: const InputDecoration(
-                                        hintText: 'Enter email or username',
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0xffEAEAF5),
+                                      const Gap(24),
+                                      TextFormField(
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Required*";
+                                          }
+                                          return null;
+                                        },
+                                        controller: _lastNameController,
+                                        keyboardType: TextInputType.text,
+                                        decoration: const InputDecoration(
+                                          hintText: 'Enter Last Name',
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
                                           ),
-                                        ),
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0xffEAEAF5),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
                                           ),
-                                        ),
-                                        border: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0xffEAEAF5),
+                                          border: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
                                           ),
-                                        ),
-                                        hintStyle: TextStyle(
-                                          color: Color(0xffA8A7A7),
-                                          // fontSize: 10,
-                                          fontWeight: FontWeight.w400,
+                                          hintStyle: TextStyle(
+                                            color: Color(0xffA8A7A7),
+                                            // fontSize: 10,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const Gap(30),
-                                    TextFormField(
-                                      validator: (value) {},
-                                      controller: _emailController,
-                                      keyboardType: TextInputType.text,
-                                      obscureText: _isHidden,
-                                      decoration: InputDecoration(
-                                        hintText: 'Password',
-                                        suffixIcon: TouchableOpacity(
-                                          onTap: () {
-                                            _handlehidden();
-                                          },
-                                          child: Icon(
-                                            _isHidden
-                                                ? Icons.visibility
-                                                : Icons.visibility_off,
-                                            size: 16,
+                                      const Gap(24),
+                                      TextFormField(
+                                        validator: (value) {
+                                          value = value!.trim();
+                                          bool validEmail = RegExp(
+                                                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                              .hasMatch(value);
+                                          if (value.isEmpty) {
+                                            return "Required*";
+                                          }
+                                          if (!validEmail) {
+                                            return "Please enter a valid email";
+                                          }
+                                          return null;
+                                        },
+                                        controller: _registerEmailController,
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        decoration: const InputDecoration(
+                                          hintText: 'Enter email',
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
                                           ),
-                                        ),
-                                        enabledBorder:
-                                            const UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0xffEAEAF5),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
                                           ),
-                                        ),
-                                        focusedBorder:
-                                            const UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0xffEAEAF5),
+                                          border: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
                                           ),
-                                        ),
-                                        border: const UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0xffEAEAF5),
+                                          hintStyle: TextStyle(
+                                            color: Color(0xffA8A7A7),
+                                            // fontSize: 10,
+                                            fontWeight: FontWeight.w400,
                                           ),
-                                        ),
-                                        hintStyle: const TextStyle(
-                                          color: Color(0xffA8A7A7),
-                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
-                                    ),
-                                    const Gap(59),
-                                    NextButton(
-                                        label: 'Sign Up',
-                                        onPressed: () async {}),
-                                    SizedBox(
-                                      height: screenHeight(context) * 0.05,
-                                    ),
-                                  ],
+                                      const Gap(30),
+                                      TextFormField(
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Required*";
+                                          }
+                                          return null;
+                                        },
+                                        controller: _registerPasswordController,
+                                        keyboardType: TextInputType.text,
+                                        obscureText: _isHidden,
+                                        decoration: InputDecoration(
+                                          hintText: 'Password',
+                                          suffixIcon: TouchableOpacity(
+                                            onTap: () {
+                                              _handlehidden();
+                                            },
+                                            child: Icon(
+                                              _isHidden
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
+                                              size: 16,
+                                            ),
+                                          ),
+                                          enabledBorder:
+                                              const UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
+                                          ),
+                                          focusedBorder:
+                                              const UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
+                                          ),
+                                          border: const UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0xffEAEAF5),
+                                            ),
+                                          ),
+                                          hintStyle: const TextStyle(
+                                            color: Color(0xffA8A7A7),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+                                      const Gap(59),
+                                      NextButton(
+                                          label: 'Sign Up',
+                                          disabled: model.busy,
+                                          busy: model.busy,
+                                          onPressed: () async {
+                                            if (_formKey2.currentState!
+                                                .validate()) {
+                                              await model.register(
+                                                email: _registerEmailController
+                                                    .text
+                                                    .trim(),
+                                                firstName: _firstNameController
+                                                    .text
+                                                    .trim(),
+                                                lastName: _lastNameController
+                                                    .text
+                                                    .trim(),
+                                                password:
+                                                    _registerPasswordController
+                                                        .text
+                                                        .trim(),
+                                                context: context,
+                                              );
+                                            }
+                                          }),
+                                      SizedBox(
+                                        height: screenHeight(context) * 0.05,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
