@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -8,6 +9,9 @@ import 'package:rockapp/app/views/widgets/tabs.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:rockapp/view_models/auth/login_viewmodel.dart';
+import 'package:rockapp/view_models/home/home_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -37,7 +41,7 @@ class _HomeViewState extends State<HomeView>
     });
   }
 
-  List slider = [AppAssets.intersect, AppAssets.intersect, AppAssets.intersect];
+  // List slider = [AppAssets.intersect, AppAssets.intersect, AppAssets.intersect];
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
@@ -46,161 +50,193 @@ class _HomeViewState extends State<HomeView>
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        backgroundColor: AppColors.background,
-        body: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(10.0),
-                  bottomRight: Radius.circular(10.0),
-                ),
-                color: AppColors.primaryColor,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 51,
-                  bottom: 8,
-                  left: 27,
-                  right: 20,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          backgroundColor: AppColors.background,
+          body: ViewModelBuilder<HomeViewModel>.reactive(
+              viewModelBuilder: () => HomeViewModel(),
+              builder: (context, model, child) {
+                print(model.events![0].media);
+                return Column(
                   children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          child: Image.asset(AppAssets.avatar),
+                    Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0),
                         ),
-                        const Gap(11),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            HeaderText(
-                              'Hello Joshua',
-                              fontSize: 25,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.white,
+                        color: AppColors.primaryColor,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 51,
+                          bottom: 8,
+                          left: 27,
+                          right: 20,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  child: Image.asset(AppAssets.avatar),
+                                ),
+                                const Gap(11),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    HeaderText(
+                                      'Hello ${model.user.firstName}',
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.white,
+                                    ),
+                                    const Gap(3),
+                                    const HeaderText(
+                                      'Good morning.',
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.white,
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            Gap(3),
-                            HeaderText(
-                              'Good morning.',
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.white,
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.white,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SvgPicture.asset(AppAssets.bell),
+                              ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.white,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(AppAssets.bell),
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          CarouselSlider(
+                            carouselController: _controller,
+                            options: CarouselOptions(
+                              height: 220,
+                              initialPage: 0,
+                              autoPlay: true,
+                              autoPlayInterval: const Duration(seconds: 3),
+                              autoPlayAnimationDuration:
+                                  const Duration(milliseconds: 800),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _current = index;
+                                });
+                              },
+                            ),
+                            items: model.events!.map((i) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  return SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 4),
+                                      child: model.events != null
+                                          ? CachedNetworkImage(
+                                              imageUrl: model.events!.media,
+                                              imageBuilder:
+                                                  (context, imageProvider) {
+                                                return Container(
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              placeholder: (context, url) =>
+                                                  Image.asset(AppAssets.avatar),
+                                              errorWidget: (context, url,
+                                                      error) =>
+                                                  Image.asset(AppAssets.avatar),
+                                            )
+                                          : Image.asset(AppAssets.avatar),
+                                    ),
+                                  );
+                                },
+                              );
+                            }).toList(),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:
+                                model.events!.asMap().entries.map((entry) {
+                              return GestureDetector(
+                                onTap: () =>
+                                    _controller.animateToPage(entry.key),
+                                child: Container(
+                                  width: 7.0,
+                                  height: 7.0,
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 3.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: (Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? AppColors.white
+                                            : AppColors.primaryColor)
+                                        .withOpacity(
+                                            _current == entry.key ? 0.9 : 0.4),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                          const Gap(10),
+                          Container(
+                            height: 32,
+                            padding: const EdgeInsets.symmetric(horizontal: 21),
+                            decoration: BoxDecoration(
+                              color: AppColors.background,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              children: List<Widget>.generate(
+                                3,
+                                (int index) {
+                                  return _buildTabItem(
+                                    text: [
+                                      'ROCK',
+                                      'ROCK News',
+                                      'Catholic News'
+                                    ][index],
+                                    isActive: _selectedTabIndex == index,
+                                    onPressed: () => _onTabItemPressed(index),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          const Gap(27.24),
+                          Expanded(
+                            child: TabBarView(
+                              controller: _tabController,
+                              children: const [
+                                TabOne(),
+                                TabTwo(),
+                                TabThree(),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  CarouselSlider(
-                    carouselController: _controller,
-                    options: CarouselOptions(
-                      height: 220,
-                      initialPage: 0,
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 3),
-                      autoPlayAnimationDuration:
-                          const Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _current = index;
-                        });
-                      },
-                    ),
-                    items: slider.map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              child: Image.asset(i),
-                            ),
-                          );
-                        },
-                      );
-                    }).toList(),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: slider.asMap().entries.map((entry) {
-                      return GestureDetector(
-                        onTap: () => _controller.animateToPage(entry.key),
-                        child: Container(
-                          width: 7.0,
-                          height: 7.0,
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 3.0),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: (Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? AppColors.white
-                                    : AppColors.primaryColor)
-                                .withOpacity(_current == entry.key ? 0.9 : 0.4),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                  const Gap(10),
-                  Container(
-                    height: 32,
-                    padding: const EdgeInsets.symmetric(horizontal: 21),
-                    decoration: BoxDecoration(
-                      color: AppColors.background,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: List<Widget>.generate(
-                        3,
-                        (int index) {
-                          return _buildTabItem(
-                            text: ['ROCK', 'ROCK News', 'Catholic News'][index],
-                            isActive: _selectedTabIndex == index,
-                            onPressed: () => _onTabItemPressed(index),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  const Gap(27.24),
-                  Expanded(
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: const [
-                        TabOne(),
-                        TabTwo(),
-                        TabThree(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+                );
+              })),
     );
   }
 }
