@@ -7,6 +7,7 @@ import 'package:rockapp/core/errors/exceptions.dart';
 import 'package:rockapp/core/errors/failure.dart';
 import 'package:rockapp/core/networks/api_request.dart';
 import 'package:rockapp/locator.dart';
+import 'package:rockapp/model/events.dart';
 import 'package:rockapp/model/users.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
@@ -14,6 +15,9 @@ import 'package:stacked/stacked.dart';
 abstract class AuthenticationService with ReactiveServiceMixin {
   late User _user;
   User get user => _user;
+  List<EventInfo>? _eventDetails;
+  List<EventInfo>? get eventDetails => _eventDetails;
+
   Future<Either<Failure, String>> login({
     required String email,
     required String password,
@@ -35,6 +39,7 @@ class AuthenticationServiceImpl extends AuthenticationService {
     required String email,
     required String password,
   }) async {
+    _eventDetails = null;
     try {
       final response =
           await _apiServiceRequester.post(url: 'user/login', body: {
@@ -48,8 +53,15 @@ class AuthenticationServiceImpl extends AuthenticationService {
       var prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', response.data['data']['token']);
       await prefs.setString('user', jsonEncode(response.data['data']));
-
       _user = User.fromJson(response.data['data']);
+
+      // loop list and inside into model
+      var responseEventData = response.data['data']['events'];
+      var _eventData = <EventInfo>[];
+      for (var i = 0; i < responseEventData.length; i++) {
+        _eventData.add(EventInfo.fromJson(responseEventData[i]));
+      }
+      _eventDetails = _eventData;
       return const Right('Login successful');
     } catch (e) {
       Logger().d('$e');
