@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
@@ -5,12 +7,13 @@ import 'package:rockapp/core/errors/exceptions.dart';
 import 'package:rockapp/core/errors/failure.dart';
 import 'package:rockapp/core/networks/api_request.dart';
 import 'package:rockapp/locator.dart';
+import 'package:rockapp/model/users.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
 abstract class AuthenticationService with ReactiveServiceMixin {
-  // late User _user;
-  // User get user => _user;
+  late User _user;
+  User get user => _user;
   Future<Either<Failure, String>> login({
     required String email,
     required String password,
@@ -38,12 +41,16 @@ class AuthenticationServiceImpl extends AuthenticationService {
         'email': email,
         'password': password,
       });
-      var prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', response.data['data']['token']);
+
       if (!response.data['status']) {
         return Left(ServerFailure(message: response.data['message']));
       }
-      return const Right('Login successfull');
+      var prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', response.data['data']['token']);
+      await prefs.setString('user', jsonEncode(response.data['data']));
+
+      _user = User.fromJson(response.data['data']);
+      return const Right('Login successful');
     } catch (e) {
       Logger().d('$e');
       if (e is NoInternetException) {
