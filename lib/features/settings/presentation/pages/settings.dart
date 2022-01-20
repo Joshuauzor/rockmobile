@@ -5,7 +5,6 @@ import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/core/navigators/navigators.dart';
-import 'package:rockapp/view_models/home/home_viewmodel.dart';
 import 'package:rockapp/view_models/home/settings_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 

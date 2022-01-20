@@ -8,6 +8,7 @@ import 'package:rockapp/core/errors/failure.dart';
 import 'package:rockapp/core/networks/api_request.dart';
 import 'package:rockapp/locator.dart';
 import 'package:rockapp/model/events.dart';
+import 'package:rockapp/model/settings.dart';
 import 'package:rockapp/model/users.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
@@ -17,6 +18,8 @@ abstract class AuthenticationService with ReactiveServiceMixin {
   User? get user => _user;
   List<EventInfo>? _eventDetails;
   List<EventInfo>? get eventDetails => _eventDetails;
+  SettingsModel? _settings;
+  SettingsModel? get settings => _settings;
 
   Future<Either<Failure, String>> login({
     required String email,
@@ -173,7 +176,7 @@ class AuthenticationServiceImpl extends AuthenticationService {
     try {
       var response =
           await _apiServiceRequester.getRequest(url: 'user/appdetails');
-      // print(response.data);
+      _settings = SettingsModel.fromJson(response.data['data']);
     } catch (e) {
       Logger().d('$e');
     }
