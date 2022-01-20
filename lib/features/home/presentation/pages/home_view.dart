@@ -9,7 +9,6 @@ import 'package:rockapp/app/views/widgets/tabs.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:rockapp/view_models/auth/login_viewmodel.dart';
 import 'package:rockapp/view_models/home/home_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -53,8 +52,8 @@ class _HomeViewState extends State<HomeView>
           backgroundColor: AppColors.background,
           body: ViewModelBuilder<HomeViewModel>.reactive(
               viewModelBuilder: () => HomeViewModel(),
+              onModelReady: (model) => model.init(),
               builder: (context, model, child) {
-                print(model.events![0].media);
                 return Column(
                   children: [
                     Container(
@@ -85,7 +84,7 @@ class _HomeViewState extends State<HomeView>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     HeaderText(
-                                      'Hello ${model.user.firstName}',
+                                      'Hello ${model.user!.firstName}',
                                       fontSize: 25,
                                       fontWeight: FontWeight.w600,
                                       color: AppColors.white,
@@ -118,13 +117,14 @@ class _HomeViewState extends State<HomeView>
                     Expanded(
                       child: Column(
                         children: [
+                          const Gap(15),
                           CarouselSlider(
                             carouselController: _controller,
                             options: CarouselOptions(
-                              height: 220,
+                              height: 231,
                               initialPage: 0,
                               autoPlay: true,
-                              autoPlayInterval: const Duration(seconds: 3),
+                              autoPlayInterval: const Duration(seconds: 4),
                               autoPlayAnimationDuration:
                                   const Duration(milliseconds: 800),
                               autoPlayCurve: Curves.fastOutSlowIn,
@@ -141,15 +141,15 @@ class _HomeViewState extends State<HomeView>
                                     width: MediaQuery.of(context).size.width,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 4),
-                                      child: model.events != null
+                                          horizontal: 8),
+                                      child: i.media != null
                                           ? CachedNetworkImage(
-                                              imageUrl: model.events!.media,
+                                              imageUrl: i.media!,
                                               imageBuilder:
                                                   (context, imageProvider) {
                                                 return Container(
                                                   decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
+                                                    shape: BoxShape.rectangle,
                                                     image: DecorationImage(
                                                       image: imageProvider,
                                                       fit: BoxFit.cover,
@@ -158,12 +158,12 @@ class _HomeViewState extends State<HomeView>
                                                 );
                                               },
                                               placeholder: (context, url) =>
-                                                  Image.asset(AppAssets.avatar),
+                                                  Image.asset(AppAssets.exodus),
                                               errorWidget: (context, url,
                                                       error) =>
-                                                  Image.asset(AppAssets.avatar),
+                                                  Image.asset(AppAssets.exodus),
                                             )
-                                          : Image.asset(AppAssets.avatar),
+                                          : Image.asset(AppAssets.exodus),
                                     ),
                                   );
                                 },

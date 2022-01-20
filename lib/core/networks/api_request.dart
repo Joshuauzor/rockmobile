@@ -66,7 +66,6 @@ class ApiServiceRequester {
     if (await _connectivityInfo.isConnected) {
       var prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token');
-
       dio.options.headers['Authorization'] = 'Bearer $token';
       dio.options.contentType = 'application/json';
 

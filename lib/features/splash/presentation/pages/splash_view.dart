@@ -17,7 +17,7 @@ class SplashView extends StatelessWidget {
         backgroundColor: AppColors.primaryColor,
         body: ViewModelBuilder<SplashViewModel>.nonReactive(
             viewModelBuilder: () => SplashViewModel(),
-            onModelReady: (model) => model.init(context: context),
+            onModelReady: (model) => model.checkUserLoggedIn(context: context),
             builder: (context, model, child) {
               return Center(
                 child: SizedBox(

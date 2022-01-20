@@ -8,8 +8,16 @@ class HomeViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       sl<AuthenticationService>();
 
-  User get user => _authenticationService.user;
+  User? get user => _authenticationService.user;
   List<EventInfo>? get events => _authenticationService.eventDetails;
 
-  void init() async {}
+  void init() async {
+    await fetchSettingsInfo();
+  }
+
+  Future fetchSettingsInfo() async {
+    setBusy(true);
+    _authenticationService.fetchSettingsInfo();
+    setBusy(false);
+  }
 }

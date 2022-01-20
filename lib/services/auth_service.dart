@@ -13,8 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
 abstract class AuthenticationService with ReactiveServiceMixin {
-  late User _user;
-  User get user => _user;
+  User? _user;
+  User? get user => _user;
   List<EventInfo>? _eventDetails;
   List<EventInfo>? get eventDetails => _eventDetails;
 
@@ -29,6 +29,10 @@ abstract class AuthenticationService with ReactiveServiceMixin {
     required String email,
     required String password,
   });
+
+  Future<bool> isUserLoggedIn();
+  Future<void> fetchSettingsInfo();
+  Future<void> logout();
 }
 
 class AuthenticationServiceImpl extends AuthenticationService {
@@ -55,12 +59,13 @@ class AuthenticationServiceImpl extends AuthenticationService {
       await prefs.setString('user', jsonEncode(response.data['data']));
       _user = User.fromJson(response.data['data']);
 
-      // loop list and inside into model
+      // loop list and insert into model
       var responseEventData = response.data['data']['events'];
       var _eventData = <EventInfo>[];
       for (var i = 0; i < responseEventData.length; i++) {
         _eventData.add(EventInfo.fromJson(responseEventData[i]));
       }
+      // await prefs.setString('events', jsonEncode(_eventDetails));
       _eventDetails = _eventData;
       return const Right('Login successful');
     } catch (e) {
@@ -132,6 +137,45 @@ class AuthenticationServiceImpl extends AuthenticationService {
         }
       }
       return Left(UnknownFailure());
+    }
+  }
+
+  @override
+  Future<bool> isUserLoggedIn() async {
+    var prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    if (token != null) {
+      var userData = prefs.getString('user');
+      _user = User.fromJson(jsonDecode(userData!));
+
+      var eventJsonDecoded = jsonDecode(userData)['events'];
+      var _eventData = <EventInfo>[];
+      for (var i = 0; i < eventJsonDecoded!.length; i++) {
+        _eventData.add(EventInfo.fromJson(eventJsonDecoded[i]));
+      }
+      _eventDetails = _eventData;
+    }
+
+    return user != null;
+  }
+
+  @override
+  Future<void> logout() async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.remove('user');
+    await prefs.remove('token');
+    await prefs.remove('events');
+    return;
+  }
+
+  @override
+  Future fetchSettingsInfo() async {
+    try {
+      var response =
+          await _apiServiceRequester.getRequest(url: 'user/appdetails');
+      // print(response.data);
+    } catch (e) {
+      Logger().d('$e');
     }
   }
 }

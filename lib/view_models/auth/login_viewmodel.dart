@@ -54,4 +54,12 @@ class LoginViewModel extends BaseModel {
     });
     setBusy(false);
   }
+
+  Future logout(BuildContext context) async {
+    setBusy(true);
+    await _authenticationService.logout();
+    setBusy(false);
+    Navigator.pushNamedAndRemoveUntil(
+        context, Routes.loginView, (route) => false);
+  }
 }

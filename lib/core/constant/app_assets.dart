@@ -24,4 +24,5 @@ class AppAssets {
   static const String arrowright = 'assets/icons/arrow_right.svg';
   static const String arrowLeft = 'assets/icons/arrow_left.svg';
   static const String logout = 'assets/icons/logout.svg';
+  static const String exodus = 'assets/images/exodus.jpeg';
 }
