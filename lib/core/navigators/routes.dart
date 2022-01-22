@@ -9,4 +9,6 @@ class Routes {
   static const String privacyPolicy = 'privacyPolicy';
   static const String about = 'about';
   static const String terms = 'terms';
+  static const String membership = 'membership';
+  static const String rules = 'rules';
 }

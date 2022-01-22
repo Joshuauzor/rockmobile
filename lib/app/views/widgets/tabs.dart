@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/views/widgets/home_features.dart';
 import 'package:rockapp/core/constant/constant.dart';
+import 'package:rockapp/core/navigators/navigators.dart';
 
 class TabOne extends StatelessWidget {
   const TabOne({
@@ -63,18 +65,36 @@ class TabTwo extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 23.56,
           mainAxisSpacing: 23.56,
-          children: const [
-            HomeFeatures(
-              icon: AppAssets.about,
-              title: 'About ROCK',
+          children: [
+            TouchableOpacity(
+              onTap: () => Navigator.pushNamed(
+                context,
+                Routes.membership,
+              ),
+              child: const HomeFeatures(
+                icon: AppAssets.about,
+                title: 'About ROCK',
+              ),
             ),
-            HomeFeatures(
-              icon: AppAssets.rules,
-              title: 'Rules & Regulations',
+            TouchableOpacity(
+              onTap: () => Navigator.pushNamed(
+                context,
+                Routes.rules,
+              ),
+              child: const HomeFeatures(
+                icon: AppAssets.rules,
+                title: 'Rules & Regulations',
+              ),
             ),
-            HomeFeatures(
-              icon: AppAssets.members,
-              title: 'Membership',
+            TouchableOpacity(
+              onTap: () => Navigator.pushNamed(
+                context,
+                Routes.membership,
+              ),
+              child: const HomeFeatures(
+                icon: AppAssets.members,
+                title: 'Membership',
+              ),
             ),
             HomeFeatures(
               icon: AppAssets.news,

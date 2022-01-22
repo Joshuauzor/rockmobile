@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rockapp/core/navigators/routes.dart';
 import 'package:rockapp/features/auth/auth.dart';
 import 'package:rockapp/features/home/home.dart';
+import 'package:rockapp/features/home/presentation/pages/rules_view.dart';
 import 'package:rockapp/features/media/media.dart';
 import 'package:rockapp/features/settings/presentation/pages/about.dart';
 import 'package:rockapp/features/settings/presentation/pages/privacy_policy.dart';
@@ -72,6 +73,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const Terms(),
       );
 
+    case Routes.membership:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const MembershipView(),
+      );
+
+    case Routes.rules:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const RulesView(),
+      );
     default:
       return MaterialPageRoute(
         builder: (_) => Scaffold(
