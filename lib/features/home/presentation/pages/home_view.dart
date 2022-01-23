@@ -40,7 +40,6 @@ class _HomeViewState extends State<HomeView>
     });
   }
 
-  // List slider = [AppAssets.intersect, AppAssets.intersect, AppAssets.intersect];
   int _current = 0;
   final CarouselController _controller = CarouselController();
 

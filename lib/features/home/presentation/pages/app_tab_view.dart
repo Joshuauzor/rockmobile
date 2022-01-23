@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/views/widgets/bottom_navbar.dart';
 import 'package:rockapp/core/constant/constant.dart';
+import 'package:rockapp/features/books/books.dart';
 import 'package:rockapp/features/home/home.dart';
 import 'package:rockapp/features/settings/presentation/pages/settings.dart';
 
@@ -34,7 +35,7 @@ class _AppTabViewState extends State<AppTabView> {
   Widget build(BuildContext context) {
     var _widgetOptions = <Widget?>[
       Container(),
-      Container(),
+      const BookStore(),
       const HomeView(),
       Container(),
       const Settings(),

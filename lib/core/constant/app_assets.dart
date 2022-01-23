@@ -25,4 +25,7 @@ class AppAssets {
   static const String arrowLeft = 'assets/icons/arrow_left.svg';
   static const String logout = 'assets/icons/logout.svg';
   static const String exodus = 'assets/images/exodus.jpeg';
+  static const String search = 'assets/icons/search.svg';
+  static const String bookmark = 'assets/icons/bookmark.svg';
+  static const String sampleBook = 'assets/images/booksample.png';
 }

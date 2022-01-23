@@ -12,6 +12,10 @@ class AppColors {
   static const lowerHome = Color(0xffEAEAF5);
   static const lightBlack = Color(0xff474747);
   static const neutral = Color(0x996A6A8B);
+  static const searchColor = Color(0xffCBCBCB);
+  static const lightYellow = Color(0xffF6BB22);
+  static const darkBlack = Color(0xff06070D);
+  static const darkBlacklight = Color(0x8006070D);
 
   static const Map<int, Color> colorScratch = {
     50: Color.fromRGBO(7, 45, 114, .1),
