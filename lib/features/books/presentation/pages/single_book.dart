@@ -81,6 +81,27 @@ class _SingleBookState extends State<SingleBook> {
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
                             color: AppColors.darkBlack,
+                          ),
+                          const Gap(12),
+                          const BodyText(
+                            'Rev Sam Morren',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.darkBlacklight,
+                          ),
+                          const Gap(57),
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: BodyText(
+                              'About',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.darkBlack,
+                            ),
+                          ),
+                          const Gap(4),
+                          const LongText(
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus odio eros adipiscing tristique. Eu, egestas massa morbi eget purus amet. Volutpat, tincidunt tincidunt mattis faucibus arcu sed. Cursus nisl sit tincidunt mattis dictum turpis. Sit nullam risus, tincidunt gravida adipiscing cras.',
                           )
                         ],
                       ),
