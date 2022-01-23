@@ -96,7 +96,7 @@ class TabTwo extends StatelessWidget {
                 title: 'Membership',
               ),
             ),
-            HomeFeatures(
+            const HomeFeatures(
               icon: AppAssets.news,
               title: 'ROCK News',
             ),

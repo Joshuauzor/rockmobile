@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:rockapp/core/navigators/routes.dart';
 import 'package:rockapp/features/auth/auth.dart';
+import 'package:rockapp/features/books/presentation/pages/single_book.dart';
 import 'package:rockapp/features/home/home.dart';
 import 'package:rockapp/features/home/presentation/pages/rules_view.dart';
 import 'package:rockapp/features/media/media.dart';
@@ -84,6 +85,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: const RulesView(),
       );
+
+    case Routes.singleBook:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const SingleBook(),
+      );
+
     default:
       return MaterialPageRoute(
         builder: (_) => Scaffold(

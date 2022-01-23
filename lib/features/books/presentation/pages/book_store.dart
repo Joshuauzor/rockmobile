@@ -6,6 +6,7 @@ import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/styles/ui_helpers.dart';
 import 'package:rockapp/core/constant/constant.dart';
+import 'package:rockapp/core/navigators/navigators.dart';
 import 'package:rockapp/view_models/home/settings_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -40,18 +41,11 @@ class _BookStoreState extends State<BookStore> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TouchableOpacity(
-                        onTap: () {
-                          if (Navigator.canPop(context)) {
-                            Navigator.pop(context);
-                          }
-                        },
-                        child: const HeaderText(
-                          'Book Store',
-                          color: AppColors.primaryColor,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w400,
-                        ),
+                      const HeaderText(
+                        'Book Store',
+                        color: AppColors.primaryColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w400,
                       ),
                       Image.asset(AppAssets.generallogo),
                     ],
@@ -121,28 +115,34 @@ class _BookStoreState extends State<BookStore> {
                               itemCount: _historyList.length,
                               itemBuilder: (context, index) {
                                 final item = _historyList[index];
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Image.asset(AppAssets.sampleBook),
-                                      const Gap(18),
-                                      const BodyText(
-                                        'Daily Devotional',
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.darkBlack,
-                                      ),
-                                      const Gap(3.84),
-                                      const BodyText(
-                                        'Rev Thomas',
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.darkBlacklight,
-                                      ),
-                                    ],
+                                return TouchableOpacity(
+                                  onTap: () => Navigator.pushNamed(
+                                    context,
+                                    Routes.singleBook,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Image.asset(AppAssets.sampleBook),
+                                        const Gap(18),
+                                        const BodyText(
+                                          'Daily Devotional',
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.darkBlack,
+                                        ),
+                                        const Gap(3.84),
+                                        const BodyText(
+                                          'Rev Thomas',
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.darkBlacklight,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },

@@ -11,4 +11,5 @@ class Routes {
   static const String terms = 'terms';
   static const String membership = 'membership';
   static const String rules = 'rules';
+  static const String singleBook = 'singleBook';
 }
