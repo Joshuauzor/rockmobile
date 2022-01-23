@@ -5,7 +5,7 @@ class Books {
     required this.title,
     required this.description,
     required this.price,
-    required this.bookCover,
+    this.bookCover,
     required this.author,
     required this.paid,
     required this.bookUrl,
@@ -17,7 +17,7 @@ class Books {
   final String title;
   final String description;
   final String price;
-  final String bookCover;
+  final dynamic bookCover;
   final String author;
   final String paid;
   final String bookUrl;

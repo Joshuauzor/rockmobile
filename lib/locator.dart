@@ -2,6 +2,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rockapp/services/auth_service.dart';
+import 'package:rockapp/services/home_service.dart';
 
 import 'core/networks/api_request.dart';
 import 'core/networks/connectivity_info.dart';
@@ -21,4 +22,8 @@ Future<void> setupsl() async {
   //Services
   sl.registerLazySingleton<AuthenticationService>(
       () => AuthenticationServiceImpl());
+
+  // sl.registerLazySingleton<HomeService>(() => HomeServiceImpl());
+
+  sl.registerLazySingleton<HomeService>(() => HomeServiceImpl());
 }
