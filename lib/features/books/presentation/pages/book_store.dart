@@ -55,10 +55,15 @@ class _BookStoreState extends State<BookStore> {
                   ? []
                   : model.newBooks!
                       .where(
-                        (item) => item.title.contains(
-                          RegExp(StringUtil.escapeSpecial(_searchText),
-                              caseSensitive: false),
-                        ),
+                        (item) =>
+                            item.title.contains(
+                              RegExp(StringUtil.escapeSpecial(_searchText),
+                                  caseSensitive: false),
+                            ) ||
+                            item.author.contains(
+                              RegExp(StringUtil.escapeSpecial(_searchText),
+                                  caseSensitive: false),
+                            ),
                       )
                       .toList();
           return (_bookList == null)
@@ -200,8 +205,8 @@ class _BookStoreState extends State<BookStore> {
                                                           AppColors.darkBlack,
                                                     ),
                                                     const Gap(3.84),
-                                                    const BodyText(
-                                                      'Rev Thomas',
+                                                    BodyText(
+                                                      item.author,
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -234,87 +239,10 @@ class _BookStoreState extends State<BookStore> {
                                         itemBuilder: (context, index) {
                                           final Books item = _bookList[index];
                                           // print(item.bookCover);
-                                          return Padding(
-                                            padding: const EdgeInsets.only(
-                                              bottom: 20,
-                                              right: 30,
-                                            ),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                item.bookCover == null
-                                                    ? Image.asset(
-                                                        AppAssets.sampleBook,
-                                                      )
-                                                    : CachedNetworkImage(
-                                                        imageUrl:
-                                                            item.bookCover,
-                                                        imageBuilder: (context,
-                                                            imageProvider) {
-                                                          return Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .rectangle,
-                                                              image:
-                                                                  DecorationImage(
-                                                                image:
-                                                                    imageProvider,
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                        placeholder: (context,
-                                                                url) =>
-                                                            Image.asset(AppAssets
-                                                                .sampleBook),
-                                                        errorWidget: (context,
-                                                                url, error) =>
-                                                            Image.asset(
-                                                          AppAssets.sampleBook,
-                                                        ),
-                                                      ),
-                                                const Gap(20),
-                                                Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      LongText(
-                                                        item.title,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color:
-                                                            AppColors.darkBlack,
-                                                      ),
-                                                      const Gap(3.84),
-                                                      LongText(
-                                                        item.author,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: AppColors
-                                                            .darkBlacklight,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                SvgPicture.asset(
-                                                    AppAssets.bookmark),
-                                              ],
-                                            ),
-                                          );
+                                          return VerticalBooks(item: item);
                                         },
                                       )
-                                    : const BodyText('No Books not available'),
+                                    : const BodyText('No Books available'),
                               ],
                             ),
                           ),
@@ -324,6 +252,76 @@ class _BookStoreState extends State<BookStore> {
                   ),
                 );
         },
+      ),
+    );
+  }
+}
+
+class VerticalBooks extends StatelessWidget {
+  const VerticalBooks({
+    Key? key,
+    required this.item,
+  }) : super(key: key);
+
+  final Books item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: 20,
+        right: 30,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          item.bookCover == null
+              ? Image.asset(
+                  AppAssets.sampleBook,
+                )
+              : CachedNetworkImage(
+                  imageUrl: item.bookCover,
+                  imageBuilder: (context, imageProvider) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
+                  placeholder: (context, url) =>
+                      Image.asset(AppAssets.sampleBook),
+                  errorWidget: (context, url, error) => Image.asset(
+                    AppAssets.sampleBook,
+                  ),
+                ),
+          const Gap(20),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LongText(
+                  item.title,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.darkBlack,
+                ),
+                const Gap(3.84),
+                LongText(
+                  item.author,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.darkBlacklight,
+                ),
+              ],
+            ),
+          ),
+          SvgPicture.asset(AppAssets.bookmark),
+        ],
       ),
     );
   }
