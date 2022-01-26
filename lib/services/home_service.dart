@@ -11,11 +11,16 @@ abstract class HomeService with ReactiveServiceMixin {
   List<Books>? _topBooks;
   List<Books>? get topBooks => _topBooks;
 
+  Books? _singleBook;
+  Books? get singleBook => _singleBook;
+
   Future<void> getBooks();
+  Future<void> getSingleBook({required String uuid});
 }
 
 class HomeServiceImpl extends HomeService {
   final ApiServiceRequester _apiServiceRequester = sl<ApiServiceRequester>();
+
   @override
   Future getBooks() async {
     try {
@@ -25,6 +30,18 @@ class HomeServiceImpl extends HomeService {
         responseData.add(Books.fromJson(item));
       }
       _newBooks = responseData;
+    } catch (e) {
+      Logger().d('$e');
+    }
+  }
+
+  @override
+  Future getSingleBook({required uuid}) async {
+    _newBooks = null;
+    try {
+      var response = await _apiServiceRequester.getRequest(
+          url: 'books/fetchSingle?book_id=$uuid');
+      _singleBook = Books.fromJson(response.data['data']);
     } catch (e) {
       Logger().d('$e');
     }

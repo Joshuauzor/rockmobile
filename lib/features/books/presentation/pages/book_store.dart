@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
@@ -10,6 +9,8 @@ import 'package:rockapp/app/views/widgets/widgets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/core/extensions/string_extensions.dart';
 import 'package:rockapp/core/navigators/navigators.dart';
+import 'package:rockapp/features/books/books.dart';
+import 'package:rockapp/features/books/presentation/pages/single_book.dart';
 import 'package:rockapp/model/books.dart';
 import 'package:rockapp/view_models/home/books_viewmodel.dart';
 import 'package:stacked/stacked.dart';
@@ -159,6 +160,9 @@ class _BookStoreState extends State<BookStore> {
                                               onTap: () => Navigator.pushNamed(
                                                 context,
                                                 Routes.singleBook,
+                                                arguments: SingleBooksArgs(
+                                                  uuid: item.uuid,
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
@@ -239,7 +243,16 @@ class _BookStoreState extends State<BookStore> {
                                         itemBuilder: (context, index) {
                                           final Books item = _bookList[index];
                                           // print(item.bookCover);
-                                          return VerticalBooks(item: item);
+                                          return TouchableOpacity(
+                                            onTap: () => Navigator.pushNamed(
+                                              context,
+                                              Routes.singleBook,
+                                              arguments: SingleBooksArgs(
+                                                uuid: item.uuid,
+                                              ),
+                                            ),
+                                            child: VerticalBooks(item: item),
+                                          );
                                         },
                                       )
                                     : const BodyText('No Books available'),
@@ -252,76 +265,6 @@ class _BookStoreState extends State<BookStore> {
                   ),
                 );
         },
-      ),
-    );
-  }
-}
-
-class VerticalBooks extends StatelessWidget {
-  const VerticalBooks({
-    Key? key,
-    required this.item,
-  }) : super(key: key);
-
-  final Books item;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 20,
-        right: 30,
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          item.bookCover == null
-              ? Image.asset(
-                  AppAssets.sampleBook,
-                )
-              : CachedNetworkImage(
-                  imageUrl: item.bookCover,
-                  imageBuilder: (context, imageProvider) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  },
-                  placeholder: (context, url) =>
-                      Image.asset(AppAssets.sampleBook),
-                  errorWidget: (context, url, error) => Image.asset(
-                    AppAssets.sampleBook,
-                  ),
-                ),
-          const Gap(20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                LongText(
-                  item.title,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.darkBlack,
-                ),
-                const Gap(3.84),
-                LongText(
-                  item.author,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.darkBlacklight,
-                ),
-              ],
-            ),
-          ),
-          SvgPicture.asset(AppAssets.bookmark),
-        ],
       ),
     );
   }

@@ -87,9 +87,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
 
     case Routes.singleBook:
+      final args = settings.arguments as SingleBooksArgs;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: const SingleBook(),
+        viewToShow: SingleBook(
+          params: args,
+        ),
       );
 
     default:

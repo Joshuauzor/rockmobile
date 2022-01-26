@@ -10,6 +10,7 @@ class Books {
     required this.paid,
     required this.bookUrl,
     required this.deleted,
+    this.purchaseLink,
   });
 
   final int bookId;
@@ -22,6 +23,7 @@ class Books {
   final String paid;
   final String bookUrl;
   final String deleted;
+  final dynamic purchaseLink;
 
   factory Books.fromJson(Map<String, dynamic> json) => Books(
         bookId: json['book_id'],
@@ -34,6 +36,7 @@ class Books {
         paid: json['paid'],
         bookUrl: json['book_url'],
         deleted: json['deleted'],
+        purchaseLink: json['purchaseLink'],
       );
 
   Map<String, dynamic> toJson() => {

@@ -8,10 +8,19 @@ class BooksViewModel extends BaseModel {
 
   List<Books>? get topBooks => _homeService.topBooks;
   List<Books>? get newBooks => _homeService.newBooks;
+  Books? get singleBook => _homeService.singleBook;
 
   void init() async {
     setBusy(true);
     await _homeService.getBooks();
+    setBusy(false);
+  }
+
+  Future getSingleBook({
+    required uuid,
+  }) async {
+    setBusy(true);
+    await _homeService.getSingleBook(uuid: uuid);
     setBusy(false);
   }
 }
