@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -81,7 +82,28 @@ class _SingleBookState extends State<SingleBook> {
                                   ),
                                 ),
                                 const Gap(38),
-                                Image.asset(AppAssets.sampleBook),
+                                CachedNetworkImage(
+                                  imageUrl: model.singleBook!.bookCover,
+                                  imageBuilder: (context, imageProvider) {
+                                    print(model.singleBook!.bookCover);
+
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.rectangle,
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  placeholder: (context, url) =>
+                                      Image.asset(AppAssets.sampleBook),
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset(
+                                    AppAssets.sampleBook,
+                                  ),
+                                ),
                                 const Gap(20),
                                 BodyText(
                                   model.singleBook!.title,

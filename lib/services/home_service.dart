@@ -37,7 +37,7 @@ class HomeServiceImpl extends HomeService {
 
   @override
   Future getSingleBook({required uuid}) async {
-    _newBooks = null;
+    _singleBook = null;
     try {
       var response = await _apiServiceRequester.getRequest(
           url: 'books/fetchSingle?book_id=$uuid');
