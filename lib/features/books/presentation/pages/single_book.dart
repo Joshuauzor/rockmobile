@@ -83,10 +83,10 @@ class _SingleBookState extends State<SingleBook> {
                                 ),
                                 const Gap(38),
                                 CachedNetworkImage(
-                                  imageUrl: model.singleBook!.bookCover,
+                                  imageUrl:
+                                      'https://rockapostolate.org/public/users/books/1640205994_f75d93a5d394458e78a3.jpg',
+                                  // imageUrl: model.singleBook!.bookCover,
                                   imageBuilder: (context, imageProvider) {
-                                    print(model.singleBook!.bookCover);
-
                                     return Container(
                                       decoration: BoxDecoration(
                                         shape: BoxShape.rectangle,

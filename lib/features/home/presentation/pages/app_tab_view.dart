@@ -4,6 +4,7 @@ import 'package:rockapp/app/views/widgets/bottom_navbar.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/features/books/books.dart';
 import 'package:rockapp/features/home/home.dart';
+import 'package:rockapp/features/music/music.dart';
 import 'package:rockapp/features/settings/presentation/pages/settings.dart';
 
 class AppTabView extends StatefulWidget {
@@ -37,7 +38,7 @@ class _AppTabViewState extends State<AppTabView> {
       Container(),
       const BookStore(),
       const HomeView(),
-      Container(),
+      const MusicLibrary(),
       const Settings(),
     ];
     return Scaffold(
