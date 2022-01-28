@@ -19,6 +19,7 @@ class MusicLibrary extends StatefulWidget {
 
 class _MusicLibraryState extends State<MusicLibrary> {
   final _searchController = TextEditingController();
+
   String _searchText = '';
 
   @override
@@ -32,11 +33,25 @@ class _MusicLibraryState extends State<MusicLibrary> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() async {
+  //   _searchController.dispose();
+  //   super.dispose();
+  //   await audioPlayer.stop();
+  // }
+  // @override
+  // Future<void> dispose() async {
+  //   super.dispose(); //change here
+  //   await audioPlayer.stop();
+  //   print('stop nah');
+  // }
+  // @override
+  // Future<void> dispose() async {
+  //   _searchController.dispose();
+  //   super.dispose(); //change here
+  //   await audioPlayer.stop();
+  //   print('disposing');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +59,7 @@ class _MusicLibraryState extends State<MusicLibrary> {
       body: ViewModelBuilder<MusicViewModel>.reactive(
         viewModelBuilder: () => MusicViewModel(),
         onModelReady: (model) => model.init(),
+        disposeViewModel: false,
         builder: (context, model, child) {
           final _musicList = _searchText.isEmpty
               ? model.audioMusic
@@ -125,20 +141,24 @@ class _MusicLibraryState extends State<MusicLibrary> {
                           ),
                         ),
                         const Gap(26),
-                        Expanded(
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: _musicList.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final Music item = _musicList[index];
-                              return MusicTile(
-                                  title: item.title,
-                                  coverImage: item.coverImage,
-                                  media: item.media);
-                            },
-                          ),
-                        ),
+                        _musicList.isNotEmpty
+                            ? Expanded(
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: _musicList.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    final Music item = _musicList[index];
+                                    return MusicTile(
+                                      title: item.title,
+                                      coverImage: item.coverImage,
+                                      media: item.media,
+                                      busy: model.busy,
+                                    );
+                                  },
+                                ),
+                              )
+                            : const BodyText('No Music available'),
                       ],
                     ),
                   ),

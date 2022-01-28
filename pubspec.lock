@@ -195,6 +195,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
+  flutter_credo:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "0db06c6b4d442fc4a9127d7b4a51861530a471fb"
+      url: "https://github.com/nugitech/credo-flutter-sdk.git"
+    source: git
+    version: "0.1.0"
   flutter_dotenv:
     dependency: "direct main"
     description:
@@ -630,6 +639,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  webview_flutter:
+    dependency: transitive
+    description:
+      name: webview_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
+  webview_flutter_android:
+    dependency: transitive
+    description:
+      name: webview_flutter_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.8.2"
+  webview_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: webview_flutter_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.8.1"
+  webview_flutter_wkwebview:
+    dependency: transitive
+    description:
+      name: webview_flutter_wkwebview
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.7.1"
   win32:
     dependency: transitive
     description:

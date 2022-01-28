@@ -48,6 +48,7 @@ class _BookStoreState extends State<BookStore> {
     return Scaffold(
       body: ViewModelBuilder<BooksViewModel>.reactive(
         viewModelBuilder: () => BooksViewModel(),
+        disposeViewModel: false,
         onModelReady: (model) => model.init(),
         builder: (context, model, child) {
           final _bookList = _searchText.isEmpty

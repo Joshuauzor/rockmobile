@@ -22,25 +22,33 @@ class MusicViewModel extends BaseModel {
     setBusy(false);
   }
 
-  stop() async {
-    setBusy(true);
-    await audioPlayer.stop();
-    setBusy(false);
-  }
-
   resume() async {
     setBusy(true);
     await audioPlayer.resume();
     setBusy(false);
   }
 
-  void init() {
-    fetchMusic();
+  seek() async {
+    await audioPlayer.seek(const Duration(milliseconds: 1200));
   }
 
-  Future fetchMusic() async {
+  // stop() async {
+  //   setBusy(true);
+  //   await audioPlayer.stop();
+  //   setBusy(false);
+  // }
+
+  void init() async {
     setBusy(true);
     await _homeService.getMusic();
     setBusy(false);
   }
+
+  Future fetchMusic() async {}
+
+  // await audioPlayer.setReleaseMode(ReleaseMode.STOP); // set release mode so that it never releases
+//     RELEASE: default mode, will release after stop/completed.
+// STOP: will never release; calling play should be faster.
+// LOOP
+
 }
