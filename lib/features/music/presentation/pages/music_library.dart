@@ -1,13 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/views/widgets/widgets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/core/extensions/string_extensions.dart';
-import 'package:rockapp/view_models/home/books_viewmodel.dart';
+import 'package:rockapp/features/music/presentation/widgets/widgets.dart';
+import 'package:rockapp/model/music.dart';
+import 'package:rockapp/view_models/home/music_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class MusicLibrary extends StatefulWidget {
@@ -41,15 +41,15 @@ class _MusicLibraryState extends State<MusicLibrary> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ViewModelBuilder<BooksViewModel>.reactive(
-        viewModelBuilder: () => BooksViewModel(),
+      body: ViewModelBuilder<MusicViewModel>.reactive(
+        viewModelBuilder: () => MusicViewModel(),
         onModelReady: (model) => model.init(),
         builder: (context, model, child) {
-          final _bookList = _searchText.isEmpty
-              ? model.newBooks
-              : model.newBooks == null
+          final _musicList = _searchText.isEmpty
+              ? model.audioMusic
+              : model.audioMusic == null
                   ? []
-                  : model.newBooks!
+                  : model.audioMusic!
                       .where(
                         (item) =>
                             item.title.contains(
@@ -62,7 +62,7 @@ class _MusicLibraryState extends State<MusicLibrary> {
                             ),
                       )
                       .toList();
-          return (_bookList == null)
+          return _musicList == null
               ? const Center(
                   child: Loader(),
                 )
@@ -126,125 +126,17 @@ class _MusicLibraryState extends State<MusicLibrary> {
                         ),
                         const Gap(26),
                         Expanded(
-                          child: ListView(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 27),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 60,
-                                          width: 60,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                blurRadius: 4,
-                                                spreadRadius: 0,
-                                                offset: Offset(0, 4),
-                                                color: AppColors.lightDark,
-                                              ),
-                                            ],
-                                            color: AppColors.white,
-                                          ),
-                                          child: CachedNetworkImage(
-                                            imageUrl:
-                                                'https://rockapostolate.org/public/users/events/1640360195_8200ef6d3e7aab67d64e.jpeg',
-                                            imageBuilder:
-                                                (context, imageProvider) {
-                                              return Container(
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                    image: imageProvider,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            placeholder: (context, url) =>
-                                                Image.asset(
-                                                    AppAssets.musicDemo),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    Image.asset(
-                                                        AppAssets.musicDemo),
-                                          ),
-                                        ),
-                                        const Gap(8),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const BodyText(
-                                              'Above all powers',
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                              color: AppColors.black,
-                                            ),
-                                            const Gap(7),
-                                            Container(
-                                              padding: const EdgeInsets.all(4),
-                                              decoration: const BoxDecoration(
-                                                shape: BoxShape.rectangle,
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(4),
-                                                ),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    blurRadius: 4,
-                                                    spreadRadius: 0,
-                                                    offset: Offset(0, 4),
-                                                    color: AppColors.lightDark,
-                                                  ),
-                                                ],
-                                                color: AppColors.primaryColor,
-                                              ),
-                                              child: const BodyText(
-                                                '22 MIN',
-                                                color: AppColors.white,
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.all(17),
-                                      width: 51,
-                                      height: 53,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(7),
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 4,
-                                            spreadRadius: 0,
-                                            offset: Offset(0, 4),
-                                            color: AppColors.lightDark,
-                                          ),
-                                        ],
-                                        color: AppColors.milk,
-                                      ),
-                                      child: SvgPicture.asset(
-                                        AppAssets.play,
-                                        width: 15,
-                                        height: 17.42,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _musicList.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              final Music item = _musicList[index];
+                              return MusicTile(
+                                  title: item.title,
+                                  coverImage: item.coverImage,
+                                  media: item.media);
+                            },
                           ),
                         ),
                       ],

@@ -28,6 +28,6 @@ class AppAssets {
   static const String search = 'assets/icons/search.svg';
   static const String bookmark = 'assets/icons/bookmark.svg';
   static const String sampleBook = 'assets/images/booksample.png';
-  static const String musicDemo = 'assets/images/music_demo.png';
   static const String play = 'assets/icons/play.svg';
+  static const String pause = 'assets/icons/pause.svg';
 }
