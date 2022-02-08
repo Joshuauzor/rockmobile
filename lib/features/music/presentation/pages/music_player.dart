@@ -23,14 +23,15 @@ class MusicPlayerView extends StatefulWidget {
 
 class _MusicPlayerViewState extends State<MusicPlayerView> {
   AudioPlayer audioPlayer = AudioPlayer();
-  bool _playing = false;
-  bool _paused = true;
+  PlayingState _playerState = PlayingState.idle;
 
   void _handlePlaying() {
     setState(() {
-      _playing = !_playing;
-      _paused = !_paused;
-      // notify listener
+      _playerState = _playerState == PlayingState.idle
+          ? PlayingState.playing
+          : _playerState == PlayingState.playing
+              ? PlayingState.pause
+              : PlayingState.playing;
     });
   }
 
@@ -137,16 +138,13 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
                               const Gap(35),
                               TouchableOpacity(
                                 onTap: () async {
-                                  print(_playing);
-                                  print(_paused);
-
-                                  _playing
-                                      ? await audioPlayer.pause()
-                                      : _paused
-                                          ? await audioPlayer.resume()
-                                          : await audioPlayer.play(
-                                              widget.params.media,
-                                            );
+                                  _playerState == PlayingState.idle
+                                      ? await audioPlayer.play(
+                                          widget.params.media,
+                                        )
+                                      : _playerState == PlayingState.playing
+                                          ? await audioPlayer.pause()
+                                          : await audioPlayer.resume();
                                   _handlePlaying();
                                 },
                                 child: Container(
@@ -156,13 +154,13 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
                                     shape: BoxShape.circle,
                                     color: AppColors.primaryColor,
                                   ),
-                                  child: _playing
+                                  child: PlayingState.idle == _playerState
                                       ? Image.asset(
-                                          AppAssets.pausewhite,
+                                          AppAssets.playwhite,
                                         )
-                                      : model.busy
-                                          ? const CircularProgressIndicator(
-                                              color: AppColors.primaryColor,
+                                      : _playerState == PlayingState.playing
+                                          ? Image.asset(
+                                              AppAssets.pausewhite,
                                             )
                                           : Image.asset(
                                               AppAssets.playwhite,
@@ -190,6 +188,12 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
           }),
     );
   }
+}
+
+enum PlayingState {
+  idle,
+  playing,
+  pause,
 }
 
 class MusicPlayerViewsArgs {
