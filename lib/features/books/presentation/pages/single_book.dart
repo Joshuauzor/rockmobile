@@ -24,119 +24,111 @@ class _SingleBookState extends State<SingleBook> {
     return Scaffold(
       body: ViewModelBuilder<BooksViewModel>.reactive(
         viewModelBuilder: () => BooksViewModel(),
-        onModelReady: (model) => model.getSingleBook(uuid: widget.params.uuid),
         builder: (context, model, child) {
-          return (model.singleBook == null)
-              ? const Center(
-                  child: Loader(),
-                )
-              : SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 29, right: 29),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 29, right: 29),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TouchableOpacity(
+                        onTap: () {
+                          if (Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: Row(
                           children: [
-                            TouchableOpacity(
-                              onTap: () {
-                                if (Navigator.canPop(context)) {
-                                  Navigator.pop(context);
-                                }
-                              },
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(AppAssets.arrowLeft),
-                                  const Gap(12),
-                                  const HeaderText(
-                                    'Back',
-                                    color: AppColors.lightBlack,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ],
-                              ),
+                            SvgPicture.asset(AppAssets.arrowLeft),
+                            const Gap(12),
+                            const HeaderText(
+                              'Back',
+                              color: AppColors.lightBlack,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
                             ),
-                            Image.asset(AppAssets.generallogo),
                           ],
                         ),
-                        const Gap(13),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const Align(
-                                  alignment: Alignment.topLeft,
-                                  child: HeaderText(
-                                    'Book Summary',
-                                    color: AppColors.primaryColor,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                const Gap(38),
-                                CachedNetworkImage(
-                                  imageUrl:
-                                      'https://rockapostolate.org/public/users/books/1640205994_f75d93a5d394458e78a3.jpg',
-                                  // imageUrl: model.singleBook!.bookCover,
-                                  imageBuilder: (context, imageProvider) {
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  placeholder: (context, url) =>
-                                      Image.asset(AppAssets.sampleBook),
-                                  errorWidget: (context, url, error) =>
-                                      Image.asset(
-                                    AppAssets.sampleBook,
-                                  ),
-                                ),
-                                const Gap(20),
-                                BodyText(
-                                  model.singleBook!.title,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.darkBlack,
-                                ),
-                                const Gap(12),
-                                BodyText(
-                                  model.singleBook!.author,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.darkBlacklight,
-                                ),
-                                const Gap(57),
-                                const Align(
-                                  alignment: Alignment.topLeft,
-                                  child: BodyText(
-                                    'About',
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.darkBlack,
-                                  ),
-                                ),
-                                const Gap(4),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: LongText(
-                                    model.singleBook!.description,
-                                  ),
-                                )
-                              ],
+                      ),
+                      Image.asset(AppAssets.generallogo),
+                    ],
+                  ),
+                  const Gap(13),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: HeaderText(
+                              'Book Summary',
+                              color: AppColors.primaryColor,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
-                        ),
-                      ],
+                          const Gap(38),
+                          CachedNetworkImage(
+                            imageUrl: widget.params.bookCover,
+                            imageBuilder: (context, imageProvider) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
+                            placeholder: (context, url) =>
+                                Image.asset(AppAssets.sampleBook),
+                            errorWidget: (context, url, error) => Image.asset(
+                              AppAssets.sampleBook,
+                            ),
+                          ),
+                          const Gap(20),
+                          BodyText(
+                            widget.params.title,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.darkBlack,
+                          ),
+                          const Gap(12),
+                          BodyText(
+                            widget.params.author,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.darkBlacklight,
+                          ),
+                          const Gap(57),
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: BodyText(
+                              'About',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.darkBlack,
+                            ),
+                          ),
+                          const Gap(4),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: LongText(
+                              widget.params.description,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                );
+                ],
+              ),
+            ),
+          );
         },
       ),
     );
@@ -145,5 +137,24 @@ class _SingleBookState extends State<SingleBook> {
 
 class SingleBooksArgs {
   final dynamic uuid;
-  SingleBooksArgs({required this.uuid});
+  final String title;
+  final String description;
+  final String price;
+  final dynamic bookCover;
+  final String author;
+  final String paid;
+  final String bookUrl;
+  final dynamic purchaseLink;
+
+  SingleBooksArgs({
+    required this.uuid,
+    required this.title,
+    required this.description,
+    required this.price,
+    required this.bookCover,
+    required this.author,
+    required this.paid,
+    required this.bookUrl,
+    required this.purchaseLink,
+  });
 }
