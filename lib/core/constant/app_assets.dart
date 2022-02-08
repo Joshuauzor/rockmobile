@@ -30,4 +30,10 @@ class AppAssets {
   static const String sampleBook = 'assets/images/booksample.png';
   static const String play = 'assets/icons/play.svg';
   static const String pause = 'assets/icons/pause.svg';
+  static const String repeat = 'assets/icons/repeat.svg';
+  static const String next = 'assets/icons/next.svg';
+  static const String previous = 'assets/icons/previous.svg';
+  static const String volumeUp = 'assets/icons/volumeUp.svg';
+  static const String playwhite = 'assets/icons/playwhite.png';
+  static const String pausewhite = 'assets/icons/pausewhite.png';
 }
