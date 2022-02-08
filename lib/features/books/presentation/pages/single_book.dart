@@ -19,13 +19,6 @@ class SingleBook extends StatefulWidget {
 }
 
 class _SingleBookState extends State<SingleBook> {
-  final _searchController = TextEditingController();
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +53,7 @@ class _SingleBookState extends State<SingleBook> {
                                     'Back',
                                     color: AppColors.lightBlack,
                                     fontSize: 17,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ],
                               ),

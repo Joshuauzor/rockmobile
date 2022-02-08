@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
+import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/views/widgets/widgets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/core/extensions/string_extensions.dart';
-import 'package:rockapp/features/music/presentation/widgets/widgets.dart';
+import 'package:rockapp/core/navigators/routes.dart';
+import 'package:rockapp/features/music/music.dart';
 import 'package:rockapp/model/music.dart';
 import 'package:rockapp/view_models/home/music_viewmodel.dart';
 import 'package:stacked/stacked.dart';
@@ -149,11 +151,24 @@ class _MusicLibraryState extends State<MusicLibrary> {
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     final Music item = _musicList[index];
-                                    return MusicTile(
-                                      title: item.title,
-                                      coverImage: item.coverImage,
-                                      media: item.media,
-                                      busy: model.busy,
+                                    return TouchableOpacity(
+                                      onTap: () => Navigator.pushNamed(
+                                        context,
+                                        Routes.musicPlayerView,
+                                        arguments: MusicPlayerViewsArgs(
+                                          uuid: item.uuid,
+                                          coverImage: item.coverImage,
+                                          title: item.title,
+                                          media: item.media,
+                                          author: item.author,
+                                        ),
+                                      ),
+                                      child: MusicTile(
+                                        title: item.title,
+                                        coverImage: item.coverImage,
+                                        media: item.media,
+                                        busy: model.busy,
+                                      ),
                                     );
                                   },
                                 ),

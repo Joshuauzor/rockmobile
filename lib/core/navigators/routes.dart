@@ -12,4 +12,5 @@ class Routes {
   static const String membership = 'membership';
   static const String rules = 'rules';
   static const String singleBook = 'singleBook';
+  static const String musicPlayerView = 'musicPlayerView';
 }
