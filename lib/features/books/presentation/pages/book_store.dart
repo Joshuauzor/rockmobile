@@ -163,6 +163,15 @@ class _BookStoreState extends State<BookStore> {
                                                 Routes.singleBook,
                                                 arguments: SingleBooksArgs(
                                                   uuid: item.uuid,
+                                                  title: item.title,
+                                                  description: item.description,
+                                                  price: item.price,
+                                                  bookCover: item.bookCover,
+                                                  author: item.author,
+                                                  paid: item.paid,
+                                                  bookUrl: item.bookUrl,
+                                                  purchaseLink:
+                                                      item.purchaseLink,
                                                 ),
                                               ),
                                               child: Padding(
@@ -254,6 +263,14 @@ class _BookStoreState extends State<BookStore> {
                                               Routes.singleBook,
                                               arguments: SingleBooksArgs(
                                                 uuid: item.uuid,
+                                                title: item.title,
+                                                description: item.description,
+                                                price: item.price,
+                                                bookCover: item.bookCover,
+                                                author: item.author,
+                                                paid: item.paid,
+                                                bookUrl: item.bookUrl,
+                                                purchaseLink: item.purchaseLink,
                                               ),
                                             ),
                                             child: VerticalBooks(item: item),

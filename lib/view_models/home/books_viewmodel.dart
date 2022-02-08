@@ -15,12 +15,4 @@ class BooksViewModel extends BaseModel {
     await _homeService.getBooks();
     setBusy(false);
   }
-
-  Future getSingleBook({
-    required uuid,
-  }) async {
-    setBusy(true);
-    await _homeService.getSingleBook(uuid: uuid);
-    setBusy(false);
-  }
 }

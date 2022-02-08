@@ -19,7 +19,6 @@ abstract class HomeService with ReactiveServiceMixin {
   Books? get singleBook => _singleBook;
 
   Future<void> getBooks();
-  Future<void> getSingleBook({required String uuid});
   Future<void> getMusic();
 }
 
@@ -35,18 +34,6 @@ class HomeServiceImpl extends HomeService {
         responseData.add(Books.fromJson(item));
       }
       _newBooks = responseData;
-    } catch (e) {
-      Logger().d('$e');
-    }
-  }
-
-  @override
-  Future getSingleBook({required uuid}) async {
-    _singleBook = null;
-    try {
-      var response = await _apiServiceRequester.getRequest(
-          url: 'books/fetchSingle?book_id=$uuid');
-      _singleBook = Books.fromJson(response.data['data']);
     } catch (e) {
       Logger().d('$e');
     }

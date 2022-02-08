@@ -210,7 +210,7 @@ class _HomeViewState extends State<HomeView>
                                     text: [
                                       'ROCK',
                                       'ROCK News',
-                                      'Catholic News'
+                                      'Catholic'
                                     ][index],
                                     isActive: _selectedTabIndex == index,
                                     onPressed: () => _onTabItemPressed(index),
