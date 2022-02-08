@@ -10,13 +10,12 @@ class SplashViewModel extends BaseViewModel {
 
   Future checkUserLoggedIn({required BuildContext context}) async {
     setBusy(true);
+    await Future.delayed(const Duration(seconds: 2));
     var isUserLoggedIn = await _authenticationService.isUserLoggedIn();
     if (isUserLoggedIn) {
-      await Future.delayed(const Duration(milliseconds: 200)).whenComplete(
-          () => Navigator.pushReplacementNamed(context, Routes.appTabView));
+      Navigator.pushReplacementNamed(context, Routes.appTabView);
     } else {
-      await Future.delayed(const Duration(milliseconds: 200)).whenComplete(
-          () => Navigator.pushReplacementNamed(context, Routes.loginView));
+      Navigator.pushReplacementNamed(context, Routes.loginView);
     }
     setBusy(false);
   }

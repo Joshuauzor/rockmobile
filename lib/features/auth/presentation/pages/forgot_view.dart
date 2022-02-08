@@ -89,7 +89,9 @@ class _ForgotViewState extends State<ForgotView> {
                         ),
                         const Gap(37),
                         TextFormField(
-                          validator: (value) {},
+                          validator: (value) {
+                            return null;
+                          },
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             hintText: 'Enter email or username',

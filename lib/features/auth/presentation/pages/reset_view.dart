@@ -88,7 +88,9 @@ class _ResetViewState extends State<ResetView> {
                         ),
                         const Gap(37),
                         TextFormField(
-                          validator: (value) {},
+                          validator: (value) {
+                            return null;
+                          },
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             hintText: 'Password',
@@ -115,7 +117,9 @@ class _ResetViewState extends State<ResetView> {
                         ),
                         const Gap(24),
                         TextFormField(
-                          validator: (value) {},
+                          validator: (value) {
+                            return null;
+                          },
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             hintText: 'Confirm Password',

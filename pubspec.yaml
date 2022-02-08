@@ -48,13 +48,9 @@ dependencies:
 
   #music player
   audioplayers: ^0.20.1
-  flutter_credo:
-    git:
-      url: https://github.com/nugitech/credo-flutter-sdk.git
-      ref: master
-
-
-
+  
+  #unit test
+  device_preview: ^1.0.0
 
   #env
   flutter_dotenv: ^5.0.2
