@@ -35,26 +35,6 @@ class _MusicLibraryState extends State<MusicLibrary> {
     super.initState();
   }
 
-  // @override
-  // void dispose() async {
-  //   _searchController.dispose();
-  //   super.dispose();
-  //   await audioPlayer.stop();
-  // }
-  // @override
-  // Future<void> dispose() async {
-  //   super.dispose(); //change here
-  //   await audioPlayer.stop();
-  //   print('stop nah');
-  // }
-  // @override
-  // Future<void> dispose() async {
-  //   _searchController.dispose();
-  //   super.dispose(); //change here
-  //   await audioPlayer.stop();
-  //   print('disposing');
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

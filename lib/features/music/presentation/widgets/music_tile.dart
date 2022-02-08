@@ -33,8 +33,13 @@ class _MusicTileState extends State<MusicTile> {
   void _handlePlaying() {
     setState(() {
       _playing = !_playing;
-      // notify listener
     });
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
   }
 
   @override

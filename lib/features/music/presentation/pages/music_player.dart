@@ -36,6 +36,12 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
   }
 
   @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ViewModelBuilder<MusicViewModel>.reactive(
