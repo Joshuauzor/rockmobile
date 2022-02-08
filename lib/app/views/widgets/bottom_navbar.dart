@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 
 class FABBottomAppBar extends StatefulWidget {
@@ -35,7 +34,6 @@ class FABBottomAppBar extends StatefulWidget {
 class FABBottomAppBarState extends State<FABBottomAppBar> {
   int? _selectedIndex;
 
-  // function to update current index
   _updateIndex(int? index) {
     widget.onTabSelected!(index!);
     setState(() {
@@ -43,7 +41,6 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     });
   }
 
-  // initialize current index
   @override
   void initState() {
     _selectedIndex = widget.currentIndex;
@@ -86,6 +83,8 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     int? index,
     ValueChanged<int?>? onPressed,
   }) {
+    var color =
+        _selectedIndex == index ? widget.selectedColor : AppColors.white;
     // var color = _selectedIndex == index ? widget.selectedColor : widget.color;
     // var icon = _selectedIndex == index ? item.iconActive : item.icon;
     return Expanded(
@@ -99,7 +98,10 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(item.icon!)
+                Image.asset(
+                  item.icon!,
+                  color: color,
+                )
                 // SizedBox(
                 //   height: 21,
                 //   width: 21,

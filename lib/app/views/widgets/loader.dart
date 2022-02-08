@@ -9,7 +9,7 @@ class Loader extends StatelessWidget {
 
   const Loader({
     Key? key,
-    this.color = AppColors.grey,
+    this.color = AppColors.primaryColor,
     this.size = 20,
     this.strokeWidth = 2,
   }) : super(key: key);

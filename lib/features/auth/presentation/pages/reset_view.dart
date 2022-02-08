@@ -5,7 +5,7 @@ import 'package:rockapp/app/styles/ui_helpers.dart';
 import 'package:rockapp/app/views/widgets/next_button.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 
-import '../../../../app/styles/fonts.dart';
+import '../../../../app/styles/text_styles.dart';
 
 class ResetView extends StatefulWidget {
   const ResetView({Key? key}) : super(key: key);
@@ -88,7 +88,9 @@ class _ResetViewState extends State<ResetView> {
                         ),
                         const Gap(37),
                         TextFormField(
-                          validator: (value) {},
+                          validator: (value) {
+                            return null;
+                          },
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             hintText: 'Password',
@@ -115,7 +117,9 @@ class _ResetViewState extends State<ResetView> {
                         ),
                         const Gap(24),
                         TextFormField(
-                          validator: (value) {},
+                          validator: (value) {
+                            return null;
+                          },
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             hintText: 'Confirm Password',
