@@ -45,12 +45,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const HomeView(),
       );
 
-    case Routes.videoView:
-      return _getPageRoute(
-        routeName: settings.name,
-        viewToShow: const VideoView(),
-      );
-
     case Routes.appTabView:
       return _getPageRoute(
         routeName: settings.name,
