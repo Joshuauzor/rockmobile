@@ -45,153 +45,151 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ViewModelBuilder<MusicViewModel>.reactive(
-          viewModelBuilder: () => MusicViewModel(),
-          builder: (context, model, child) {
-            return SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 29, right: 29),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TouchableOpacity(
-                          onTap: () {
-                            if (Navigator.canPop(context)) {
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(AppAssets.arrowLeft),
-                              const Gap(12),
-                              const HeaderText(
-                                'Back',
-                                color: AppColors.lightBlack,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Gap(11.34),
-                  Expanded(
-                    child: CachedNetworkImage(
-                      imageUrl: widget.params.coverImage,
-                      imageBuilder: (context, imageProvider) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
+        viewModelBuilder: () => MusicViewModel(),
+        builder: (context, model, child) {
+          return SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 29, right: 29),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TouchableOpacity(
+                        onTap: () {
+                          if (Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(AppAssets.arrowLeft),
+                            const Gap(12),
+                            const HeaderText(
+                              'Back',
+                              color: AppColors.lightBlack,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
                             ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(11.34),
+                Expanded(
+                  child: CachedNetworkImage(
+                    imageUrl: widget.params.coverImage,
+                    imageBuilder: (context, imageProvider) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
                           ),
-                        );
-                      },
-                      placeholder: (context, url) => Image.asset(
-                        AppAssets.music,
-                        color: AppColors.black,
-                      ),
-                      errorWidget: (context, url, error) => Image.asset(
-                        AppAssets.music,
-                        color: AppColors.black,
-                      ),
+                        ),
+                      );
+                    },
+                    placeholder: (context, url) => Image.asset(
+                      AppAssets.music,
+                      color: AppColors.black,
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      AppAssets.music,
+                      color: AppColors.black,
                     ),
                   ),
-                  const Gap(125.66),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 29, right: 29),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        HeaderText(
-                          widget.params.title,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
+                ),
+                const Gap(125.66),
+                Padding(
+                  padding: const EdgeInsets.only(left: 29, right: 29),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      HeaderText(
+                        widget.params.title,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      const Gap(12),
+                      Container(
+                        width: double.infinity,
+                        height: 10,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: AppColors.primaryColor,
                         ),
-                        const Gap(12),
-                        Container(
-                          width: double.infinity,
-                          height: 10,
+                      ),
+                      const Gap(6),
+                      const HeaderText(
+                        '04:35',
+                        fontSize: 16,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 59,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SvgPicture.asset(
+                        AppAssets.repeat,
+                      ),
+                      SvgPicture.asset(
+                        AppAssets.previous,
+                      ),
+                      TouchableOpacity(
+                        onTap: () async {
+                          _playerState == PlayingState.idle
+                              ? await audioPlayer.play(
+                                  widget.params.media,
+                                )
+                              : _playerState == PlayingState.playing
+                                  ? await audioPlayer.pause()
+                                  : await audioPlayer.resume();
+                          _handlePlaying();
+                        },
+                        child: Container(
+                          width: 64,
+                          height: 64,
                           decoration: const BoxDecoration(
-                            shape: BoxShape.rectangle,
+                            shape: BoxShape.circle,
                             color: AppColors.primaryColor,
                           ),
+                          child: PlayingState.idle == _playerState
+                              ? Image.asset(
+                                  AppAssets.playwhite,
+                                )
+                              : _playerState == PlayingState.playing
+                                  ? Image.asset(
+                                      AppAssets.pausewhite,
+                                    )
+                                  : Image.asset(
+                                      AppAssets.playwhite,
+                                    ),
                         ),
-                        const Gap(6),
-                        const HeaderText(
-                          '04:35',
-                          fontSize: 16,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 27,
-                          ),
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(
-                                AppAssets.repeat,
-                              ),
-                              const Gap(44),
-                              SvgPicture.asset(
-                                AppAssets.previous,
-                              ),
-                              const Gap(35),
-                              TouchableOpacity(
-                                onTap: () async {
-                                  _playerState == PlayingState.idle
-                                      ? await audioPlayer.play(
-                                          widget.params.media,
-                                        )
-                                      : _playerState == PlayingState.playing
-                                          ? await audioPlayer.pause()
-                                          : await audioPlayer.resume();
-                                  _handlePlaying();
-                                },
-                                child: Container(
-                                  width: 64,
-                                  height: 64,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                  child: PlayingState.idle == _playerState
-                                      ? Image.asset(
-                                          AppAssets.playwhite,
-                                        )
-                                      : _playerState == PlayingState.playing
-                                          ? Image.asset(
-                                              AppAssets.pausewhite,
-                                            )
-                                          : Image.asset(
-                                              AppAssets.playwhite,
-                                            ),
-                                ),
-                              ),
-                              const Gap(35),
-                              SvgPicture.asset(
-                                AppAssets.next,
-                              ),
-                              const Gap(44),
-                              SvgPicture.asset(
-                                AppAssets.volumeUp,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Gap(83),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            );
-          }),
+                      ),
+                      SvgPicture.asset(
+                        AppAssets.next,
+                      ),
+                      SvgPicture.asset(
+                        AppAssets.volumeUp,
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(88),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
