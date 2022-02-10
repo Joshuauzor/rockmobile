@@ -28,9 +28,6 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
   int maxduration = 100;
   int currentpos = 0;
   String currentpostlabel = "00:00";
-  String audioasset = "assets/audio/red-indian-music.mp3";
-  bool isplaying = false;
-  bool audioplayed = false;
 
   @override
   void initState() {
@@ -38,24 +35,23 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
       audioPlayer.onDurationChanged.listen((Duration d) {
         //get the duration of audio
         maxduration = d.inMilliseconds;
-        setState(() {});
       });
 
       audioPlayer.onAudioPositionChanged.listen((Duration p) {
-        currentpos =
-            p.inMilliseconds; //get the current position of playing audio
+        //get the current position of playing audio
+        currentpos = p.inMilliseconds;
 
         //generating the duration label
         int shours = Duration(milliseconds: currentpos).inHours;
         int sminutes = Duration(milliseconds: currentpos).inMinutes;
         int sseconds = Duration(milliseconds: currentpos).inSeconds;
 
-        int rhours = shours;
-        int rminutes = sminutes - (shours * 60);
+        // int rhours = shours;
+        // int rminutes = sminutes - (shours * 60);
+        int rminutes = sminutes;
         int rseconds = sseconds - (sminutes * 60 + shours * 60 * 60);
 
-        currentpostlabel = "$rhours:$rminutes:$rseconds";
-
+        currentpostlabel = "$rminutes:$rseconds";
         setState(() {
           //refresh the UI
         });
@@ -163,25 +159,12 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
                         label: currentpostlabel,
                         onChanged: (double value) async {
                           int seekval = value.round();
-                          int result = await audioPlayer
+                          await audioPlayer
                               .seek(Duration(milliseconds: seekval));
-                          if (result == 1) {
-                            //seek successful
-                            currentpos = seekval;
-                          } else {
-                            print("Seek unsuccessful.");
-                          }
+                          //seek successful
+                          currentpos = seekval;
                         },
                       ),
-
-                      // Container(
-                      //   width: double.infinity,
-                      //   height: 10,
-                      //   decoration: const BoxDecoration(
-                      //     shape: BoxShape.rectangle,
-                      //     color: AppColors.primaryColor,
-                      //   ),
-                      // ),
                       const Gap(6),
                       HeaderText(
                         currentpostlabel,
@@ -234,11 +217,8 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
                                     ),
                         ),
                       ),
-                      TouchableOpacity(
-                        onTap: () async => await model.seek(),
-                        child: SvgPicture.asset(
-                          AppAssets.next,
-                        ),
+                      SvgPicture.asset(
+                        AppAssets.next,
                       ),
                       SvgPicture.asset(
                         AppAssets.volumeUp,

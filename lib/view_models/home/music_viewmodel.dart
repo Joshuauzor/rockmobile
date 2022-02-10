@@ -10,7 +10,7 @@ class MusicViewModel extends BaseModel {
   AudioPlayer audioPlayer = AudioPlayer();
   List<Music>? get audioMusic => _homeService.audioMusic;
 
-  play({required url}) async {
+  Future play({required url}) async {
     setBusy(true);
     await audioPlayer.play(url, isLocal: false);
     setBusy(false);
@@ -28,28 +28,9 @@ class MusicViewModel extends BaseModel {
     setBusy(false);
   }
 
-  Future seek() async {
-    setBusy(true);
-    print('seeking');
-    await audioPlayer.seek(const Duration(milliseconds: 2200));
-    setBusy(false);
-  }
-
-  // stop() async {
-  //   setBusy(true);
-  //   await audioPlayer.stop();
-  //   setBusy(false);
-  // }
-
   void init() async {
     setBusy(true);
     await _homeService.getMusic();
     setBusy(false);
   }
-
-  // await audioPlayer.setReleaseMode(ReleaseMode.STOP); // set release mode so that it never releases
-//     RELEASE: default mode, will release after stop/completed.
-// STOP: will never release; calling play should be faster.
-// LOOP
-
 }

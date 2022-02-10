@@ -5,7 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
-import 'package:rockapp/app/views/views.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/view_models/home/books_viewmodel.dart';
 import 'package:stacked/stacked.dart';
