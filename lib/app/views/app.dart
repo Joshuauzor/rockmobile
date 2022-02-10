@@ -30,16 +30,16 @@ class MyApp extends StatelessWidget {
 }
 
 void overrideNavColors() {
-  if (Platform.isAndroid) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      /// Set StatusBar Customization.
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
+  // if (Platform.isAndroid) {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    /// Set StatusBar Customization.
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.dark,
 
-      /// Set NavigationBar Customization.
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ));
-  }
+    /// Set NavigationBar Customization.
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
+  //}
 }

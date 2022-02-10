@@ -44,6 +44,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                               'Back',
                               color: AppColors.lightBlack,
                               fontSize: 17,
+                              fontWeight: FontWeight.w700,
                             ),
                           ],
                         ),

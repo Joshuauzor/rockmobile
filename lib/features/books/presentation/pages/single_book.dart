@@ -96,6 +96,8 @@ class _SingleBookState extends State<SingleBook> {
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
                             color: AppColors.darkBlack,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
                           ),
                           const Gap(12),
                           BodyText(

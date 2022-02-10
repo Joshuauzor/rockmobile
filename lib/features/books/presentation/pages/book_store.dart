@@ -238,7 +238,8 @@ class _BookStoreState extends State<BookStore> {
                                           },
                                         ),
                                       )
-                                    : const BodyText('Top Books not available'),
+                                    : const BodyText(
+                                        'Popular Books not available'),
                                 const Gap(40.65),
                                 const BodyText(
                                   'Newest',

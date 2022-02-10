@@ -124,11 +124,11 @@ class TabThree extends StatelessWidget {
           children: const [
             HomeFeatures(
               icon: AppAssets.nigeria,
-              title: 'Catholic News Nigeria',
+              title: 'Nigeria News',
             ),
             HomeFeatures(
               icon: AppAssets.worldwide,
-              title: 'Catholic News Worldwide',
+              title: 'Worldwide News',
             ),
           ],
         ),
