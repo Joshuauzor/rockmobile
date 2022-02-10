@@ -25,6 +25,45 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
   AudioPlayer audioPlayer = AudioPlayer();
   PlayingState _playerState = PlayingState.idle;
 
+  int maxduration = 100;
+  int currentpos = 0;
+  String currentpostlabel = "00:00";
+  String audioasset = "assets/audio/red-indian-music.mp3";
+  bool isplaying = false;
+  bool audioplayed = false;
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () async {
+      audioPlayer.onDurationChanged.listen((Duration d) {
+        //get the duration of audio
+        maxduration = d.inMilliseconds;
+        setState(() {});
+      });
+
+      audioPlayer.onAudioPositionChanged.listen((Duration p) {
+        currentpos =
+            p.inMilliseconds; //get the current position of playing audio
+
+        //generating the duration label
+        int shours = Duration(milliseconds: currentpos).inHours;
+        int sminutes = Duration(milliseconds: currentpos).inMinutes;
+        int sseconds = Duration(milliseconds: currentpos).inSeconds;
+
+        int rhours = shours;
+        int rminutes = sminutes - (shours * 60);
+        int rseconds = sseconds - (sminutes * 60 + shours * 60 * 60);
+
+        currentpostlabel = "$rhours:$rminutes:$rseconds";
+
+        setState(() {
+          //refresh the UI
+        });
+      });
+    });
+    super.initState();
+  }
+
   void _handlePlaying() {
     setState(() {
       _playerState = _playerState == PlayingState.idle
@@ -115,17 +154,37 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
                         fontWeight: FontWeight.w600,
                       ),
                       const Gap(12),
-                      Container(
-                        width: double.infinity,
-                        height: 10,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: AppColors.primaryColor,
-                        ),
+                      Slider(
+                        activeColor: AppColors.primaryColor,
+                        value: double.parse(currentpos.toString()),
+                        min: 0,
+                        max: double.parse(maxduration.toString()),
+                        divisions: maxduration,
+                        label: currentpostlabel,
+                        onChanged: (double value) async {
+                          int seekval = value.round();
+                          int result = await audioPlayer
+                              .seek(Duration(milliseconds: seekval));
+                          if (result == 1) {
+                            //seek successful
+                            currentpos = seekval;
+                          } else {
+                            print("Seek unsuccessful.");
+                          }
+                        },
                       ),
+
+                      // Container(
+                      //   width: double.infinity,
+                      //   height: 10,
+                      //   decoration: const BoxDecoration(
+                      //     shape: BoxShape.rectangle,
+                      //     color: AppColors.primaryColor,
+                      //   ),
+                      // ),
                       const Gap(6),
-                      const HeaderText(
-                        '04:35',
+                      HeaderText(
+                        currentpostlabel,
                         fontSize: 16,
                       ),
                     ],
@@ -175,8 +234,11 @@ class _MusicPlayerViewState extends State<MusicPlayerView> {
                                     ),
                         ),
                       ),
-                      SvgPicture.asset(
-                        AppAssets.next,
+                      TouchableOpacity(
+                        onTap: () async => await model.seek(),
+                        child: SvgPicture.asset(
+                          AppAssets.next,
+                        ),
                       ),
                       SvgPicture.asset(
                         AppAssets.volumeUp,
