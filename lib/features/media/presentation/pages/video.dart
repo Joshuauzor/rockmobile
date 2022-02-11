@@ -1,15 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
-import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/views/widgets/widgets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/core/extensions/string_extensions.dart';
-import 'package:rockapp/core/navigators/routes.dart';
-import 'package:rockapp/features/music/music.dart';
-import 'package:rockapp/model/music.dart';
 import 'package:rockapp/view_models/home/music_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -86,79 +83,97 @@ class _MediaLibraryState extends State<MediaLibrary> {
                             ),
                           ),
                           const Gap(28),
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.homeMenuBox,
-                                  blurRadius: 8,
-                                  spreadRadius: 0,
-                                  offset: Offset(0, 8),
-                                ),
-                              ],
-                            ),
-                            child: TextFormField(
-                              controller: _searchController,
-                              keyboardType: TextInputType.text,
-                              decoration: const InputDecoration(
-                                hintText: 'Search...',
-                                hintStyle: TextStyle(
-                                  fontFamily: AppFonts.poppins,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.searchColor,
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: AppColors.primaryColor,
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                ),
-                              ),
-                            ),
-                          ),
+                          SearchBar(searchController: _searchController),
                           const Gap(26),
                           _musicList.isNotEmpty
-                              ? Expanded(
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: _musicList.length,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      final Music item = _musicList[index];
-                                      return TouchableOpacity(
-                                        onTap: () => Navigator.pushNamed(
-                                          context,
-                                          Routes.musicPlayerView,
-                                          arguments: MusicPlayerViewsArgs(
-                                            uuid: item.uuid,
-                                            coverImage: item.coverImage,
-                                            title: item.title,
-                                            media: item.media,
-                                            author: item.author,
+                              ? Row(
+                                  children: [
+                                    Container(
+                                      width: 170,
+                                      height: 220,
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(16),
+                                        ),
+                                        color: AppColors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(0, 8),
+                                            blurRadius: 8,
+                                            spreadRadius: 0,
+                                            color: AppColors.homeMenuBox,
+                                          )
+                                        ],
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(16),
+                                                topRight: Radius.circular(16),
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    'https://rockapostolate.org/public/users/previewImage/1640170305_8b48f35daecadb708317.jpg',
+                                                imageBuilder:
+                                                    (context, imageProvider) {
+                                                  return Container(
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.rectangle,
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                placeholder: (context, url) =>
+                                                    Image.asset(
+                                                  AppAssets.music,
+                                                  color: AppColors.black,
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Image.asset(
+                                                  AppAssets.exodus,
+                                                  color: AppColors.black,
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        child: MusicTile(
-                                          title: item.title,
-                                          coverImage: item.coverImage,
-                                          media: item.media,
-                                          busy: model.busy,
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                          const Gap(3),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 7),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: const [
+                                                TitleText(
+                                                  'Voice Of God',
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: AppColors.black,
+                                                ),
+                                                Gap(3),
+                                                BodyText(
+                                                  'BY Christ Gospel Church',
+                                                  fontSize: 6,
+                                                  fontWeight: FontWeight.w300,
+                                                  color: AppColors.black,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const Gap(17),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 )
                               : const BodyText('No Music available'),
                         ],

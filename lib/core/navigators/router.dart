@@ -5,7 +5,6 @@ import 'package:rockapp/features/auth/auth.dart';
 import 'package:rockapp/features/books/presentation/pages/single_book.dart';
 import 'package:rockapp/features/home/home.dart';
 import 'package:rockapp/features/home/presentation/pages/rules_view.dart';
-import 'package:rockapp/features/media/media.dart';
 import 'package:rockapp/features/music/music.dart';
 import 'package:rockapp/features/settings/presentation/pages/about.dart';
 import 'package:rockapp/features/settings/presentation/pages/privacy_policy.dart';
