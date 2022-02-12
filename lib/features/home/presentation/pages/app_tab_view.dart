@@ -42,6 +42,7 @@ class _AppTabViewState extends State<AppTabView> {
       const MusicLibrary(),
       const Settings(),
     ];
+
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Column(

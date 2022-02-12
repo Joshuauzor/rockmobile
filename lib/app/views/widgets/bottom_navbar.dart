@@ -102,12 +102,6 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
                   item.icon!,
                   color: color,
                 )
-                // SizedBox(
-                //   height: 21,
-                //   width: 21,
-                //   child: Image.asset(item.icon!),
-                // ),
-                // const Gap(4),
               ],
             ),
           ),

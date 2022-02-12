@@ -15,11 +15,15 @@ abstract class HomeService with ReactiveServiceMixin {
   List<Music>? _audioMusic;
   List<Music>? get audioMusic => _audioMusic;
 
+  List<Music>? _videoMedia;
+  List<Music>? get videoMedia => _videoMedia;
+
   Books? _singleBook;
   Books? get singleBook => _singleBook;
 
   Future<void> getBooks();
   Future<void> getMusic();
+  Future<void> fetchVideoMedia();
 }
 
 class HomeServiceImpl extends HomeService {
@@ -49,6 +53,23 @@ class HomeServiceImpl extends HomeService {
         responseData.add(Music.fromJson(item));
       }
       _audioMusic = responseData;
+    } catch (e) {
+      Logger().d('$e');
+    }
+  }
+
+  @override
+  Future fetchVideoMedia() async {
+    try {
+      var response = await _apiServiceRequester.getRequest(
+          url: 'sermons/fetchAll?media=mp4');
+
+      var responseData = <Music>[];
+
+      for (var item in response.data['data']['rows']) {
+        responseData.add(Music.fromJson(item));
+      }
+      _videoMedia = responseData;
     } catch (e) {
       Logger().d('$e');
     }

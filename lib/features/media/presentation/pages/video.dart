@@ -7,7 +7,7 @@ import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/views/widgets/video_media.dart';
 import 'package:rockapp/app/views/widgets/widgets.dart';
 import 'package:rockapp/core/extensions/string_extensions.dart';
-import 'package:rockapp/view_models/home/music_viewmodel.dart';
+import 'package:rockapp/view_models/home/media_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class MediaLibrary extends StatefulWidget {
@@ -41,16 +41,16 @@ class _MediaLibraryState extends State<MediaLibrary> {
         statusBarBrightness: Brightness.light,
       ),
       child: Scaffold(
-        body: ViewModelBuilder<MusicViewModel>.reactive(
-          viewModelBuilder: () => MusicViewModel(),
+        body: ViewModelBuilder<MediaViewModel>.reactive(
+          viewModelBuilder: () => MediaViewModel(),
           onModelReady: (model) => model.init(),
           disposeViewModel: false,
           builder: (context, model, child) {
-            final _musicList = _searchText.isEmpty
-                ? model.audioMusic
-                : model.audioMusic == null
+            final _mediaList = _searchText.isEmpty
+                ? model.videoMedia
+                : model.videoMedia == null
                     ? []
-                    : model.audioMusic!
+                    : model.videoMedia!
                         .where(
                           (item) =>
                               item.title.contains(
@@ -63,7 +63,7 @@ class _MediaLibraryState extends State<MediaLibrary> {
                               ),
                         )
                         .toList();
-            return _musicList == null
+            return _mediaList == null
                 ? const Center(
                     child: Loader(),
                   )
@@ -76,7 +76,7 @@ class _MediaLibraryState extends State<MediaLibrary> {
                           const Align(
                             alignment: Alignment.center,
                             child: BodyText(
-                              'Sermons',
+                              'Media',
                               color: AppColors.black,
                               fontSize: 17,
                               fontWeight: FontWeight.w500,
@@ -85,25 +85,30 @@ class _MediaLibraryState extends State<MediaLibrary> {
                           const Gap(28),
                           SearchBar(searchController: _searchController),
                           const Gap(26),
-                          _musicList.isNotEmpty
-                              ? StaggeredGrid.count(
-                                  crossAxisCount: 2,
-                                  children: model.audioMusic!
-                                      .map(
-                                        (e) => Row(
-                                          children: [
-                                            VideoMedia(
-                                              image:
-                                                  'https://rockapostolate.org/public/users/previewImage/1640170305_8b48f35daecadb708317.jpg',
-                                              title: e.title,
-                                              author: 'Richmond Diala',
-                                            )
-                                          ],
+                          _mediaList.isNotEmpty
+                              ? Expanded(
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        StaggeredGrid.count(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 26,
+                                          mainAxisSpacing: 25,
+                                          children: _mediaList
+                                              .map(
+                                                (e) => VideoMedia(
+                                                  image: e.coverImage,
+                                                  title: e.title,
+                                                  author: e.author,
+                                                ),
+                                              )
+                                              .toList(),
                                         ),
-                                      )
-                                      .toList(),
+                                      ],
+                                    ),
+                                  ),
                                 )
-                              : const BodyText('No Music available'),
+                              : const BodyText('No Media available'),
                         ],
                       ),
                     ),

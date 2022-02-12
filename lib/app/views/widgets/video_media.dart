@@ -62,11 +62,11 @@ class VideoMedia extends StatelessWidget {
                       );
                     },
                     placeholder: (context, url) => Image.asset(
-                      AppAssets.music,
+                      AppAssets.sampleBook,
                       color: AppColors.black,
                     ),
                     errorWidget: (context, url, error) => Image.asset(
-                      AppAssets.exodus,
+                      AppAssets.sampleBook,
                       color: AppColors.black,
                     ),
                   ),
