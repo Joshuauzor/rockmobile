@@ -101,6 +101,7 @@ class _MediaLibraryState extends State<MediaLibrary> {
                                                   title: e.title,
                                                   author: e.author,
                                                   media: e.media,
+                                                  description: e.description,
                                                 ),
                                               )
                                               .toList(),

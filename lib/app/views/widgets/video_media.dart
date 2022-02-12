@@ -15,6 +15,7 @@ class VideoMedia extends StatelessWidget {
     required this.title,
     required this.author,
     required this.media,
+    required this.description,
     Key? key,
   }) : super(key: key);
 
@@ -22,6 +23,7 @@ class VideoMedia extends StatelessWidget {
   final String title;
   final String author;
   final String media;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +90,7 @@ class VideoMedia extends StatelessWidget {
                           title: title,
                           media: media,
                           author: author,
+                          description: description,
                         ),
                       ),
                       child: Container(
