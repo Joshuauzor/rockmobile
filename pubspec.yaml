@@ -46,8 +46,10 @@ dependencies:
   # cached_network_image: ^3.2.0
   cached_network_image: ^3.1.0
 
-  #music player
+  #media player
   audioplayers: ^0.20.1
+  video_player: ^2.2.18
+  flick_video_player: ^0.3.1
   
   #unit test
   device_preview: ^1.0.0

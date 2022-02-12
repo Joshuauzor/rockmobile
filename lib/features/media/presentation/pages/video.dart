@@ -100,6 +100,7 @@ class _MediaLibraryState extends State<MediaLibrary> {
                                                   image: e.coverImage,
                                                   title: e.title,
                                                   author: e.author,
+                                                  media: e.media,
                                                 ),
                                               )
                                               .toList(),

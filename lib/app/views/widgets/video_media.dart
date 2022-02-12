@@ -4,19 +4,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
+import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/core/constant/constant.dart';
+import 'package:rockapp/core/navigators/routes.dart';
+import 'package:rockapp/features/media/presentation/pages/video_player.dart';
 
 class VideoMedia extends StatelessWidget {
   const VideoMedia({
     required this.image,
     required this.title,
     required this.author,
+    required this.media,
     Key? key,
   }) : super(key: key);
 
   final String image;
   final String title;
   final String author;
+  final String media;
 
   @override
   Widget build(BuildContext context) {
@@ -74,14 +79,26 @@ class VideoMedia extends StatelessWidget {
                     top: 69,
                     left: 0,
                     right: 0,
-                    child: Container(
-                      padding: const EdgeInsets.all(12.93),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.white,
+                    child: TouchableOpacity(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        Routes.videoPlayerView,
+                        arguments: VideoPlayerViewsArgs(
+                          coverImage: image,
+                          title: title,
+                          media: media,
+                          author: author,
+                        ),
                       ),
-                      child: SvgPicture.asset(
-                        AppAssets.play,
+                      child: Container(
+                        padding: const EdgeInsets.all(12.93),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.white,
+                        ),
+                        child: SvgPicture.asset(
+                          AppAssets.play,
+                        ),
                       ),
                     ),
                   ),

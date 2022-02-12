@@ -23,7 +23,5 @@ Future<void> setupsl() async {
   sl.registerLazySingleton<AuthenticationService>(
       () => AuthenticationServiceImpl());
 
-  // sl.registerLazySingleton<HomeService>(() => HomeServiceImpl());
-
   sl.registerLazySingleton<HomeService>(() => HomeServiceImpl());
 }

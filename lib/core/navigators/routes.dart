@@ -13,4 +13,5 @@ class Routes {
   static const String rules = 'rules';
   static const String singleBook = 'singleBook';
   static const String musicPlayerView = 'musicPlayerView';
+  static const String videoPlayerView = 'videoPlayerView';
 }
