@@ -34,7 +34,7 @@ class TabOne extends StatelessWidget {
             ),
             HomeFeatures(
               icon: AppAssets.sermons,
-              title: 'Sermons',
+              title: 'Media Reflection',
             ),
             HomeFeatures(
               icon: AppAssets.prayer,

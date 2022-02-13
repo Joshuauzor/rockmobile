@@ -87,26 +87,30 @@ class _MediaLibraryState extends State<MediaLibrary> {
                           const Gap(26),
                           _mediaList.isNotEmpty
                               ? Expanded(
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        StaggeredGrid.count(
-                                          crossAxisCount: 2,
-                                          crossAxisSpacing: 26,
-                                          mainAxisSpacing: 25,
-                                          children: _mediaList
-                                              .map(
-                                                (e) => VideoMedia(
-                                                  image: e.coverImage,
-                                                  title: e.title,
-                                                  author: e.author,
-                                                  media: e.media,
-                                                  description: e.description,
-                                                ),
-                                              )
-                                              .toList(),
-                                        ),
-                                      ],
+                                  child: RefreshIndicator(
+                                    onRefresh: () async =>
+                                        await model.getVideoMedia(),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          StaggeredGrid.count(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 26,
+                                            mainAxisSpacing: 25,
+                                            children: _mediaList
+                                                .map(
+                                                  (e) => VideoMedia(
+                                                    image: e.coverImage,
+                                                    title: e.title,
+                                                    author: e.author,
+                                                    media: e.media,
+                                                    description: e.description,
+                                                  ),
+                                                )
+                                                .toList(),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 )
