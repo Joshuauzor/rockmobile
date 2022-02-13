@@ -34,6 +34,8 @@ class VerticalBooks extends StatelessWidget {
                   imageUrl: item.bookCover,
                   imageBuilder: (context, imageProvider) {
                     return Container(
+                      width: 60,
+                      height: 80,
                       decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         image: DecorationImage(

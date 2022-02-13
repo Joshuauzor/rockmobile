@@ -74,6 +74,8 @@ class _SingleBookState extends State<SingleBook> {
                             imageUrl: widget.params.bookCover,
                             imageBuilder: (context, imageProvider) {
                               return Container(
+                                width: 200,
+                                height: 300,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   image: DecorationImage(

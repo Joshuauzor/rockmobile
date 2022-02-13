@@ -34,10 +34,17 @@ class HomeServiceImpl extends HomeService {
     try {
       var response = await _apiServiceRequester.getRequest(url: 'books');
       var responseData = <Books>[];
+      var responseDataTopBooks = <Books>[];
+
       for (var item in response.data['newBooks']) {
         responseData.add(Books.fromJson(item));
       }
       _newBooks = responseData;
+
+      for (var item in response.data['topBooks']) {
+        responseDataTopBooks.add(Books.fromJson(item));
+      }
+      _topBooks = responseDataTopBooks;
     } catch (e) {
       Logger().d('$e');
     }
