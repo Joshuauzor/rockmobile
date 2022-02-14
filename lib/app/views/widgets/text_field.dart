@@ -34,40 +34,45 @@ class DecoratedTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(6),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.inputBox,
-            blurRadius: 8,
-            spreadRadius: 0,
-            offset: Offset(0, 3),
-          )
-        ],
-      ),
-      child: TextFormField(
-        controller: _nameController,
-        keyboardType: keyboardType,
-        validator: validation,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(
-            left: 11,
-            top: 18,
-            bottom: 18,
-          ),
-          hintText: hintText,
-          border: InputBorder.none,
-          hintStyle: const TextStyle(
-            color: AppColors.hintTextColor,
-            fontWeight: FontWeight.w400,
-            fontSize: 10,
+    return Stack(
+      children: [
+        Container(
+          height: 51,
+          decoration: const BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(6),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.inputBox,
+                blurRadius: 8,
+                spreadRadius: 0,
+                offset: Offset(0, 3),
+              )
+            ],
           ),
         ),
-      ),
+        TextFormField(
+          controller: _nameController,
+          keyboardType: keyboardType,
+          validator: validation,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.only(
+              left: 11,
+              top: 18,
+              bottom: 15,
+            ),
+            hintText: hintText,
+            border: InputBorder.none,
+            hintStyle: const TextStyle(
+              color: AppColors.hintTextColor,
+              fontWeight: FontWeight.w400,
+              fontSize: 10,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

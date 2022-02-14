@@ -152,7 +152,7 @@ class _PrayerRequestState extends State<PrayerRequest> {
                             DecoratedTextField(
                               nameController: _titleController,
                               hintText: 'Enter prayer title',
-                              validation: validateEmail,
+                              validation: validateText,
                               keyboardType: TextInputType.text,
                             ),
                             const Gap(10),
@@ -162,55 +162,62 @@ class _PrayerRequestState extends State<PrayerRequest> {
                               color: AppColors.lighterDark,
                             ),
                             const Gap(12),
-                            Container(
-                              height: 132,
-                              decoration: const BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(6),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.inputBox,
-                                    blurRadius: 8,
-                                    spreadRadius: 0,
-                                    offset: Offset(0, 3),
-                                  )
-                                ],
-                              ),
-                              child: TextFormField(
-                                controller: _requestController,
-                                keyboardType: TextInputType.multiline,
-                                validator: validateText,
-                                maxLines: null,
-                                decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                    left: 11,
-                                    top: 18,
-                                    bottom: 18,
-                                  ),
-                                  hintText: 'Enter your prayer request...',
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                    color: AppColors.hintTextColor,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 10,
+                            Stack(
+                              children: [
+                                Container(
+                                  height: 132,
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.white,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(6),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColors.inputBox,
+                                        blurRadius: 8,
+                                        spreadRadius: 0,
+                                        offset: Offset(0, 3),
+                                      )
+                                    ],
                                   ),
                                 ),
-                              ),
+                                TextFormField(
+                                  controller: _requestController,
+                                  keyboardType: TextInputType.multiline,
+                                  validator: validateText,
+                                  maxLines: null,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.only(
+                                      left: 11,
+                                      top: 18,
+                                      bottom: 94,
+                                    ),
+                                    hintText: 'Enter your prayer request...',
+                                    border: InputBorder.none,
+                                    hintStyle: TextStyle(
+                                      color: AppColors.hintTextColor,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             const Gap(27),
                             NextButton(
-                              label: 'Request Prayer',
+                              label: 'Submit Request',
                               disabled: model.busy,
                               busy: model.busy,
                               onPressed: () async {
+                                print('heree');
                                 if (_formKey.currentState!.validate()) {
-                                  // await model.login(
-                                  //   email: _emailController.text.trim(),
-                                  //   password: _passwordController.text.trim(),
-                                  //   context: context,
-                                  // );
+                                  await model.prayerRequest(
+                                    name: _nameController.text.trim(),
+                                    email: _emailController.text.trim(),
+                                    title: _titleController.text.trim(),
+                                    request: _requestController.text.trim(),
+                                    context: context,
+                                  );
                                 }
                               },
                             ),
