@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:rockapp/core/navigators/routes.dart';
 import 'package:rockapp/features/auth/auth.dart';
 import 'package:rockapp/features/books/presentation/pages/single_book.dart';
+import 'package:rockapp/features/church_prayers/church_prayers.dart';
 import 'package:rockapp/features/home/home.dart';
 import 'package:rockapp/features/media/presentation/pages/video_player.dart';
 import 'package:rockapp/features/music/music.dart';
 import 'package:rockapp/features/settings/presentation/pages/about.dart';
 import 'package:rockapp/features/settings/presentation/pages/privacy_policy.dart';
 import 'package:rockapp/features/settings/presentation/pages/terms.dart';
-
-import '../../features/splash/splash.dart';
+import 'package:rockapp/features/splash/splash.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -107,6 +107,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: VideoPlayerView(params: args),
+      );
+
+    case Routes.churchPrayers:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const ChurchPrayers(),
       );
 
     default:

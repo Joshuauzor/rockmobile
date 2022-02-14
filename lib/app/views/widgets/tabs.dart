@@ -24,9 +24,12 @@ class TabOne extends StatelessWidget {
               icon: AppAssets.reading,
               title: 'Daily Readings',
             ),
-            const HomeFeatures(
-              icon: AppAssets.prayers,
-              title: 'Church Prayers',
+            TouchableOpacity(
+              onTap: () => Navigator.pushNamed(context, Routes.churchPrayers),
+              child: const HomeFeatures(
+                icon: AppAssets.prayers,
+                title: 'Church Prayers',
+              ),
             ),
             const HomeFeatures(
               icon: AppAssets.rosary,

@@ -209,7 +209,6 @@ class _PrayerRequestState extends State<PrayerRequest> {
                               disabled: model.busy,
                               busy: model.busy,
                               onPressed: () async {
-                                print('heree');
                                 if (_formKey.currentState!.validate()) {
                                   await model.prayerRequest(
                                     name: _nameController.text.trim(),
