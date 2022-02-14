@@ -5,6 +5,7 @@ import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/views/widgets/home_features.dart';
+import 'package:rockapp/app/views/widgets/loader.dart';
 import 'package:rockapp/app/views/widgets/search_bar.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/core/extensions/string_extensions.dart';
@@ -67,88 +68,93 @@ class _ChurchPrayersViewState extends State<ChurchPrayersView> {
                             ),
                       )
                       .toList();
-          return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 29, right: 29),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TouchableOpacity(
-                        onTap: () {
-                          if (Navigator.canPop(context)) {
-                            Navigator.pop(context);
-                          }
-                        },
-                        child: Row(
+          return (_prayersList == null)
+              ? const Center(
+                  child: Loader(),
+                )
+              : SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 29, right: 29),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SvgPicture.asset(AppAssets.arrowLeft),
-                            const Gap(12),
-                            const HeaderText(
-                              'Back',
-                              color: AppColors.lightBlack,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
+                            TouchableOpacity(
+                              onTap: () {
+                                if (Navigator.canPop(context)) {
+                                  Navigator.pop(context);
+                                }
+                              },
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(AppAssets.arrowLeft),
+                                  const Gap(12),
+                                  const HeaderText(
+                                    'Back',
+                                    color: AppColors.lightBlack,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ],
+                              ),
                             ),
+                            Image.asset(AppAssets.generallogo),
                           ],
                         ),
-                      ),
-                      Image.asset(AppAssets.generallogo),
-                    ],
-                  ),
-                  const Gap(13),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const Align(
-                            alignment: Alignment.topLeft,
-                            child: HeaderText(
-                              'Church Prayers',
-                              color: AppColors.primaryColor,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w400,
+                        const Gap(13),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const Align(
+                                  alignment: Alignment.topLeft,
+                                  child: HeaderText(
+                                    'Church Prayers',
+                                    color: AppColors.primaryColor,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                const Gap(20),
+                                SearchBar(searchController: _searchController),
+                                const Gap(42),
+                                const Divider(),
+                                const Gap(31),
+                                _prayersList!.isNotEmpty
+                                    ? ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: _prayersList.length,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          final ChurchPrayers item =
+                                              _prayersList[index];
+                                          return TouchableOpacity(
+                                            onTap: () => Navigator.pushNamed(
+                                              context,
+                                              Routes.singleChurchPrayer,
+                                              arguments: SinglePrayerArgs(
+                                                title: item.prayerTitle,
+                                                message: item.prayerMessage,
+                                              ),
+                                            ),
+                                            child: ChurchPrayersHolder(
+                                              title: item.prayerTitle,
+                                            ),
+                                          );
+                                        },
+                                      )
+                                    : const BodyText('No prayers available'),
+                              ],
                             ),
                           ),
-                          const Gap(20),
-                          SearchBar(searchController: _searchController),
-                          const Gap(42),
-                          const Divider(),
-                          const Gap(31),
-                          _prayersList!.isNotEmpty
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: _prayersList.length,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    final ChurchPrayers item =
-                                        _prayersList[index];
-                                    return TouchableOpacity(
-                                      onTap: () => Navigator.pushNamed(
-                                        context,
-                                        Routes.singleChurchPrayer,
-                                        arguments: SinglePrayerArgs(
-                                          title: item.prayerTitle,
-                                          message: item.prayerMessage,
-                                        ),
-                                      ),
-                                      child: ChurchPrayersHolder(
-                                        title: item.prayerTitle,
-                                      ),
-                                    );
-                                  },
-                                )
-                              : const BodyText('No prayers available'),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          );
+                );
         },
       ),
     );
