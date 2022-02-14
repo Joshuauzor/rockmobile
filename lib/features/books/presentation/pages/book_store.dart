@@ -154,6 +154,8 @@ class _BookStoreState extends State<BookStore> {
                                                           imageProvider,
                                                         ) {
                                                           return Container(
+                                                            width: 114.28,
+                                                            height: 175.88,
                                                             decoration:
                                                                 BoxDecoration(
                                                               shape: BoxShape

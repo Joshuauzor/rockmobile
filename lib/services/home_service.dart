@@ -42,7 +42,7 @@ class HomeServiceImpl extends HomeService {
       _newBooks = responseData;
 
       for (var item in response.data['topBooks']) {
-        responseDataTopBooks.add(Books.fromJson(item));
+        if (item != null) responseDataTopBooks.add(Books.fromJson(item));
       }
       _topBooks = responseDataTopBooks;
     } catch (e) {

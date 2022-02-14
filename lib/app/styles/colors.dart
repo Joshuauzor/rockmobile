@@ -10,6 +10,7 @@ class AppColors {
   static const lightGold = Color.fromRGBO(246, 187, 34, 1);
   static const homeMenuBox = Color(0x268163D6);
   static const homeMenuBoxIcon = Color(0x408163d6);
+  static const inputBox = Color(0x338163d6);
   static const lowerHome = Color(0xffEAEAF5);
   static const lightBlack = Color(0xff474747);
   static const neutral = Color(0x996A6A8B);
@@ -19,6 +20,9 @@ class AppColors {
   static const darkBlacklight = Color(0x8006070D);
   static const lightDark = Color(0x40000000);
   static const milk = Color(0xffF5F7FB);
+  static const lighterDark = Color(0xFF4A4A4A);
+  static const lightestDark = Color(0xCC4A4A4A);
+  static const hintTextColor = Color(0xB36C6C6C);
 
   static const Map<int, Color> colorScratch = {
     50: Color.fromRGBO(7, 45, 114, .1),

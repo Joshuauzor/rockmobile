@@ -4,6 +4,7 @@ import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/styles/ui_helpers.dart';
+import 'package:rockapp/app/styles/validation.dart';
 import 'package:rockapp/app/views/widgets/next_button.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 import 'package:rockapp/core/navigators/routes.dart';
@@ -213,19 +214,7 @@ class _LoginViewState extends State<LoginView> {
                                       ),
                                       const Gap(80),
                                       TextFormField(
-                                        validator: (value) {
-                                          value = value!.trim();
-                                          bool validEmail = RegExp(
-                                                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-                                              .hasMatch(value);
-                                          if (value.isEmpty) {
-                                            return "Required*";
-                                          }
-                                          if (!validEmail) {
-                                            return "Please enter a valid email";
-                                          }
-                                          return null;
-                                        },
+                                        validator: validateEmail,
                                         controller: _emailController,
                                         keyboardType:
                                             TextInputType.emailAddress,
@@ -254,12 +243,7 @@ class _LoginViewState extends State<LoginView> {
                                       ),
                                       const Gap(30),
                                       TextFormField(
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return "Required*";
-                                          }
-                                          return null;
-                                        },
+                                        validator: validateText,
                                         controller: _passwordController,
                                         keyboardType: TextInputType.text,
                                         obscureText: _isHidden,
@@ -317,21 +301,22 @@ class _LoginViewState extends State<LoginView> {
                                       ),
                                       const Gap(59),
                                       NextButton(
-                                          label: 'Log In',
-                                          disabled: model.busy,
-                                          busy: model.busy,
-                                          onPressed: () async {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              await model.login(
-                                                  email: _emailController.text
-                                                      .trim(),
-                                                  password: _passwordController
-                                                      .text
-                                                      .trim(),
-                                                  context: context);
-                                            }
-                                          }),
+                                        label: 'Log In',
+                                        disabled: model.busy,
+                                        busy: model.busy,
+                                        onPressed: () async {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            await model.login(
+                                                email: _emailController.text
+                                                    .trim(),
+                                                password: _passwordController
+                                                    .text
+                                                    .trim(),
+                                                context: context);
+                                          }
+                                        },
+                                      ),
                                       SizedBox(
                                         height: screenHeight(context) * 0.05,
                                       ),
@@ -476,12 +461,7 @@ class _LoginViewState extends State<LoginView> {
                                       ),
                                       const Gap(80),
                                       TextFormField(
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return "Required*";
-                                          }
-                                          return null;
-                                        },
+                                        validator: validateText,
                                         controller: _firstNameController,
                                         keyboardType: TextInputType.text,
                                         decoration: const InputDecoration(
@@ -510,12 +490,7 @@ class _LoginViewState extends State<LoginView> {
                                       ),
                                       const Gap(24),
                                       TextFormField(
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return "Required*";
-                                          }
-                                          return null;
-                                        },
+                                        validator: validateText,
                                         controller: _lastNameController,
                                         keyboardType: TextInputType.text,
                                         decoration: const InputDecoration(
@@ -544,19 +519,7 @@ class _LoginViewState extends State<LoginView> {
                                       ),
                                       const Gap(24),
                                       TextFormField(
-                                        validator: (value) {
-                                          value = value!.trim();
-                                          bool validEmail = RegExp(
-                                                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-                                              .hasMatch(value);
-                                          if (value.isEmpty) {
-                                            return "Required*";
-                                          }
-                                          if (!validEmail) {
-                                            return "Please enter a valid email";
-                                          }
-                                          return null;
-                                        },
+                                        validator: validateEmail,
                                         controller: _registerEmailController,
                                         keyboardType:
                                             TextInputType.emailAddress,
@@ -586,12 +549,7 @@ class _LoginViewState extends State<LoginView> {
                                       ),
                                       const Gap(30),
                                       TextFormField(
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return "Required*";
-                                          }
-                                          return null;
-                                        },
+                                        validator: validateText,
                                         controller: _registerPasswordController,
                                         keyboardType: TextInputType.text,
                                         obscureText: _isHidden,

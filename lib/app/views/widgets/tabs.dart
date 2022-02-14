@@ -37,7 +37,8 @@ class TabOne extends StatelessWidget {
               title: 'Media Reflection',
             ),
             TouchableOpacity(
-              onTap: () => Navigator.pushNamed(context, Routes.about),
+              onTap: () =>
+                  Navigator.pushNamed(context, Routes.prayerRequestView),
               child: const HomeFeatures(
                 icon: AppAssets.prayer,
                 title: 'Prayer Request',
