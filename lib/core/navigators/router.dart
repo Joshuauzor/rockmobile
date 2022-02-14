@@ -112,7 +112,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.churchPrayers:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: const ChurchPrayers(),
+        viewToShow: const ChurchPrayersView(),
+      );
+
+    case Routes.singleChurchPrayer:
+      final args = settings.arguments as SinglePrayerArgs;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SinglePrayer(params: args),
       );
 
     default:

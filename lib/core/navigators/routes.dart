@@ -16,4 +16,5 @@ class Routes {
   static const String videoPlayerView = 'videoPlayerView';
   static const String prayerRequestView = 'prayerRequestView';
   static const String churchPrayers = 'churchPrayers';
+  static const String singleChurchPrayer = 'singleChurchPrayer';
 }

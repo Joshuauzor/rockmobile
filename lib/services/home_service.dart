@@ -4,8 +4,10 @@ import 'package:logger/logger.dart';
 import 'package:rockapp/core/errors/exceptions.dart';
 import 'package:rockapp/core/errors/failure.dart';
 import 'package:rockapp/core/networks/api_request.dart';
+import 'package:rockapp/features/church_prayers/church_prayers.dart';
 import 'package:rockapp/locator.dart';
 import 'package:rockapp/model/books.dart';
+import 'package:rockapp/model/church_prayers.dart';
 import 'package:rockapp/model/music.dart';
 import 'package:stacked/stacked.dart';
 
@@ -22,6 +24,9 @@ abstract class HomeService with ReactiveServiceMixin {
   List<Music>? _videoMedia;
   List<Music>? get videoMedia => _videoMedia;
 
+  List<ChurchPrayers>? _churchPrayers;
+  List<ChurchPrayers>? get churchPrayers => _churchPrayers;
+
   Books? _singleBook;
   Books? get singleBook => _singleBook;
 
@@ -34,6 +39,7 @@ abstract class HomeService with ReactiveServiceMixin {
     required String title,
     required String request,
   });
+  Future<void> getChurchPrayers();
 }
 
 class HomeServiceImpl extends HomeService {
@@ -135,6 +141,21 @@ class HomeServiceImpl extends HomeService {
         }
       }
       return Left(UnknownFailure());
+    }
+  }
+
+  @override
+  Future getChurchPrayers() async {
+    try {
+      var response =
+          await _apiServiceRequester.getRequest(url: 'prayers/fetchAll');
+      var responseData = <ChurchPrayers>[];
+      for (var item in response.data['data']['rows']) {
+        responseData.add(ChurchPrayers.fromJson(item));
+      }
+      _churchPrayers = responseData;
+    } catch (e) {
+      Logger().d('$e');
     }
   }
 }
