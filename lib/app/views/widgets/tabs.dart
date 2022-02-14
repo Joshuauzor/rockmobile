@@ -19,7 +19,7 @@ class TabOne extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 23.56,
           mainAxisSpacing: 23.56,
-          children: const [
+          children: [
             HomeFeatures(
               icon: AppAssets.reading,
               title: 'Daily Readings',
@@ -36,9 +36,12 @@ class TabOne extends StatelessWidget {
               icon: AppAssets.sermons,
               title: 'Media Reflection',
             ),
-            HomeFeatures(
-              icon: AppAssets.prayer,
-              title: 'Prayer Request',
+            TouchableOpacity(
+              onTap: () => Navigator.pushNamed(context, Routes.about),
+              child: const HomeFeatures(
+                icon: AppAssets.prayer,
+                title: 'Prayer Request',
+              ),
             ),
             HomeFeatures(
               icon: AppAssets.donation,

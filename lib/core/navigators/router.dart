@@ -81,6 +81,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const RulesView(),
       );
 
+    case Routes.prayerRequestView:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const PrayerRequest(),
+      );
+
     case Routes.singleBook:
       final args = settings.arguments as SingleBooksArgs;
       return _getPageRoute(
