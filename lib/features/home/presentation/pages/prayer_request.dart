@@ -8,7 +8,10 @@ import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/styles/validation.dart';
 import 'package:rockapp/app/views/widgets/text_field.dart';
 import 'package:rockapp/core/constant/constant.dart';
-import 'package:rockapp/view_models/home/settings_viewmodel.dart';
+import 'package:rockapp/locator.dart';
+import 'package:rockapp/model/users.dart';
+import 'package:rockapp/services/auth_service.dart';
+import 'package:rockapp/view_models/home/prayerrequest_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class PrayerRequest extends StatefulWidget {
@@ -19,17 +22,30 @@ class PrayerRequest extends StatefulWidget {
 }
 
 class _PrayerRequestState extends State<PrayerRequest> {
+  final AuthenticationService _authenticationService =
+      sl<AuthenticationService>();
+
+  User? get user => _authenticationService.user;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
+  final _titleController = TextEditingController();
   final _requestController = TextEditingController();
+
+  @override
+  void initState() {
+    _nameController.text =
+        user!.firstName.toString() + ' ' + user!.lastName.toString();
+    _emailController.text = user!.email.toString();
+    super.initState();
+  }
 
   @override
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
+    _titleController.dispose();
     _requestController.dispose();
     super.dispose();
   }
@@ -37,8 +53,8 @@ class _PrayerRequestState extends State<PrayerRequest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ViewModelBuilder<SettingsViewModel>.reactive(
-        viewModelBuilder: () => SettingsViewModel(),
+      body: ViewModelBuilder<PrayerRequestViewModel>.reactive(
+        viewModelBuilder: () => PrayerRequestViewModel(),
         builder: (context, model, child) {
           return SafeArea(
             child: Form(
@@ -128,16 +144,16 @@ class _PrayerRequestState extends State<PrayerRequest> {
                             ),
                             const Gap(10),
                             const BodyText(
-                              'Phone',
+                              'Title',
                               fontWeight: FontWeight.w500,
                               color: AppColors.lighterDark,
                             ),
                             const Gap(12),
                             DecoratedTextField(
-                              nameController: _phoneController,
-                              hintText: 'Enter your phone number',
+                              nameController: _titleController,
+                              hintText: 'Enter prayer title',
                               validation: validateEmail,
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.text,
                             ),
                             const Gap(10),
                             const BodyText(
@@ -166,7 +182,6 @@ class _PrayerRequestState extends State<PrayerRequest> {
                                 controller: _requestController,
                                 keyboardType: TextInputType.multiline,
                                 validator: validateText,
-                                // expands: true,
                                 maxLines: null,
                                 decoration: const InputDecoration(
                                   contentPadding: EdgeInsets.only(

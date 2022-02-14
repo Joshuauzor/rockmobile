@@ -1,4 +1,8 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
+import 'package:rockapp/core/errors/exceptions.dart';
+import 'package:rockapp/core/errors/failure.dart';
 import 'package:rockapp/core/networks/api_request.dart';
 import 'package:rockapp/locator.dart';
 import 'package:rockapp/model/books.dart';
@@ -24,6 +28,12 @@ abstract class HomeService with ReactiveServiceMixin {
   Future<void> getBooks();
   Future<void> getMusic();
   Future<void> fetchVideoMedia();
+  Future<Either<Failure, String>> prayerRequest({
+    required String name,
+    required String email,
+    required String title,
+    required String request,
+  });
 }
 
 class HomeServiceImpl extends HomeService {
@@ -79,6 +89,52 @@ class HomeServiceImpl extends HomeService {
       _videoMedia = responseData;
     } catch (e) {
       Logger().d('$e');
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> prayerRequest({
+    required String name,
+    required String email,
+    required String title,
+    required String request,
+  }) async {
+    try {
+      final response =
+          await _apiServiceRequester.post(url: 'prayers/createRequest', body: {
+        'title': title,
+        'message': request,
+      });
+      if (!response.data['status']) {
+        return Left(ServerFailure(message: response.data['message']));
+      }
+      return const Right('Prayer request submitted successfully');
+    } catch (e) {
+      Logger().d('$e');
+      if (e is NoInternetException) {
+        return Left(NoInternetFailure());
+      }
+      if (e is DioError) {
+        if (e.response != null &&
+            e.response!.statusCode! >= 500 &&
+            e.response!.data != null &&
+            e.response!.data['message'] != null) {
+          return Left(ServerFailure(message: e.response!.data['message']));
+        }
+        if (e.response != null && e.response!.statusCode! >= 500) {
+          return const Left(ServerFailure(message: 'server error. try again'));
+        }
+        if (e.response != null &&
+            e.response!.data != null &&
+            e.response!.data['message'] != null) {
+          return Left(ServerFailure(message: e.response!.data['message']));
+        } else {
+          return const Left(
+            ServerFailure(message: 'Server error, please try again'),
+          );
+        }
+      }
+      return Left(UnknownFailure());
     }
   }
 }

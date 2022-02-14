@@ -20,19 +20,19 @@ class TabOne extends StatelessWidget {
           crossAxisSpacing: 23.56,
           mainAxisSpacing: 23.56,
           children: [
-            HomeFeatures(
+            const HomeFeatures(
               icon: AppAssets.reading,
               title: 'Daily Readings',
             ),
-            HomeFeatures(
+            const HomeFeatures(
               icon: AppAssets.prayers,
               title: 'Church Prayers',
             ),
-            HomeFeatures(
+            const HomeFeatures(
               icon: AppAssets.rosary,
               title: 'Holy Rosary',
             ),
-            HomeFeatures(
+            const HomeFeatures(
               icon: AppAssets.sermons,
               title: 'Media Reflection',
             ),
@@ -44,7 +44,7 @@ class TabOne extends StatelessWidget {
                 title: 'Prayer Request',
               ),
             ),
-            HomeFeatures(
+            const HomeFeatures(
               icon: AppAssets.donation,
               title: 'Donations',
             ),
