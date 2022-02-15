@@ -4,7 +4,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
-import 'package:rockapp/app/views/widgets/video_media.dart';
 import 'package:rockapp/app/views/widgets/widgets.dart';
 import 'package:rockapp/core/extensions/string_extensions.dart';
 import 'package:rockapp/view_models/home/media_viewmodel.dart';

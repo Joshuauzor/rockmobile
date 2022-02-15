@@ -6,7 +6,6 @@ import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/styles/validation.dart';
-import 'package:rockapp/app/views/widgets/text_field.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/locator.dart';
 import 'package:rockapp/model/users.dart';

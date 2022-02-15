@@ -12,7 +12,6 @@ import 'package:rockapp/core/extensions/string_extensions.dart';
 import 'package:rockapp/core/navigators/routes.dart';
 import 'package:rockapp/features/church_prayers/presentation/pages/single_prayer.dart';
 import 'package:rockapp/model/church_prayers.dart';
-import 'package:rockapp/view_models/home/books_viewmodel.dart';
 import 'package:rockapp/view_models/home/churchprayer_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -122,7 +121,7 @@ class _ChurchPrayersViewState extends State<ChurchPrayersView> {
                                 const Gap(42),
                                 const Divider(),
                                 const Gap(31),
-                                _prayersList!.isNotEmpty
+                                _prayersList.isNotEmpty
                                     ? ListView.builder(
                                         shrinkWrap: true,
                                         itemCount: _prayersList.length,

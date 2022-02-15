@@ -4,7 +4,6 @@ import 'package:logger/logger.dart';
 import 'package:rockapp/core/errors/exceptions.dart';
 import 'package:rockapp/core/errors/failure.dart';
 import 'package:rockapp/core/networks/api_request.dart';
-import 'package:rockapp/features/church_prayers/church_prayers.dart';
 import 'package:rockapp/locator.dart';
 import 'package:rockapp/model/books.dart';
 import 'package:rockapp/model/church_prayers.dart';
