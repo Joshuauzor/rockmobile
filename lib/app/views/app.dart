@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rockapp/app/styles/colors.dart';
@@ -30,16 +28,16 @@ class MyApp extends StatelessWidget {
 }
 
 void overrideNavColors() {
-  if (Platform.isAndroid) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      /// Set StatusBar Customization.
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
+  // if (Platform.isAndroid) {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    /// Set StatusBar Customization.
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.dark,
 
-      /// Set NavigationBar Customization.
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ));
-  }
+    /// Set NavigationBar Customization.
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
+  //}
 }

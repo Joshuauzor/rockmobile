@@ -91,177 +91,163 @@ class _BookStoreState extends State<BookStore> {
                           ],
                         ),
                         const Gap(49),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.homeMenuBox,
-                                blurRadius: 8,
-                                spreadRadius: 0,
-                                offset: Offset(0, 8),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            controller: _searchController,
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                              hintText: 'Search...',
-                              hintStyle: TextStyle(
-                                fontFamily: AppFonts.poppins,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.searchColor,
-                              ),
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: AppColors.lightYellow,
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                              border: UnderlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                          ),
-                        ),
+                        SearchBar(searchController: _searchController),
                         const Gap(26),
                         Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const BodyText(
-                                  'Popular Books',
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.darkBlack,
-                                  textAlign: TextAlign.left,
-                                ),
-                                const Gap(27),
-                                model.topBooks != null
-                                    ? SizedBox(
-                                        height: screenHeight(context) * 0.26,
-                                        child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
+                          child: RefreshIndicator(
+                            onRefresh: () async => await model.getBooks(),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const BodyText(
+                                    'Popular Books',
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.darkBlack,
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  const Gap(27),
+                                  model.topBooks != null
+                                      ? SizedBox(
+                                          height: screenHeight(context) * 0.26,
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            shrinkWrap: true,
+                                            itemCount: model.topBooks!.length,
+                                            itemBuilder: (context, index) {
+                                              final Books item =
+                                                  model.topBooks![index];
+                                              return TouchableOpacity(
+                                                onTap: () =>
+                                                    Navigator.pushNamed(
+                                                  context,
+                                                  Routes.singleBook,
+                                                  arguments: SingleBooksArgs(
+                                                    uuid: item.uuid,
+                                                    title: item.title,
+                                                    description:
+                                                        item.description,
+                                                    price: item.price,
+                                                    bookCover: item.bookCover,
+                                                    author: item.author,
+                                                    paid: item.paid,
+                                                    bookUrl: item.bookUrl,
+                                                    purchaseLink:
+                                                        item.purchaseLink,
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            item.bookCover,
+                                                        imageBuilder: (
+                                                          context,
+                                                          imageProvider,
+                                                        ) {
+                                                          return Container(
+                                                            width: 114.28,
+                                                            height: 175.88,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .rectangle,
+                                                              image:
+                                                                  DecorationImage(
+                                                                image:
+                                                                    imageProvider,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Image.asset(AppAssets
+                                                                .sampleBook),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Image.asset(
+                                                          AppAssets.sampleBook,
+                                                        ),
+                                                      ),
+                                                      const Gap(18),
+                                                      BodyText(
+                                                        item.title,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            AppColors.darkBlack,
+                                                      ),
+                                                      const Gap(3.84),
+                                                      BodyText(
+                                                        item.author,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: AppColors
+                                                            .darkBlacklight,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        )
+                                      : const BodyText(
+                                          'Popular Books not available'),
+                                  const Gap(40.65),
+                                  const BodyText(
+                                    'Newest',
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.darkBlack,
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  const Gap(34),
+                                  _bookList.isNotEmpty
+                                      ? ListView.builder(
                                           shrinkWrap: true,
-                                          itemCount: model.topBooks!.length,
+                                          itemCount: _bookList.length,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
                                           itemBuilder: (context, index) {
-                                            final Books item =
-                                                model.topBooks![index];
+                                            final Books item = _bookList[index];
                                             return TouchableOpacity(
                                               onTap: () => Navigator.pushNamed(
                                                 context,
                                                 Routes.singleBook,
                                                 arguments: SingleBooksArgs(
                                                   uuid: item.uuid,
+                                                  title: item.title,
+                                                  description: item.description,
+                                                  price: item.price,
+                                                  bookCover: item.bookCover,
+                                                  author: item.author,
+                                                  paid: item.paid,
+                                                  bookUrl: item.bookUrl,
+                                                  purchaseLink:
+                                                      item.purchaseLink,
                                                 ),
                                               ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 10),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    CachedNetworkImage(
-                                                      imageUrl:
-                                                          'https://rockapostolate.org/public/users/events/1640360195_8200ef6d3e7aab67d64e.jpeg',
-                                                      // imageUrl: item.bookCover,
-                                                      imageBuilder: (
-                                                        context,
-                                                        imageProvider,
-                                                      ) {
-                                                        return Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape: BoxShape
-                                                                .rectangle,
-                                                            image:
-                                                                DecorationImage(
-                                                              image:
-                                                                  imageProvider,
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                      placeholder: (context,
-                                                              url) =>
-                                                          Image.asset(AppAssets
-                                                              .sampleBook),
-                                                      errorWidget: (context,
-                                                              url, error) =>
-                                                          Image.asset(
-                                                        AppAssets.sampleBook,
-                                                      ),
-                                                    ),
-                                                    const Gap(18),
-                                                    BodyText(
-                                                      item.title,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color:
-                                                          AppColors.darkBlack,
-                                                    ),
-                                                    const Gap(3.84),
-                                                    BodyText(
-                                                      item.author,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: AppColors
-                                                          .darkBlacklight,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
+                                              child: VerticalBooks(item: item),
                                             );
                                           },
-                                        ),
-                                      )
-                                    : const BodyText('Top Books not available'),
-                                const Gap(40.65),
-                                const BodyText(
-                                  'Newest',
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.darkBlack,
-                                  textAlign: TextAlign.left,
-                                ),
-                                const Gap(34),
-                                _bookList.isNotEmpty
-                                    ? ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: _bookList.length,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemBuilder: (context, index) {
-                                          final Books item = _bookList[index];
-                                          // print(item.bookCover);
-                                          return TouchableOpacity(
-                                            onTap: () => Navigator.pushNamed(
-                                              context,
-                                              Routes.singleBook,
-                                              arguments: SingleBooksArgs(
-                                                uuid: item.uuid,
-                                              ),
-                                            ),
-                                            child: VerticalBooks(item: item),
-                                          );
-                                        },
-                                      )
-                                    : const BodyText('No Books available'),
-                              ],
+                                        )
+                                      : const BodyText('No Books available'),
+                                ],
+                              ),
                             ),
                           ),
                         ),

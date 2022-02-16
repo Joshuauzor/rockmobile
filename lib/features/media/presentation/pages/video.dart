@@ -1,85 +1,125 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
-import 'package:rockapp/core/constant/app_assets.dart';
-import 'package:rockapp/core/constant/constant.dart';
+import 'package:rockapp/app/views/widgets/widgets.dart';
+import 'package:rockapp/core/extensions/string_extensions.dart';
+import 'package:rockapp/view_models/home/media_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 
-class VideoView extends StatefulWidget {
-  const VideoView({Key? key}) : super(key: key);
+class MediaLibrary extends StatefulWidget {
+  const MediaLibrary({Key? key}) : super(key: key);
 
   @override
-  _VideoViewState createState() => _VideoViewState();
+  _MediaLibraryState createState() => _MediaLibraryState();
 }
 
-class _VideoViewState extends State<VideoView> {
-  // final CarouselController _controller = CarouselController();
+class _MediaLibraryState extends State<MediaLibrary> {
+  final _searchController = TextEditingController();
+
+  String _searchText = '';
+
+  @override
+  void initState() {
+    _searchText = _searchController.text.trim();
+    _searchController.addListener(() {
+      setState(() {
+        _searchText = _searchController.text.trim();
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10.0),
-                bottomRight: Radius.circular(10.0),
-              ),
-              color: AppColors.primaryColor,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 51,
-                bottom: 8,
-                left: 27,
-                right: 20,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        child: Image.asset(AppAssets.avatar),
-                      ),
-                      const Gap(11),
-                      Column(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+      child: Scaffold(
+        body: ViewModelBuilder<MediaViewModel>.reactive(
+          viewModelBuilder: () => MediaViewModel(),
+          onModelReady: (model) => model.init(),
+          disposeViewModel: false,
+          builder: (context, model, child) {
+            final _mediaList = _searchText.isEmpty
+                ? model.videoMedia
+                : model.videoMedia == null
+                    ? []
+                    : model.videoMedia!
+                        .where(
+                          (item) =>
+                              item.title.contains(
+                                RegExp(StringUtil.escapeSpecial(_searchText),
+                                    caseSensitive: false),
+                              ) ||
+                              item.author.contains(
+                                RegExp(StringUtil.escapeSpecial(_searchText),
+                                    caseSensitive: false),
+                              ),
+                        )
+                        .toList();
+            return _mediaList == null
+                ? const Center(
+                    child: Loader(),
+                  )
+                : SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 32, right: 29),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          BodyText(
-                            'Hello Video',
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.white,
+                        children: [
+                          const Align(
+                            alignment: Alignment.center,
+                            child: BodyText(
+                              'Media',
+                              color: AppColors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                          Gap(3),
-                          BodyText(
-                            'Good morning.',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.white,
-                          ),
+                          const Gap(28),
+                          SearchBar(searchController: _searchController),
+                          const Gap(26),
+                          _mediaList.isNotEmpty
+                              ? Expanded(
+                                  child: RefreshIndicator(
+                                    onRefresh: () async =>
+                                        await model.getVideoMedia(),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          StaggeredGrid.count(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 26,
+                                            mainAxisSpacing: 25,
+                                            children: _mediaList
+                                                .map(
+                                                  (e) => VideoMedia(
+                                                    image: e.coverImage,
+                                                    title: e.title,
+                                                    author: e.author,
+                                                    media: e.media,
+                                                    description: e.description,
+                                                  ),
+                                                )
+                                                .toList(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : const BodyText('No Media available'),
                         ],
                       ),
-                    ],
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.white,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SvgPicture.asset(AppAssets.bell),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+                  );
+          },
+        ),
       ),
     );
   }

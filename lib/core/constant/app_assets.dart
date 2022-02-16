@@ -36,4 +36,5 @@ class AppAssets {
   static const String volumeUp = 'assets/icons/volumeUp.svg';
   static const String playwhite = 'assets/icons/playwhite.png';
   static const String pausewhite = 'assets/icons/pausewhite.png';
+  static const String churchPrayers = 'assets/icons/church_prayers.png';
 }

@@ -44,6 +44,7 @@ class _TermsState extends State<Terms> {
                               'Back',
                               color: AppColors.lightBlack,
                               fontSize: 17,
+                              fontWeight: FontWeight.w700,
                             ),
                           ],
                         ),

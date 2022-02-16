@@ -19,28 +19,38 @@ class TabOne extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 23.56,
           mainAxisSpacing: 23.56,
-          children: const [
-            HomeFeatures(
+          children: [
+            const HomeFeatures(
               icon: AppAssets.reading,
               title: 'Daily Readings',
             ),
-            HomeFeatures(
-              icon: AppAssets.prayers,
-              title: 'Church Prayers',
+            TouchableOpacity(
+              onTap: () => Navigator.pushNamed(context, Routes.churchPrayers),
+              child: const HomeFeatures(
+                icon: AppAssets.prayers,
+                title: 'Church Prayers',
+              ),
             ),
-            HomeFeatures(
-              icon: AppAssets.rosary,
-              title: 'Holy Rosary',
+            TouchableOpacity(
+              onTap: () => Navigator.pushNamed(context, Routes.rosaryView),
+              child: const HomeFeatures(
+                icon: AppAssets.rosary,
+                title: 'Holy Rosary',
+              ),
             ),
-            HomeFeatures(
+            const HomeFeatures(
               icon: AppAssets.sermons,
-              title: 'Sermons',
+              title: 'Media Reflection',
             ),
-            HomeFeatures(
-              icon: AppAssets.prayer,
-              title: 'Prayer Request',
+            TouchableOpacity(
+              onTap: () =>
+                  Navigator.pushNamed(context, Routes.prayerRequestView),
+              child: const HomeFeatures(
+                icon: AppAssets.prayer,
+                title: 'Prayer Request',
+              ),
             ),
-            HomeFeatures(
+            const HomeFeatures(
               icon: AppAssets.donation,
               title: 'Donations',
             ),
@@ -124,11 +134,11 @@ class TabThree extends StatelessWidget {
           children: const [
             HomeFeatures(
               icon: AppAssets.nigeria,
-              title: 'Catholic News Nigeria',
+              title: 'Nigeria News',
             ),
             HomeFeatures(
               icon: AppAssets.worldwide,
-              title: 'Catholic News Worldwide',
+              title: 'Worldwide News',
             ),
           ],
         ),

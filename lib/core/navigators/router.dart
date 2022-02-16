@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:rockapp/core/navigators/routes.dart';
 import 'package:rockapp/features/auth/auth.dart';
 import 'package:rockapp/features/books/presentation/pages/single_book.dart';
+import 'package:rockapp/features/church_prayers/church_prayers.dart';
 import 'package:rockapp/features/home/home.dart';
-import 'package:rockapp/features/home/presentation/pages/rules_view.dart';
-import 'package:rockapp/features/media/media.dart';
+import 'package:rockapp/features/media/presentation/pages/video_player.dart';
 import 'package:rockapp/features/music/music.dart';
+import 'package:rockapp/features/rosary/rosary.dart';
 import 'package:rockapp/features/settings/presentation/pages/about.dart';
 import 'package:rockapp/features/settings/presentation/pages/privacy_policy.dart';
 import 'package:rockapp/features/settings/presentation/pages/terms.dart';
-
-import '../../features/splash/splash.dart';
+import 'package:rockapp/features/splash/splash.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -43,12 +43,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: const HomeView(),
-      );
-
-    case Routes.videoView:
-      return _getPageRoute(
-        routeName: settings.name,
-        viewToShow: const VideoView(),
       );
 
     case Routes.appTabView:
@@ -87,6 +81,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const RulesView(),
       );
 
+    case Routes.prayerRequestView:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const PrayerRequest(),
+      );
+
     case Routes.singleBook:
       final args = settings.arguments as SingleBooksArgs;
       return _getPageRoute(
@@ -101,6 +101,46 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: MusicPlayerView(params: args),
+      );
+
+    case Routes.videoPlayerView:
+      final args = settings.arguments as VideoPlayerViewsArgs;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: VideoPlayerView(params: args),
+      );
+
+    case Routes.churchPrayers:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const ChurchPrayersView(),
+      );
+
+    case Routes.singleChurchPrayer:
+      final args = settings.arguments as SinglePrayerArgs;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SinglePrayer(params: args),
+      );
+
+    case Routes.rosaryView:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const RosaryView(),
+      );
+
+    case Routes.singleRosaryView:
+      final args = settings.arguments as SingleRosaryViewArgs;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SingleRosaryView(params: args),
+      );
+
+    case Routes.rockWebView:
+      final args = settings.arguments as RockWebViewArgs;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: RockWebView(params: args),
       );
 
     default:

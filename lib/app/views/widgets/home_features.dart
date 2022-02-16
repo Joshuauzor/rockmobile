@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
+import 'package:rockapp/core/constant/app_assets.dart';
 
 class HomeFeatures extends StatelessWidget {
   const HomeFeatures({
@@ -68,6 +69,56 @@ class HomeFeatures extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ChurchPrayersHolder extends StatelessWidget {
+  const ChurchPrayersHolder({
+    required this.title,
+    this.icon = AppAssets.churchPrayers,
+    Key? key,
+  }) : super(key: key);
+
+  final String title;
+  final String icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding:
+              const EdgeInsets.only(left: 22, top: 13, bottom: 13, right: 12),
+          decoration: const BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 8,
+                spreadRadius: 0,
+                offset: Offset(0, 8),
+                color: AppColors.homeMenuBox,
+              ),
+            ],
+            color: AppColors.white,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HeaderText(
+                title,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+              Image.asset(icon),
+            ],
+          ),
+        ),
+        const Gap(33),
+      ],
     );
   }
 }

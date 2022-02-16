@@ -33,8 +33,13 @@ class _MusicTileState extends State<MusicTile> {
   void _handlePlaying() {
     setState(() {
       _playing = !_playing;
-      // notify listener
     });
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
   }
 
   @override
@@ -113,7 +118,7 @@ class _MusicTileState extends State<MusicTile> {
                     color: AppColors.primaryColor,
                   ),
                   child: const BodyText(
-                    '22 MIN',
+                    'MP3',
                     color: AppColors.white,
                     fontSize: 9,
                     fontWeight: FontWeight.w500,
@@ -156,15 +161,11 @@ class _MusicTileState extends State<MusicTile> {
                       width: 15,
                       height: 17.42,
                     )
-                  : widget.busy
-                      ? const CircularProgressIndicator(
-                          color: AppColors.primaryColor,
-                        )
-                      : SvgPicture.asset(
-                          AppAssets.play,
-                          width: 15,
-                          height: 17.42,
-                        ),
+                  : SvgPicture.asset(
+                      AppAssets.play,
+                      width: 15,
+                      height: 17.42,
+                    ),
             ),
           ),
         ],

@@ -23,173 +23,223 @@ class MusicPlayerView extends StatefulWidget {
 
 class _MusicPlayerViewState extends State<MusicPlayerView> {
   AudioPlayer audioPlayer = AudioPlayer();
-  bool _playing = false;
-  bool _paused = true;
+  PlayingState _playerState = PlayingState.idle;
+
+  int maxduration = 100;
+  int currentpos = 0;
+  String currentpostlabel = "00:00";
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero, () async {
+      audioPlayer.onDurationChanged.listen((Duration d) {
+        //get the duration of audio
+        maxduration = d.inMilliseconds;
+      });
+
+      audioPlayer.onAudioPositionChanged.listen((Duration p) {
+        //get the current position of playing audio
+        currentpos = p.inMilliseconds;
+
+        //generating the duration label
+        int shours = Duration(milliseconds: currentpos).inHours;
+        int sminutes = Duration(milliseconds: currentpos).inMinutes;
+        int sseconds = Duration(milliseconds: currentpos).inSeconds;
+
+        // int rhours = shours;
+        // int rminutes = sminutes - (shours * 60);
+        int rminutes = sminutes;
+        int rseconds = sseconds - (sminutes * 60 + shours * 60 * 60);
+
+        currentpostlabel = "$rminutes:$rseconds";
+        setState(() {
+          //refresh the UI
+        });
+      });
+    });
+    super.initState();
+  }
 
   void _handlePlaying() {
     setState(() {
-      _playing = !_playing;
-      _paused = !_paused;
-      // notify listener
+      _playerState = _playerState == PlayingState.idle
+          ? PlayingState.playing
+          : _playerState == PlayingState.playing
+              ? PlayingState.pause
+              : PlayingState.playing;
     });
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ViewModelBuilder<MusicViewModel>.reactive(
-          viewModelBuilder: () => MusicViewModel(),
-          builder: (context, model, child) {
-            return SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 29, right: 29),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TouchableOpacity(
-                          onTap: () {
-                            if (Navigator.canPop(context)) {
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(AppAssets.arrowLeft),
-                              const Gap(12),
-                              const HeaderText(
-                                'Back',
-                                color: AppColors.lightBlack,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Gap(11.34),
-                  Expanded(
-                    child: CachedNetworkImage(
-                      imageUrl: widget.params.coverImage,
-                      imageBuilder: (context, imageProvider) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
+        viewModelBuilder: () => MusicViewModel(),
+        builder: (context, model, child) {
+          return SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 29, right: 29),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TouchableOpacity(
+                        onTap: () {
+                          if (Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(AppAssets.arrowLeft),
+                            const Gap(12),
+                            const HeaderText(
+                              'Back',
+                              color: AppColors.lightBlack,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
                             ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(11.34),
+                Expanded(
+                  child: CachedNetworkImage(
+                    imageUrl: widget.params.coverImage,
+                    imageBuilder: (context, imageProvider) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
                           ),
-                        );
-                      },
-                      placeholder: (context, url) => Image.asset(
-                        AppAssets.music,
-                        color: AppColors.black,
-                      ),
-                      errorWidget: (context, url, error) => Image.asset(
-                        AppAssets.music,
-                        color: AppColors.black,
-                      ),
+                        ),
+                      );
+                    },
+                    placeholder: (context, url) => Image.asset(
+                      AppAssets.music,
+                      color: AppColors.black,
+                    ),
+                    errorWidget: (context, url, error) => Image.asset(
+                      AppAssets.music,
+                      color: AppColors.black,
                     ),
                   ),
-                  const Gap(125.66),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 29, right: 29),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        HeaderText(
-                          widget.params.title,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        const Gap(12),
-                        Container(
-                          width: double.infinity,
-                          height: 10,
+                ),
+                const Gap(125.66),
+                Padding(
+                  padding: const EdgeInsets.only(left: 29, right: 29),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      HeaderText(
+                        widget.params.title,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      const Gap(12),
+                      Slider(
+                        activeColor: AppColors.primaryColor,
+                        value: double.parse(currentpos.toString()),
+                        min: 0,
+                        max: double.parse(maxduration.toString()),
+                        divisions: maxduration,
+                        label: currentpostlabel,
+                        onChanged: (double value) async {
+                          int seekval = value.round();
+                          await audioPlayer
+                              .seek(Duration(milliseconds: seekval));
+                          //seek successful
+                          currentpos = seekval;
+                        },
+                      ),
+                      const Gap(6),
+                      HeaderText(
+                        currentpostlabel,
+                        fontSize: 16,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 59,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SvgPicture.asset(
+                        AppAssets.repeat,
+                      ),
+                      SvgPicture.asset(
+                        AppAssets.previous,
+                      ),
+                      TouchableOpacity(
+                        onTap: () async {
+                          _playerState == PlayingState.idle
+                              ? await audioPlayer.play(
+                                  widget.params.media,
+                                )
+                              : _playerState == PlayingState.playing
+                                  ? await audioPlayer.pause()
+                                  : await audioPlayer.resume();
+                          _handlePlaying();
+                        },
+                        child: Container(
+                          width: 64,
+                          height: 64,
                           decoration: const BoxDecoration(
-                            shape: BoxShape.rectangle,
+                            shape: BoxShape.circle,
                             color: AppColors.primaryColor,
                           ),
+                          child: PlayingState.idle == _playerState
+                              ? Image.asset(
+                                  AppAssets.playwhite,
+                                )
+                              : _playerState == PlayingState.playing
+                                  ? Image.asset(
+                                      AppAssets.pausewhite,
+                                    )
+                                  : Image.asset(
+                                      AppAssets.playwhite,
+                                    ),
                         ),
-                        const Gap(6),
-                        const HeaderText(
-                          '04:35',
-                          fontSize: 16,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 27,
-                          ),
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(
-                                AppAssets.repeat,
-                              ),
-                              const Gap(44),
-                              SvgPicture.asset(
-                                AppAssets.previous,
-                              ),
-                              const Gap(35),
-                              TouchableOpacity(
-                                onTap: () async {
-                                  print(_playing);
-                                  print(_paused);
-
-                                  _playing
-                                      ? await audioPlayer.pause()
-                                      : _paused
-                                          ? await audioPlayer.resume()
-                                          : await audioPlayer.play(
-                                              widget.params.media,
-                                            );
-                                  _handlePlaying();
-                                },
-                                child: Container(
-                                  width: 64,
-                                  height: 64,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                  child: _playing
-                                      ? Image.asset(
-                                          AppAssets.pausewhite,
-                                        )
-                                      : model.busy
-                                          ? const CircularProgressIndicator(
-                                              color: AppColors.primaryColor,
-                                            )
-                                          : Image.asset(
-                                              AppAssets.playwhite,
-                                            ),
-                                ),
-                              ),
-                              const Gap(35),
-                              SvgPicture.asset(
-                                AppAssets.next,
-                              ),
-                              const Gap(44),
-                              SvgPicture.asset(
-                                AppAssets.volumeUp,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Gap(83),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            );
-          }),
+                      ),
+                      SvgPicture.asset(
+                        AppAssets.next,
+                      ),
+                      SvgPicture.asset(
+                        AppAssets.volumeUp,
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(88),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
+}
+
+enum PlayingState {
+  idle,
+  playing,
+  pause,
 }
 
 class MusicPlayerViewsArgs {
