@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
@@ -7,6 +8,8 @@ import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/views/views.dart';
 import 'package:rockapp/core/constant/constant.dart';
+import 'package:rockapp/core/navigators/routes.dart';
+import 'package:rockapp/features/home/home.dart';
 import 'package:rockapp/view_models/home/books_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -19,6 +22,8 @@ class SingleBook extends StatefulWidget {
 }
 
 class _SingleBookState extends State<SingleBook> {
+  String? webBaseUrl = dotenv.env[WEB_BASE_URL];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,8 +132,18 @@ class _SingleBookState extends State<SingleBook> {
                           ),
                           const Gap(17),
                           NextButton(
-                              label: 'Buy Book Now For N${widget.params.price}',
-                              onPressed: () {})
+                            label: 'Buy Book Now For N${widget.params.price}',
+                            onPressed: () => Navigator.pushNamed(
+                              context,
+                              Routes.rockWebView,
+                              arguments: RockWebViewArgs(
+                                uuid: widget.params.uuid,
+                                title: 'Books',
+                                url:
+                                    '$webBaseUrl/home/view_book/${widget.params.uuid}',
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),

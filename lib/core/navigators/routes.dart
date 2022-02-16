@@ -19,4 +19,5 @@ class Routes {
   static const String singleChurchPrayer = 'singleChurchPrayer';
   static const String rosaryView = 'rosaryView';
   static const String singleRosaryView = 'singleRosaryView';
+  static const String rockWebView = 'rockWebView';
 }

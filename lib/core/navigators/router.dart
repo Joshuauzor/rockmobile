@@ -136,6 +136,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: SingleRosaryView(params: args),
       );
 
+    case Routes.rockWebView:
+      final args = settings.arguments as RockWebViewArgs;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: RockWebView(params: args),
+      );
+
     default:
       return MaterialPageRoute(
         builder: (_) => Scaffold(
