@@ -7,6 +7,7 @@ import 'package:rockapp/features/church_prayers/church_prayers.dart';
 import 'package:rockapp/features/home/home.dart';
 import 'package:rockapp/features/media/presentation/pages/video_player.dart';
 import 'package:rockapp/features/music/music.dart';
+import 'package:rockapp/features/rosary/rosary.dart';
 import 'package:rockapp/features/settings/presentation/pages/about.dart';
 import 'package:rockapp/features/settings/presentation/pages/privacy_policy.dart';
 import 'package:rockapp/features/settings/presentation/pages/terms.dart';
@@ -120,6 +121,19 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: SinglePrayer(params: args),
+      );
+
+    case Routes.rosaryView:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const RosaryView(),
+      );
+
+    case Routes.singleRosaryView:
+      final args = settings.arguments as SingleRosaryViewArgs;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SingleRosaryView(params: args),
       );
 
     default:

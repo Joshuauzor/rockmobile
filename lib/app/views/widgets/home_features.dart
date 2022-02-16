@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
@@ -77,10 +76,12 @@ class HomeFeatures extends StatelessWidget {
 class ChurchPrayersHolder extends StatelessWidget {
   const ChurchPrayersHolder({
     required this.title,
+    this.icon = AppAssets.churchPrayers,
     Key? key,
   }) : super(key: key);
 
   final String title;
+  final String icon;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +113,7 @@ class ChurchPrayersHolder extends StatelessWidget {
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
               ),
-              SvgPicture.asset(AppAssets.churchPrayers)
+              Image.asset(icon),
             ],
           ),
         ),

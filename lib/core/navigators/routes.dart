@@ -17,4 +17,6 @@ class Routes {
   static const String prayerRequestView = 'prayerRequestView';
   static const String churchPrayers = 'churchPrayers';
   static const String singleChurchPrayer = 'singleChurchPrayer';
+  static const String rosaryView = 'rosaryView';
+  static const String singleRosaryView = 'singleRosaryView';
 }

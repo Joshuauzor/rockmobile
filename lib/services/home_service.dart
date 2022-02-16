@@ -8,6 +8,7 @@ import 'package:rockapp/locator.dart';
 import 'package:rockapp/model/books.dart';
 import 'package:rockapp/model/church_prayers.dart';
 import 'package:rockapp/model/music.dart';
+import 'package:rockapp/model/rosary.dart';
 import 'package:stacked/stacked.dart';
 
 abstract class HomeService with ReactiveServiceMixin {
@@ -26,6 +27,9 @@ abstract class HomeService with ReactiveServiceMixin {
   List<ChurchPrayers>? _churchPrayers;
   List<ChurchPrayers>? get churchPrayers => _churchPrayers;
 
+  List<Rosary>? _rosary;
+  List<Rosary>? get rosary => _rosary;
+
   Books? _singleBook;
   Books? get singleBook => _singleBook;
 
@@ -39,6 +43,7 @@ abstract class HomeService with ReactiveServiceMixin {
     required String request,
   });
   Future<void> getChurchPrayers();
+  Future<void> getRosary();
 }
 
 class HomeServiceImpl extends HomeService {
@@ -153,6 +158,21 @@ class HomeServiceImpl extends HomeService {
         responseData.add(ChurchPrayers.fromJson(item));
       }
       _churchPrayers = responseData;
+    } catch (e) {
+      Logger().d('$e');
+    }
+  }
+
+  @override
+  Future getRosary() async {
+    try {
+      var response =
+          await _apiServiceRequester.getRequest(url: 'rosary/fetchAll');
+      var responseData = <Rosary>[];
+      for (var item in response.data['data']['rows']) {
+        responseData.add(Rosary.fromJson(item));
+      }
+      _rosary = responseData;
     } catch (e) {
       Logger().d('$e');
     }
