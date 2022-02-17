@@ -38,4 +38,5 @@ class AppAssets {
   static const String pausewhite = 'assets/icons/pausewhite.png';
   static const String churchPrayers = 'assets/icons/church_prayers.png';
   static const String empty = 'assets/images/empty.svg';
+  static const String defaultReading = 'assets/images/defaultReading.jpeg';
 }

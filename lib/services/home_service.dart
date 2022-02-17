@@ -193,7 +193,6 @@ class HomeServiceImpl extends HomeService {
     try {
       final response = await _apiServiceRequester.getRequest(
           url: 'reflections/fetch?date=$date');
-      print(response);
       if (response.data['data'] == null) {
         _reading = null;
       } else {
