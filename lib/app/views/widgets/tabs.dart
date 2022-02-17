@@ -21,7 +21,8 @@ class TabOne extends StatelessWidget {
           mainAxisSpacing: 23.56,
           children: [
             TouchableOpacity(
-              onTap: () => Navigator.pushNamed(context, Routes.selectReading),
+              onTap: () =>
+                  Navigator.pushNamed(context, Routes.selectReadingView),
               child: const HomeFeatures(
                 icon: AppAssets.reading,
                 title: 'Daily Readings',
@@ -41,9 +42,12 @@ class TabOne extends StatelessWidget {
                 title: 'Holy Rosary',
               ),
             ),
-            const HomeFeatures(
-              icon: AppAssets.sermons,
-              title: 'Media Reflection',
+            TouchableOpacity(
+              onTap: () => Navigator.pushNamed(context, Routes.mediaView),
+              child: const HomeFeatures(
+                icon: AppAssets.sermons,
+                title: 'Media Reflection',
+              ),
             ),
             TouchableOpacity(
               onTap: () =>

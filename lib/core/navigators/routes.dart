@@ -13,6 +13,7 @@ class Routes {
   static const String rules = 'rules';
   static const String singleBook = 'singleBook';
   static const String musicPlayerView = 'musicPlayerView';
+  static const String mediaView = 'mediaView';
   static const String videoPlayerView = 'videoPlayerView';
   static const String prayerRequestView = 'prayerRequestView';
   static const String churchPrayers = 'churchPrayers';
@@ -20,5 +21,5 @@ class Routes {
   static const String rosaryView = 'rosaryView';
   static const String singleRosaryView = 'singleRosaryView';
   static const String rockWebView = 'rockWebView';
-  static const String selectReading = 'selectReading';
+  static const String selectReadingView = 'selectReadingView';
 }
