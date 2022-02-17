@@ -5,7 +5,8 @@ import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/core/constant/constant.dart';
-import 'package:rockapp/view_models/home/settings_viewmodel.dart';
+import 'package:rockapp/core/extensions/extensions.dart';
+import 'package:rockapp/view_models/home/reading_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -20,8 +21,8 @@ class _SelectReadingState extends State<SelectReading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ViewModelBuilder<SettingsViewModel>.reactive(
-        viewModelBuilder: () => SettingsViewModel(),
+      body: ViewModelBuilder<ReadingViewModel>.reactive(
+        viewModelBuilder: () => ReadingViewModel(),
         builder: (context, model, child) {
           return SafeArea(
             child: Column(
@@ -73,6 +74,8 @@ class _SelectReadingState extends State<SelectReading> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 35),
                         child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 24),
                           decoration: const BoxDecoration(
                             shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.all(
@@ -112,7 +115,9 @@ class _SelectReadingState extends State<SelectReading> {
                             showNavigationArrow: true,
                             onCancel: () => Navigator.pop(context),
                             onSubmit: (value) {
-                              print(value);
+                              model.getDailyReading(
+                                  date: TimeFmt.getOnlyDate(value.toString()),
+                                  context: context);
                             },
                           ),
                         ),

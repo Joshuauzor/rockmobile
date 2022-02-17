@@ -8,6 +8,7 @@ import 'package:rockapp/locator.dart';
 import 'package:rockapp/model/books.dart';
 import 'package:rockapp/model/church_prayers.dart';
 import 'package:rockapp/model/music.dart';
+import 'package:rockapp/model/reading.dart';
 import 'package:rockapp/model/rosary.dart';
 import 'package:stacked/stacked.dart';
 
@@ -33,6 +34,9 @@ abstract class HomeService with ReactiveServiceMixin {
   Books? _singleBook;
   Books? get singleBook => _singleBook;
 
+  DailyReading? _reading;
+  DailyReading? get reading => _reading;
+
   Future<void> getBooks();
   Future<void> getMusic();
   Future<void> fetchVideoMedia();
@@ -44,13 +48,16 @@ abstract class HomeService with ReactiveServiceMixin {
   });
   Future<void> getChurchPrayers();
   Future<void> getRosary();
+  Future<void> getDailyReading({
+    required String date,
+  });
 }
 
 class HomeServiceImpl extends HomeService {
   final ApiServiceRequester _apiServiceRequester = sl<ApiServiceRequester>();
 
   @override
-  Future getBooks() async {
+  Future<void> getBooks() async {
     try {
       var response = await _apiServiceRequester.getRequest(url: 'books');
       var responseData = <Books>[];
@@ -71,7 +78,7 @@ class HomeServiceImpl extends HomeService {
   }
 
   @override
-  Future getMusic() async {
+  Future<void> getMusic() async {
     try {
       var response = await _apiServiceRequester.getRequest(
           url: 'sermons/fetchAll?media=mp3');
@@ -86,7 +93,7 @@ class HomeServiceImpl extends HomeService {
   }
 
   @override
-  Future fetchVideoMedia() async {
+  Future<void> fetchVideoMedia() async {
     try {
       var response = await _apiServiceRequester.getRequest(
           url: 'sermons/fetchAll?media=mp4');
@@ -149,7 +156,7 @@ class HomeServiceImpl extends HomeService {
   }
 
   @override
-  Future getChurchPrayers() async {
+  Future<void> getChurchPrayers() async {
     try {
       var response =
           await _apiServiceRequester.getRequest(url: 'prayers/fetchAll');
@@ -164,7 +171,7 @@ class HomeServiceImpl extends HomeService {
   }
 
   @override
-  Future getRosary() async {
+  Future<void> getRosary() async {
     try {
       var response =
           await _apiServiceRequester.getRequest(url: 'rosary/fetchAll');
@@ -173,6 +180,21 @@ class HomeServiceImpl extends HomeService {
         responseData.add(Rosary.fromJson(item));
       }
       _rosary = responseData;
+    } catch (e) {
+      Logger().d('$e');
+    }
+  }
+
+  @override
+  Future<void> getDailyReading({
+    required String date,
+  }) async {
+    _reading = null;
+    try {
+      final response = await _apiServiceRequester.getRequest(
+          url: 'reflections/fetch?date=$date');
+      print(response);
+      _reading = DailyReading.fromJson(response.data['data']);
     } catch (e) {
       Logger().d('$e');
     }
