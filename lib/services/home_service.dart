@@ -194,7 +194,11 @@ class HomeServiceImpl extends HomeService {
       final response = await _apiServiceRequester.getRequest(
           url: 'reflections/fetch?date=$date');
       print(response);
-      _reading = DailyReading.fromJson(response.data['data']);
+      if (response.data['data'] == null) {
+        _reading = null;
+      } else {
+        _reading = DailyReading.fromJson(response.data['data']);
+      }
     } catch (e) {
       Logger().d('$e');
     }

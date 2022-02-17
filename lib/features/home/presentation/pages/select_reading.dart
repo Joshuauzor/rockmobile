@@ -5,7 +5,9 @@ import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/core/constant/constant.dart';
-import 'package:rockapp/core/extensions/extensions.dart';
+import 'package:rockapp/core/extensions/time_extensions.dart';
+import 'package:rockapp/core/navigators/routes.dart';
+import 'package:rockapp/features/home/presentation/pages/daily_reading_view.dart';
 import 'package:rockapp/view_models/home/reading_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -115,9 +117,20 @@ class _SelectReadingState extends State<SelectReading> {
                             showNavigationArrow: true,
                             onCancel: () => Navigator.pop(context),
                             onSubmit: (value) {
-                              model.getDailyReading(
-                                  date: TimeFmt.getOnlyDate(value.toString()),
-                                  context: context);
+                              if (value != null) {
+                                value = value;
+                              } else {
+                                value = DateTime.now();
+                              }
+                              Navigator.pushNamed(
+                                context,
+                                Routes.dailyReadingView,
+                                arguments: DailyReadingViewArgs(
+                                  date: TimeFmt.getOnlyDate(
+                                    value.toString(),
+                                  ),
+                                ),
+                              );
                             },
                           ),
                         ),

@@ -22,4 +22,5 @@ class Routes {
   static const String singleRosaryView = 'singleRosaryView';
   static const String rockWebView = 'rockWebView';
   static const String selectReadingView = 'selectReadingView';
+  static const String dailyReadingView = 'dailyReadingView';
 }
