@@ -20,9 +20,12 @@ class TabOne extends StatelessWidget {
           crossAxisSpacing: 23.56,
           mainAxisSpacing: 23.56,
           children: [
-            const HomeFeatures(
-              icon: AppAssets.reading,
-              title: 'Daily Readings',
+            TouchableOpacity(
+              onTap: () => Navigator.pushNamed(context, Routes.selectReading),
+              child: const HomeFeatures(
+                icon: AppAssets.reading,
+                title: 'Daily Readings',
+              ),
             ),
             TouchableOpacity(
               onTap: () => Navigator.pushNamed(context, Routes.churchPrayers),

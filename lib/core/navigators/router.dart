@@ -143,6 +143,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: RockWebView(params: args),
       );
 
+    case Routes.selectReading:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const SelectReading(),
+      );
+
     default:
       return MaterialPageRoute(
         builder: (_) => Scaffold(

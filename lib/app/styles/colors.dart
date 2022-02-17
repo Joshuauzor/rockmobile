@@ -23,6 +23,10 @@ class AppColors {
   static const lighterDark = Color(0xFF4A4A4A);
   static const lightestDark = Color(0xCC4A4A4A);
   static const hintTextColor = Color(0xB36C6C6C);
+  static const calenderBox1 = Color(0x21130A2E);
+  static const calenderBox2 = Color(0x08130A2E);
+  static const calenderBox3 = Color(0x12130A2E);
+  static const calenderBox4 = Color(0x14130A2E);
 
   static const Map<int, Color> colorScratch = {
     50: Color.fromRGBO(7, 45, 114, .1),
