@@ -8,6 +8,7 @@ import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/styles/ui_helpers.dart';
 import 'package:rockapp/app/views/widgets/loader.dart';
 import 'package:rockapp/core/constant/constant.dart';
+import 'package:rockapp/core/extensions/extensions.dart';
 import 'package:rockapp/view_models/home/reading_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -169,6 +170,10 @@ class _DailyReadingViewState extends State<DailyReadingView> {
                                       LongText(
                                         model.reading!.firstReading,
                                       ),
+                                      // LongText(
+                                      //   StringUtil.escapeSpecial(
+                                      //       model.reading!.firstReading),
+                                      // ),
                                       model.reading!.secondReadingTopic != ''
                                           ? Column(
                                               crossAxisAlignment:
@@ -281,7 +286,25 @@ class _DailyReadingViewState extends State<DailyReadingView> {
                                   ),
                                 ),
                               )
-                            : const SizedBox()
+                            : Column(
+                                children: [
+                                  const Gap(10),
+                                  Center(
+                                    child: SizedBox(
+                                      width: screenWidth(context),
+                                      height: screenHeight(context) * 0.2,
+                                      child: SvgPicture.asset(AppAssets.empty),
+                                    ),
+                                  ),
+                                  const Gap(20),
+                                  const HeaderText(
+                                    'Daily reading not available for choosen date, Please choose other dates.',
+                                    textAlign: TextAlign.center,
+                                    color: AppColors.black,
+                                    maxLines: 2,
+                                  ),
+                                ],
+                              )
                       ],
                     ),
                   ),
