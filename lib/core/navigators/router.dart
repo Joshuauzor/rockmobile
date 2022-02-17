@@ -13,7 +13,6 @@ import 'package:rockapp/features/settings/presentation/pages/about.dart';
 import 'package:rockapp/features/settings/presentation/pages/privacy_policy.dart';
 import 'package:rockapp/features/settings/presentation/pages/terms.dart';
 import 'package:rockapp/features/splash/splash.dart';
-import 'package:rockapp/model/reading.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
