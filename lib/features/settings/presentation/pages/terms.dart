@@ -68,6 +68,7 @@ class _TermsState extends State<Terms> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Gap(19),
                         Padding(

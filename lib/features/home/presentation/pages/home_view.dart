@@ -9,6 +9,7 @@ import 'package:rockapp/app/views/widgets/tabs.dart';
 import 'package:rockapp/core/constant/app_assets.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:rockapp/core/extensions/extensions.dart';
 import 'package:rockapp/view_models/home/home_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -75,8 +76,15 @@ class _HomeViewState extends State<HomeView>
                       children: [
                         Row(
                           children: [
-                            SizedBox(
-                              child: Image.asset(AppAssets.avatar),
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.white,
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: BodyText('JU'),
+                              ),
                             ),
                             const Gap(11),
                             Column(
@@ -89,8 +97,8 @@ class _HomeViewState extends State<HomeView>
                                   color: AppColors.white,
                                 ),
                                 const Gap(3),
-                                const HeaderText(
-                                  'Good morning.',
+                                HeaderText(
+                                  'Good ${TimeFmt.greeting()}.',
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.white,

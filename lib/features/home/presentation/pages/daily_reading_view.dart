@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:rockapp/app/styles/colors.dart';
 import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
@@ -111,7 +112,10 @@ class _DailyReadingViewState extends State<DailyReadingView> {
                                           ),
                                           const Gap(15),
                                           HeaderText(
-                                            model.reading!.useDate,
+                                            DateFormat.yMMMMEEEEd().format(
+                                              DateTime.parse(
+                                                  model.reading!.useDate),
+                                            ),
                                             color: AppColors.black,
                                             fontSize: 14,
                                           ),
