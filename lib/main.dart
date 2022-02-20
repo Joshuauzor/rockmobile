@@ -14,12 +14,14 @@ void main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
-  ]).then((_) => {
-        runApp(
-          DevicePreview(
-            enabled: !kReleaseMode,
-            builder: (context) => const MyApp(),
-          ),
-        )
-      });
+  ]).then(
+    (_) => {
+      runApp(
+        DevicePreview(
+          enabled: !kReleaseMode,
+          builder: (context) => const MyApp(),
+        ),
+      )
+    },
+  );
 }

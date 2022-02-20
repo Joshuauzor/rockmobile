@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Rockapp',
+      title: 'RockApp',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppColors.background,
