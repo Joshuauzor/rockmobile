@@ -57,9 +57,12 @@ class TabOne extends StatelessWidget {
                 title: 'Prayer Request',
               ),
             ),
-            const HomeFeatures(
-              icon: AppAssets.donation,
-              title: 'Donations',
+            TouchableOpacity(
+              onTap: () => Navigator.pushNamed(context, Routes.donations),
+              child: const HomeFeatures(
+                icon: AppAssets.donation,
+                title: 'Donations',
+              ),
             ),
           ],
         ),

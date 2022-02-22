@@ -243,6 +243,7 @@ class _HomeViewState extends State<HomeView>
   }
 }
 
+// app tab controller
 Widget _buildTabItem({
   required String text,
   required bool isActive,

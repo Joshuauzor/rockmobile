@@ -4,6 +4,7 @@ import 'package:rockapp/core/navigators/routes.dart';
 import 'package:rockapp/features/auth/auth.dart';
 import 'package:rockapp/features/books/presentation/pages/single_book.dart';
 import 'package:rockapp/features/church_prayers/church_prayers.dart';
+import 'package:rockapp/features/donation/presentation/pages/donation.dart';
 import 'package:rockapp/features/home/home.dart';
 import 'package:rockapp/features/home/presentation/pages/daily_reading_view.dart';
 import 'package:rockapp/features/media/media.dart';
@@ -161,6 +162,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: DailyReadingView(params: args),
+      );
+
+    case Routes.donations:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const DonationView(),
       );
 
     default:

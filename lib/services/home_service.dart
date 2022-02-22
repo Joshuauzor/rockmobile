@@ -7,6 +7,7 @@ import 'package:rockapp/core/networks/api_request.dart';
 import 'package:rockapp/locator.dart';
 import 'package:rockapp/model/books.dart';
 import 'package:rockapp/model/church_prayers.dart';
+import 'package:rockapp/model/donations.dart';
 import 'package:rockapp/model/music.dart';
 import 'package:rockapp/model/reading.dart';
 import 'package:rockapp/model/rosary.dart';
@@ -31,6 +32,9 @@ abstract class HomeService with ReactiveServiceMixin {
   List<Rosary>? _rosary;
   List<Rosary>? get rosary => _rosary;
 
+  List<Donations>? _donationList;
+  List<Donations>? get donationList => _donationList;
+
   Books? _singleBook;
   Books? get singleBook => _singleBook;
 
@@ -51,6 +55,7 @@ abstract class HomeService with ReactiveServiceMixin {
   Future<void> getDailyReading({
     required String date,
   });
+  Future<void> getDonations();
 }
 
 class HomeServiceImpl extends HomeService {
@@ -198,6 +203,23 @@ class HomeServiceImpl extends HomeService {
       } else {
         _reading = DailyReading.fromJson(response.data['data']);
       }
+    } catch (e) {
+      Logger().d('$e');
+    }
+  }
+
+  @override
+  Future<void> getDonations() async {
+    try {
+      var response =
+          await _apiServiceRequester.getRequest(url: 'donation/fetchAll');
+      var responseData = <Donations>[];
+      for (var item in response.data['data']['rows']) {
+        responseData.add(Donations.fromJson(item));
+      }
+      _donationList = responseData;
+      print('service');
+      print(_donationList);
     } catch (e) {
       Logger().d('$e');
     }

@@ -112,7 +112,7 @@ class AuthenticationServiceImpl extends AuthenticationService {
       if (!response.data['status']) {
         return Left(ServerFailure(message: response.data['message']));
       }
-      return const Right('Registration successful. Please login');
+      return const Right('Registration successfull. Please login');
     } catch (e) {
       Logger().d('$e');
       if (e is NoInternetException) {
