@@ -222,17 +222,17 @@ class _LoginViewState extends State<LoginView> {
                                           hintText: 'Enter email or username',
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           border: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           hintStyle: TextStyle(
@@ -263,18 +263,18 @@ class _LoginViewState extends State<LoginView> {
                                           enabledBorder:
                                               const UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           focusedBorder:
                                               const UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           border: const UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           hintStyle: const TextStyle(
@@ -468,17 +468,17 @@ class _LoginViewState extends State<LoginView> {
                                           hintText: 'Enter First Name',
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           border: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           hintStyle: TextStyle(
@@ -497,17 +497,17 @@ class _LoginViewState extends State<LoginView> {
                                           hintText: 'Enter Last Name',
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           border: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           hintStyle: TextStyle(
@@ -527,17 +527,17 @@ class _LoginViewState extends State<LoginView> {
                                           hintText: 'Enter email',
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           border: UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           hintStyle: TextStyle(
@@ -569,18 +569,18 @@ class _LoginViewState extends State<LoginView> {
                                           enabledBorder:
                                               const UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           focusedBorder:
                                               const UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           border: const UnderlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0xffEAEAF5),
+                                              color: AppColors.lowerHome,
                                             ),
                                           ),
                                           hintStyle: const TextStyle(

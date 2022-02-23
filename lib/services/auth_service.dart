@@ -32,6 +32,11 @@ abstract class AuthenticationService with ReactiveServiceMixin {
     required String password,
   });
 
+  Future<Either<Failure, String>> resetPassword({
+    required String currentPassword,
+    required String newPassword,
+    required String confirmPassword,
+  });
   Future<bool> isUserLoggedIn();
   Future<void> fetchSettingsInfo();
   Future<void> logout();
@@ -178,6 +183,46 @@ class AuthenticationServiceImpl extends AuthenticationService {
       _settings = SettingsModel.fromJson(response.data['data']);
     } catch (e) {
       Logger().d('$e');
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> resetPassword({
+    required String currentPassword,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
+    try {
+      final response =
+          await _apiServiceRequester.put(url: 'user/changePassword', body: {
+        'oldPassword': currentPassword,
+        'newPassword': newPassword,
+        'confirmPassword': confirmPassword,
+      });
+      if (!response.data['status']) {
+        return Left(ServerFailure(message: response.data['message']));
+      }
+      return Right(response.data['message']);
+    } catch (e) {
+      Logger().d('$e');
+      if (e is NoInternetException) {
+        return Left(NoInternetFailure());
+      }
+      if (e is DioError) {
+        if (e.response != null && e.response!.statusCode! >= 500) {
+          return const Left(ServerFailure(message: 'server error. try again'));
+        }
+        if (e.response != null &&
+            e.response!.data != null &&
+            e.response!.data['message'] != null) {
+          return Left(ServerFailure(message: e.response!.data['message']));
+        } else {
+          return const Left(
+            ServerFailure(message: 'Server error, please try again'),
+          );
+        }
+      }
+      return Left(UnknownFailure());
     }
   }
 }

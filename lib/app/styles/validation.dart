@@ -19,3 +19,15 @@ String? validateEmail(value) {
   }
   return null;
 }
+
+String? validatePassword(value) {
+  value = value!.trim();
+  if (value.isEmpty) {
+    return "Required*";
+  }
+
+  if (value.length < 5) {
+    return "Password must be greater than 5 characters";
+  }
+  return null;
+}

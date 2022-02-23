@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/views/widgets/home_features.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/core/navigators/navigators.dart';
+import 'package:rockapp/features/home/home.dart';
 
 class TabOne extends StatelessWidget {
   const TabOne({
@@ -78,6 +80,8 @@ class TabTwo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? webBaseUrl = dotenv.env[WEB_BASE_URL];
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 33.88),
@@ -87,10 +91,11 @@ class TabTwo extends StatelessWidget {
           mainAxisSpacing: 23.56,
           children: [
             TouchableOpacity(
-              onTap: () => Navigator.pushNamed(
-                context,
-                Routes.membership,
-              ),
+              onTap: () => Navigator.pushNamed(context, Routes.rockWebView,
+                  arguments: RockWebViewArgs(
+                      uuid: 'uuid',
+                      title: 'About Us',
+                      url: '$webBaseUrl/about')),
               child: const HomeFeatures(
                 icon: AppAssets.about,
                 title: 'About ROCK',

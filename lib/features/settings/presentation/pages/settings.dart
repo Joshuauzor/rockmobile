@@ -55,17 +55,23 @@ class _SettingsState extends State<Settings> {
                               child: Column(
                                 children: [
                                   const Gap(66),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const TitleText(
-                                        'Change password',
-                                        fontSize: 20,
-                                        textAlign: TextAlign.left,
-                                      ),
-                                      SvgPicture.asset(AppAssets.arrowright)
-                                    ],
+                                  TouchableOpacity(
+                                    onTap: () => Navigator.pushNamed(
+                                      context,
+                                      Routes.changePassword,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const TitleText(
+                                          'Change password',
+                                          fontSize: 20,
+                                          textAlign: TextAlign.left,
+                                        ),
+                                        SvgPicture.asset(AppAssets.arrowright)
+                                      ],
+                                    ),
                                   ),
                                   const Gap(37),
                                   TouchableOpacity(

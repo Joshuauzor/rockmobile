@@ -218,8 +218,6 @@ class HomeServiceImpl extends HomeService {
         responseData.add(Donations.fromJson(item));
       }
       _donationList = responseData;
-      print('service');
-      print(_donationList);
     } catch (e) {
       Logger().d('$e');
     }

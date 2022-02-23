@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,7 +7,6 @@ import 'package:rockapp/app/styles/text_styles.dart';
 import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/views/widgets/donation_box.dart';
 import 'package:rockapp/app/views/widgets/loader.dart';
-import 'package:rockapp/app/views/widgets/search_bar.dart';
 import 'package:rockapp/core/constant/constant.dart';
 import 'package:rockapp/core/navigators/routes.dart';
 import 'package:rockapp/features/home/home.dart';

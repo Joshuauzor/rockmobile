@@ -10,9 +10,7 @@ import 'package:rockapp/features/home/presentation/pages/daily_reading_view.dart
 import 'package:rockapp/features/media/media.dart';
 import 'package:rockapp/features/music/music.dart';
 import 'package:rockapp/features/rosary/rosary.dart';
-import 'package:rockapp/features/settings/presentation/pages/about.dart';
-import 'package:rockapp/features/settings/presentation/pages/privacy_policy.dart';
-import 'package:rockapp/features/settings/presentation/pages/terms.dart';
+import 'package:rockapp/features/settings/presentation/presentation.dart';
 import 'package:rockapp/features/splash/splash.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -168,6 +166,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: const DonationView(),
+      );
+
+    case Routes.changePassword:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: const ChangePassword(),
       );
 
     default:
