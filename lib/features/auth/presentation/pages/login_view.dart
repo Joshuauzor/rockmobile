@@ -284,7 +284,7 @@ class _LoginViewState extends State<LoginView> {
                                         ),
                                       ),
                                       const Gap(13),
-                                      GestureDetector(
+                                      TouchableOpacity(
                                         onTap: () => Navigator.pushNamed(
                                           context,
                                           Routes.forgotView,

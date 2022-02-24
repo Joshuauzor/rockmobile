@@ -31,3 +31,15 @@ String? validatePassword(value) {
   }
   return null;
 }
+
+String? validateOtp(value) {
+  value = value!.trim();
+  if (value.isEmpty) {
+    return "Required*";
+  }
+
+  if (value.length != 4) {
+    return "OTP must be 4 in length";
+  }
+  return null;
+}

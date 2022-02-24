@@ -34,9 +34,21 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
 
     case Routes.resetView:
+      final args = settings.arguments as ResetViewArgs;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: const ResetView(),
+        viewToShow: ResetView(
+          params: args,
+        ),
+      );
+
+    case Routes.singleBook:
+      final args = settings.arguments as SingleBooksArgs;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SingleBook(
+          params: args,
+        ),
       );
 
     case Routes.homeView:

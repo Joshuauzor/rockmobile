@@ -37,6 +37,14 @@ abstract class AuthenticationService with ReactiveServiceMixin {
     required String newPassword,
     required String confirmPassword,
   });
+
+  Future<Either<Failure, String>> resetPasswordHome({
+    required String otp,
+    required String email,
+    required String newPassword,
+  });
+
+  Future<Either<Failure, String>> forgotPassword({required String email});
   Future<bool> isUserLoggedIn();
   Future<void> fetchSettingsInfo();
   Future<void> logout();
@@ -203,6 +211,83 @@ class AuthenticationServiceImpl extends AuthenticationService {
         return Left(ServerFailure(message: response.data['message']));
       }
       return Right(response.data['message']);
+    } catch (e) {
+      Logger().d('$e');
+      if (e is NoInternetException) {
+        return Left(NoInternetFailure());
+      }
+      if (e is DioError) {
+        if (e.response != null && e.response!.statusCode! >= 500) {
+          return const Left(ServerFailure(message: 'server error. try again'));
+        }
+        if (e.response != null &&
+            e.response!.data != null &&
+            e.response!.data['message'] != null) {
+          return Left(ServerFailure(message: e.response!.data['message']));
+        } else {
+          return const Left(
+            ServerFailure(message: 'Server error, please try again'),
+          );
+        }
+      }
+      return Left(UnknownFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> forgotPassword({
+    required String email,
+  }) async {
+    try {
+      final response =
+          await _apiServiceRequester.post(url: 'user/resetPassword', body: {
+        'email': email,
+      });
+      // if (!response.data['status']) {
+      //   return Left(ServerFailure(message: response.data['message']));
+      // }
+      return Right(response.data['data']);
+    } catch (e) {
+      Logger().d('$e');
+      if (e is NoInternetException) {
+        return Left(NoInternetFailure());
+      }
+      if (e is DioError) {
+        if (e.response != null && e.response!.statusCode! >= 500) {
+          return const Left(ServerFailure(message: 'server error. try again'));
+        }
+        if (e.response != null &&
+            e.response!.data != null &&
+            e.response!.data['message'] != null) {
+          return Left(ServerFailure(message: e.response!.data['message']));
+        } else {
+          return const Left(
+            ServerFailure(message: 'Server error, please try again'),
+          );
+        }
+      }
+      return Left(UnknownFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> resetPasswordHome({
+    required String otp,
+    required String email,
+    required String newPassword,
+  }) async {
+    try {
+      final response = await _apiServiceRequester
+          .post(url: 'user/confirmResetPassword', body: {
+        'email': email,
+        'otp': otp,
+        'newPassword': newPassword,
+      });
+      print(response);
+      if (!response.data['status']) {
+        return Left(ServerFailure(message: response.data['data']));
+      }
+      return Right(response.data['data']);
     } catch (e) {
       Logger().d('$e');
       if (e is NoInternetException) {
