@@ -483,7 +483,6 @@ class _LoginViewState extends State<LoginView> {
                                           ),
                                           hintStyle: TextStyle(
                                             color: Color(0xffA8A7A7),
-                                            // fontSize: 10,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),

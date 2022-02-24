@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:rockapp/app/styles/colors.dart';
+import 'package:rockapp/app/styles/touchable_opacity.dart';
 import 'package:rockapp/app/styles/ui_helpers.dart';
 import 'package:rockapp/app/styles/validation.dart';
 import 'package:rockapp/app/views/widgets/next_button.dart';
@@ -130,7 +131,20 @@ class _ForgotViewState extends State<ForgotView> {
                                   ),
                                 ),
                               ),
-                              const Gap(94),
+                              const Gap(13),
+                              TouchableOpacity(
+                                onTap: () => Navigator.pop(context),
+                                child: const Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: BodyText(
+                                    'Back to login',
+                                    color: AppColors.lightAsh,
+                                    textAlign: TextAlign.end,
+                                    fontSize: 8,
+                                  ),
+                                ),
+                              ),
+                              const Gap(59),
                               NextButton(
                                 busy: model.busy,
                                 disabled: model.busy,

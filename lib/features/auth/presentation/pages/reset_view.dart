@@ -243,7 +243,10 @@ class _ResetViewState extends State<ResetView> {
                               ),
                               const Gap(13),
                               TouchableOpacity(
-                                onTap: () => Navigator.pop(context),
+                                onTap: () => Navigator.popUntil(
+                                  context,
+                                  ModalRoute.withName(Routes.loginView),
+                                ),
                                 child: const Align(
                                   alignment: Alignment.bottomRight,
                                   child: BodyText(

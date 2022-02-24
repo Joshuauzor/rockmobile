@@ -99,15 +99,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const PrayerRequest(),
       );
 
-    case Routes.singleBook:
-      final args = settings.arguments as SingleBooksArgs;
-      return _getPageRoute(
-        routeName: settings.name,
-        viewToShow: SingleBook(
-          params: args,
-        ),
-      );
-
     case Routes.musicPlayerView:
       final args = settings.arguments as MusicPlayerViewsArgs;
       return _getPageRoute(

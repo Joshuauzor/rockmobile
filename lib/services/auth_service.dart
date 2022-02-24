@@ -283,7 +283,6 @@ class AuthenticationServiceImpl extends AuthenticationService {
         'otp': otp,
         'newPassword': newPassword,
       });
-      print(response);
       if (!response.data['status']) {
         return Left(ServerFailure(message: response.data['data']));
       }
